@@ -1,0 +1,189 @@
+
+background: #0063ac;
+color: #fff;
+
+content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: inherit;
+
+	&[data-show="start"] {
+		> div[data-area="start"] { display: block; }
+	}
+
+	&[data-show="game"] {
+		> div[data-area="game"] { display: block; }
+	}
+
+	> div {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: inherit;
+
+		&[data-area="start"] {
+			background: url(~/gfx/bg-sheet0.png) 50% 50% no-repeat;
+			background-position: 0 0;
+
+			.level {
+				background: url(~/gfx/levelbg-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 7px;
+				left: 13px;
+				width: 53px;
+				height: 34px;
+			}
+
+			.coins {
+				background: url(~/gfx/moneybg-sheet0.png) 50% 50% no-repeat;
+				background-position: 0 -40px;
+				position: absolute;
+				top: 7px;
+				left: 205px;
+				width: 119px;
+				height: 35px;
+			}
+
+			.jems {
+				background: url(~/gfx/moneybg-sheet0.png) 50% 50% no-repeat;
+				background-position: 0 -4px;
+				position: absolute;
+				top: 7px;
+				left: 347px;
+				width: 119px;
+				height: 35px;
+			}
+
+			.wall {
+				background: url(~/gfx/homeborder-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 50px;
+				left: 0;
+				right: 0;
+				height: 160px;
+			}
+
+			.wizard {
+				background: url(~/gfx/wizard.png) 50% 50% no-repeat;
+				// background-position: 0 0;
+				position: absolute;
+				top: 163px;
+				left: 200px;
+				width: 88px;
+				height: 128px;
+				animation: wizard-hover 1200ms steps(15) infinite;
+			}
+
+			.chest {
+				background: url(~/gfx/awardbtn-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 193px;
+				left: 39px;
+				width: 111px;
+				height: 125px;
+			}
+
+			.book {
+				background: url(~/gfx/skilllevelbtn-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 216px;
+				left: 330px;
+				width: 121px;
+				height: 112px;
+			}
+
+			.ball {
+				background: url(~/gfx/balllevelbtn-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 338px;
+				left: 187px;
+				width: 109px;
+				height: 137px;
+			}
+
+			.cloud-1 {
+				background: url(~/gfx/yun1-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 545px;
+				left: -63px;
+				width: 250px;
+				height: 308px;
+			}
+
+			.cloud-2 {
+				background: url(~/gfx/yun2-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 505px;
+				left: 257px;
+				width: 361px;
+				height: 364px;
+			}
+
+			.btn-play {
+				background: url(~/gfx/playbtn-sheet0.png) 50% 50% no-repeat;
+				background-position: 0 0;
+				position: absolute;
+				top: 615px;
+				left: 131px;
+				width: 220px;
+				height: 114px;
+			}
+
+			.btn-cog {
+				background: url(~/gfx/settingbtn-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 705px;
+				left: 21px;
+				width: 78px;
+				height: 81px;
+			}
+
+			.settings {
+				background: #0004;
+				position: absolute;
+				bottom: 12px;
+				left: 18px;
+				width: 84px;
+				height: 310px;
+				border-radius: 7px;
+				padding: 8px;
+
+				.btn-info {
+					display: inline-block;
+					background: url(~/gfx/creditsbtn-sheet0.png) 50% 50%/contain no-repeat;
+					width: 67px;
+					height: 67px;
+					margin-bottom: 3px;
+				}
+
+				.btn-fullscreen {
+					display: inline-block;
+					background: url(~/gfx/fullscreenbtn-sheet0.png) 50% 50%/contain no-repeat;
+					width: 67px;
+					height: 67px;
+					margin-bottom: 3px;
+				}
+
+				.btn-music {
+					background: url(~/gfx/musicbtn-sheet1.png) 50% 50%/contain no-repeat;
+					display: inline-block;
+					width: 67px;
+					height: 67px;
+					margin-bottom: 3px;
+				}
+			}
+		}
+	}
+}
+
+
+@keyframes wizard-hover {
+	0%   { background-position: -1320px 0px; }
+	100% { background-position: 0px 0px; }
+}
