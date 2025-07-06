@@ -11,12 +11,16 @@
 	async dispatch(event) {
 		let APP = bounzy,
 			Self = APP.start,
-			data,
+			value,
 			el;
 		// console.log(event);
 		switch (event.type) {
 			// custom events
 			case "init-view":
+				break;
+			case "toggle-settings":
+				el = Self.els.el.find(".settings");
+				el.toggleClass("show", el.hasClass("show"));
 				break;
 		}
 	}

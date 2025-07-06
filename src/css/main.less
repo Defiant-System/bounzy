@@ -112,6 +112,10 @@ content {
 				left: 131px;
 				width: 220px;
 				height: 114px;
+
+				&:active {
+					background-position: 0 -117px;
+				}
 			}
 
 			.btn-cog {
@@ -124,21 +128,40 @@ content {
 			}
 
 			.settings {
+				opacity: 0;
 				background: #0004;
 				position: absolute;
 				bottom: 12px;
 				left: 18px;
 				width: 84px;
-				height: 310px;
+				height: 84px;
 				border-radius: 7px;
 				padding: 8px;
+				transition: opacity 250ms ease-in-out,
+							height 250ms ease-in-out;
+
+				&.show {
+					opacity: 1;
+					height: 312px;
+
+					> div {
+						opacity: 1;
+						margin-bottom: 3px;
+					}
+				}
+
+				> div {
+					opacity: 0;
+					margin-bottom: -40px;
+					transition: opacity 200ms ease-in-out,
+								margin-bottom 200ms ease-in-out;
+				}
 
 				.btn-info {
 					display: inline-block;
 					background: url(~/gfx/creditsbtn-sheet0.webp) 50% 50%/contain no-repeat;
 					width: 67px;
 					height: 67px;
-					margin-bottom: 3px;
 				}
 
 				.btn-fullscreen {
@@ -146,7 +169,6 @@ content {
 					background: url(~/gfx/fullscreenbtn-sheet0.webp) 50% 50%/contain no-repeat;
 					width: 67px;
 					height: 67px;
-					margin-bottom: 3px;
 				}
 
 				.btn-music {
@@ -154,7 +176,6 @@ content {
 					display: inline-block;
 					width: 67px;
 					height: 67px;
-					margin-bottom: 3px;
 				}
 			}
 		}

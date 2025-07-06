@@ -7,6 +7,11 @@ const bounzy = {
 		// fast references
 		this.content = window.find("content");
 
+		// init all sub-objects
+		Object.keys(this)
+			.filter(i => typeof this[i].init === "function")
+			.map(i => this[i].init(this));
+
 		// DEV-ONLY-START
 		Test.init(this);
 		// DEV-ONLY-END
