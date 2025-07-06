@@ -20,8 +20,6 @@ content {
 	}
 
 	&[data-dialog] {
-		color: #004bad;
-
 		h2 {
 			color: #006eeb;
 			font-size: 28px;
@@ -43,16 +41,24 @@ content {
 	}
 
 
-	&[data-dialog="pause"] {
-		> div[data-area="pause"] { display: block; }
-	}
-
 	&[data-dialog="academy"] {
 		> div[data-area="academy"] { display: block; }
 	}
 
 	&[data-dialog="laboratory"] {
 		> div[data-area="laboratory"] { display: block; }
+	}
+
+	&[data-dialog="wall"] {
+		> div[data-area="wall"] { display: block; }
+	}
+
+	&[data-dialog="chest"] {
+		> div[data-area="chest"] { display: block; }
+	}
+
+	&[data-dialog="pause"] {
+		> div[data-area="pause"] { display: block; }
 	}
 
 
@@ -82,6 +88,7 @@ content {
 				left: 0;
 				right: 0;
 				height: 160px;
+				cursor: pointer;
 			}
 
 			.wizard {
@@ -102,6 +109,30 @@ content {
 				left: 39px;
 				width: 111px;
 				height: 125px;
+				cursor: pointer;
+
+				.timer {
+					background: #fff;
+					position: absolute;
+					top: 120px;
+					left: 5px;
+					border-radius: 30px;
+					padding: 5px 11px 5px 34px;
+					font-size: 23px;
+					color: #265dbc;
+					box-shadow: 0px 4px 0px 0px darken(#fff, 15%),
+								0 5px 9px #000;
+
+					&:before {
+						content: "";
+						background: url(~/gfx/clock.png) 50% 50%/contain no-repeat;
+						position: absolute;
+						top: 5px;
+						left: 6px;
+						width: 25px;
+						height: 25px;
+					}
+				}
 			}
 
 			.book {
@@ -111,6 +142,7 @@ content {
 				left: 330px;
 				width: 121px;
 				height: 112px;
+				cursor: pointer;
 			}
 
 			.ball {
@@ -120,6 +152,7 @@ content {
 				left: 187px;
 				width: 109px;
 				height: 137px;
+				cursor: pointer;
 			}
 
 			.cloud-1 {
@@ -243,9 +276,74 @@ content {
 			}
 		}
 
-		&[data-area="pause"] {
-			background: #0005;
+		&[data-area="wall"] {
 			backdrop-filter: blur(3px);
+			background: #0005;
+			color: #004bad;
+
+			.bg-wall {
+				background: url(~/gfx/wallbg-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 167px;
+				left: 89px;
+				width: 300px;
+				height: 403px;
+
+				.dlg-exit-button {
+					top: 28px;
+					right: 17px;
+				}
+
+				h2 {
+					position: absolute;
+					top: 89px;
+					left: 40px;
+					right: 40px;
+				}
+
+				.btn-ok {
+					bottom: -5px;
+					left: 93px;
+				}
+			}
+		}
+
+		&[data-area="chest"] {
+			backdrop-filter: blur(3px);
+			background: #0005;
+			color: #004bad;
+
+			.bg-chest {
+				background: url(~/gfx/chestbg-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 167px;
+				left: 89px;
+				width: 300px;
+				height: 403px;
+
+				.dlg-exit-button {
+					top: 60px;
+					right: 13px;
+				}
+
+				h2 {
+					position: absolute;
+					top: 110px;
+					left: 40px;
+					right: 40px;
+				}
+
+				.btn-ok {
+					bottom: -5px;
+					left: 93px;
+				}
+			}
+		}
+
+		&[data-area="pause"] {
+			backdrop-filter: blur(3px);
+			background: #0005;
+			color: #004bad;
 
 			.bg-pause {
 				background: url(~/gfx/pausebg-sheet0.png) 50% 50% no-repeat;
@@ -311,8 +409,9 @@ content {
 		}
 
 		&[data-area="academy"] {
-			background: #0005;
 			backdrop-filter: blur(3px);
+			background: #0005;
+			color: #004bad;
 
 			.bg-academy {
 				background: url(~/gfx/academybg-sheet0.png) 50% 50% no-repeat;
@@ -430,8 +529,9 @@ content {
 		}
 
 		&[data-area="laboratory"] {
-			background: #0005;
 			backdrop-filter: blur(3px);
+			background: #0005;
+			color: #004bad;
 
 			.bg-laboratory {
 				background: url(~/gfx/laboratorybg-sheet0.png) 50% 50% no-repeat;
@@ -634,7 +734,7 @@ content {
 						&:nth-child(18) { top: 200px; left: 133px; &:before { transition-delay: 750ms; } }
 						&:nth-child(19) { top: 200px; left: 165px; &:before { transition-delay: 700ms; } }
 						&:nth-child(20) { top: 200px; left: 197px; &:before { transition-delay: 650ms; } }
-						}
+					}
 				}
 			}
 
@@ -730,7 +830,7 @@ content {
 			padding: 3px 0 0 29px;
 			border-radius: 3px;
 			font-size: 23px;
-			color: #666;
+			color: #265dbc;
 			box-shadow: 0px 5px 0px 0px darken(#fff, 11%);
 
 			&:before {
