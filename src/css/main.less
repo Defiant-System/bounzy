@@ -9,8 +9,30 @@ content {
 	right: 0;
 	bottom: 0;
 	border-radius: inherit;
-	font-family: "Changa One";
+	font-family: "Bakbak One";
 	font-size: 26px;
+
+	h1, h2, h3, h4 {
+		font-weight: 400;
+		text-align: center;
+		text-transform: uppercase;
+		letter-spacing: -.5px;
+	}
+
+	&[data-dialog] {
+		color: #004bad;
+
+		h2 {
+			color: #006eeb;
+			font-size: 28px;
+			text-shadow: 0 1px 0 #fffa;
+		}
+
+		h3 {
+			font-size: 19px;
+			text-shadow: 0 1px 0 #fff6;
+		}
+	}
 
 	&[data-show="start"] {
 		> div[data-area="start"] { display: block; }
@@ -257,10 +279,200 @@ content {
 				background: url(~/gfx/laboratorybg-sheet0.png) 50% 50% no-repeat;
 				position: absolute;
 				top: 67px;
-				left: 59px;
+				left: 60px;
 				width: 360px;
 				height: 636px;
+
+				.dlg-exit-button {
+					top: 57px;
+				}
+
+				h2 {
+					position: absolute;
+					top: 114px;
+					left: 40px;
+					right: 40px;
+				}
+
+				h3 {
+					margin: 5px 0;
+				}
+
+				.info {
+					background: #2222;
+					position: relative;
+					display: block;
+					width: 190px;
+					height: 28px;
+					margin: 3px auto;
+					box-shadow: inset 0 2px 2px #0004;
+					border-radius: 2px;
+					padding: 4px 0 0 37px;
+					color: #fff;
+					font-size: 19px;
+					text-shadow: 0 1px 1px #f00a,
+								0 -1px 1px #f00a,
+								1px 0 1px #f00a,
+								-1px 0 1px #f00a;
+
+					&:before {
+						content: "";
+						background: url(~/gfx/attsprite-sheet0.png) 50% 50%/contain no-repeat;
+						position: absolute;
+						top: 3px;
+						left: 5px;
+						width: 24px;
+						height: 24px;
+					}
+
+					.price {
+						background: url(~/gfx/academybtn-sheet0.png) 50% 50% no-repeat;
+						background-position: 0 -35px;
+						background-size: 100% auto;
+						position: absolute;
+						top: -1px;
+						left: 94px;
+						width: 98px;
+						height: 32px;
+						font-size: 18px;
+						text-shadow: 0 1px 1px #000a,
+									0 -1px 1px #000a,
+									1px 0 1px #000a,
+									-1px 0 1px #000a;
+						padding: 6px 0 0 49px;
+						filter: drop-shadow(0 0 1px #0007);
+
+						&.active {
+							background-position: 0 0;
+							cursor: pointer;
+						}
+					}
+				}
 			}
+
+			.ammo {
+				// background: #0001;
+				position: absolute;
+				top: 231px;
+				left: 72px;
+				width: 220px;
+				height: 219px;
+
+				i {
+					background: #0001;
+					position: absolute;
+					top: -13px;
+					left: -12px;
+					width: 15px;
+					height: 15px;
+					// frontline
+					&:nth-child(1) { top: 5px; left: 3px; }
+					&:nth-child(2) { top: 5px; left: 36px; }
+					&:nth-child(3) { top: 5px; left: 68px; }
+					&:nth-child(4) { top: 5px; left: 100px; }
+					&:nth-child(5) { top: 5px; left: 133px; }
+					&:nth-child(6) { top: 5px; left: 165px; }
+					&:nth-child(7) { top: 5px; left: 197px; }
+
+					&:nth-child(8) { top: 44px; left: 19px; }
+					&:nth-child(9) { top: 44px; left: 52px; }
+					&:nth-child(10) { top: 44px; left: 84px; }
+					&:nth-child(11) { top: 44px; left: 116px; }
+					&:nth-child(12) { top: 44px; left: 149px; }
+					&:nth-child(13) { top: 44px; left: 181px; }
+
+					&:nth-child(14) { top: 83px; left: 3px; }
+					&:nth-child(15) { top: 83px; left: 36px; }
+					&:nth-child(16) { top: 83px; left: 68px; }
+					&:nth-child(17) { top: 83px; left: 100px; }
+					&:nth-child(18) { top: 83px; left: 133px; }
+					&:nth-child(19) { top: 83px; left: 165px; }
+					&:nth-child(20) { top: 83px; left: 197px; }
+
+					// backline
+					&:nth-child(21) { top: 122px; left: 3px; }
+					&:nth-child(22) { top: 122px; left: 36px; }
+					&:nth-child(23) { top: 122px; left: 68px; }
+					&:nth-child(24) { top: 122px; left: 100px; }
+					&:nth-child(25) { top: 122px; left: 133px; }
+					&:nth-child(26) { top: 122px; left: 165px; }
+					&:nth-child(27) { top: 122px; left: 197px; }
+
+					&:nth-child(28) { top: 160px; left: 19px; }
+					&:nth-child(29) { top: 160px; left: 52px; }
+					&:nth-child(30) { top: 160px; left: 84px; }
+					&:nth-child(31) { top: 160px; left: 116px; }
+					&:nth-child(32) { top: 160px; left: 149px; }
+					&:nth-child(33) { top: 160px; left: 181px; }
+
+					&:nth-child(34) { top: 200px; left: 3px; }
+					&:nth-child(35) { top: 200px; left: 36px; }
+					&:nth-child(36) { top: 200px; left: 68px; }
+					&:nth-child(37) { top: 200px; left: 100px; }
+					&:nth-child(38) { top: 200px; left: 133px; }
+					&:nth-child(39) { top: 200px; left: 165px; }
+					&:nth-child(40) { top: 200px; left: 197px; }
+				}
+			}
+
+			.frontline {
+				position: absolute;
+				top: 161px;
+				left: 40px;
+				right: 40px;
+			}
+
+			.backline {
+				position: absolute;
+				top: 463px;
+				left: 40px;
+				right: 40px;
+			}
+
+			.total {
+				position: absolute;
+				top: 542px;
+				left: 40px;
+				right: 40px;
+				text-align: center;
+
+				h3 {
+					display: inline-block;
+				}
+
+				span {
+					display: inline-block;
+					position: relative;
+					top: 1px;
+					padding-left: 26px;
+					color: #fff;
+					font-size: 26px;
+					text-shadow: 0 1px 1px #f00a,
+								0 -1px 1px #f00a,
+								1px 0 1px #f00a,
+								-1px 0 1px #f00a;
+
+					&:before {
+						content: "";
+						background: url(~/gfx/attsprite-sheet0.png) 50% 50%/contain no-repeat;
+						position: absolute;
+						top: 1px;
+						left: 0px;
+						width: 24px;
+						height: 24px;
+					}
+				}
+			}
+		}
+
+		.dlg-exit-button {
+			background: url(~/gfx/exitbtn-sheet0.png) 50% 50% no-repeat;
+			position: absolute;
+			top: 13px;
+			right: 21px;
+			width: 49px;
+			height: 24px;
+			cursor: pointer;
 		}
 
 		.btn-ok {
@@ -376,10 +588,10 @@ content {
 
 
 @font-face {
-	font-family: "Changa One";
+	font-family: "Bakbak One";
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url(~/fonts/Changa-One.woff2) format("woff2");
+	src: url(~/fonts/Bakbak-One.woff2) format("woff2");
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
