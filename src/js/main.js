@@ -33,16 +33,19 @@ const bounzy = {
 				break;
 			case "open-dialog":
 				Self.content.data({ dialog: event.arg });
-				setTimeout(() => {
-					Self.content.cssSequence("open-dialog", "transitionend", el => {
-						
-					});
-				}, 10);
+				Self.content.cssSequence("open-dialog", "transitionend", el => {
+					// TODO
+				});
 				break;
 			case "close-dialog":
-				Self.content.cssSequence("close-dialog", "transitionend", el => {
-					Self.content.removeAttr("data-dialog").removeClass("open-dialog close-dialog");
+				Self.content.removeAttr("data-dialog");
+				Self.content.cssSequence("!open-dialog", "transitionend", el => {
+					// TODO
 				});
+				break;
+			case "empty-close-dialog":
+				el = $(event.target);
+				if (el.data("area")) Self.dispatch({ type: "close-dialog" });
 				break;
 			// proxy events
 			default:

@@ -12,7 +12,7 @@ content {
 	font-family: "Bakbak One";
 	font-size: 26px;
 	min-height: 0;
-	transition: min-height 350ms;
+	transition: min-height 300ms;
 
 	h1, h2, h3, h4 {
 		font-weight: 400;
@@ -21,17 +21,15 @@ content {
 		letter-spacing: -.5px;
 	}
 
-	&[data-dialog] {
-		h2 {
-			color: #006eeb;
-			font-size: 28px;
-			text-shadow: 0 1px 0 #fffa;
-		}
+	h2 {
+		color: #006eeb;
+		font-size: 28px;
+		text-shadow: 0 1px 0 #fffa;
+	}
 
-		h3 {
-			font-size: 19px;
-			text-shadow: 0 1px 0 #fff6;
-		}
+	h3 {
+		font-size: 19px;
+		text-shadow: 0 1px 0 #fff6;
 	}
 
 	&[data-show="start"] {
@@ -64,15 +62,15 @@ content {
 		> div[data-area="pause"]      { .bg-pause { opacity: 1; transform: scale(1); } }
 	}
 
-	&.close-dialog {
-		min-height: 0;
+	// &.close-dialog {
+	// 	min-height: 0;
 
-		> div[data-area="wall"]       { .bg-wall { opacity: 0; transform: scale(.9); } }
-		> div[data-area="reward"]     { .bg-reward { opacity: 0; transform: scale(.9); } }
-		> div[data-area="laboratory"] { .bg-laboratory { opacity: 0; transform: scale(.9); } }
-		> div[data-area="academy"]    { .bg-academy { opacity: 0; transform: scale(.9); } }
-		> div[data-area="pause"]      { .bg-pause { opacity: 0; transform: scale(.9); } }
-	}
+	// 	> div[data-area="wall"]       { .bg-wall { opacity: 0; transform: scale(.9); } }
+	// 	> div[data-area="reward"]     { .bg-reward { opacity: 0; transform: scale(.9); } }
+	// 	> div[data-area="laboratory"] { .bg-laboratory { opacity: 0; transform: scale(.9); } }
+	// 	> div[data-area="academy"]    { .bg-academy { opacity: 0; transform: scale(.9); } }
+	// 	> div[data-area="pause"]      { .bg-pause { opacity: 0; transform: scale(.9); } }
+	// }
 
 
 	> div {
@@ -82,13 +80,13 @@ content {
 		right: 0;
 		bottom: 0;
 		border-radius: inherit;
-		transition: opacity 350ms ease-in-out;
+		transition: all 300ms ease-in-out;
 
 		div[class^="bg-"] {
 			opacity: 0;
 			transform: scale(.9);
-			transition: opacity 350ms ease-in-out,
-						transform 350ms ease-in-out;
+			transition: opacity 300ms ease-in-out,
+						transform 300ms ease-in-out;
 		}
 
 		&[data-area="start"] {
@@ -648,7 +646,7 @@ content {
 
 					.price {
 						background: url(~/gfx/academybtn-sheet0.png) 50% 50% no-repeat;
-						background-position: 0 -35px;
+						background-position: 0 -34px;
 						background-size: 100% auto;
 						position: absolute;
 						bottom: -17px;
@@ -1017,7 +1015,7 @@ content {
 
 			.price {
 				background: url(~/gfx/academybtn-sheet0.png) 50% 50% no-repeat;
-				background-position: 0 -35px;
+				background-position: 0 -34px;
 				background-size: 100% auto;
 				position: absolute;
 				top: -1px;
