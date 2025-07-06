@@ -49,6 +49,9 @@ const bounzy = {
 		}
 	},
 	start: @import "./areas/start.js",
+	laboratory: @import "./areas/laboratory.js",
+	academy: @import "./areas/academy.js",
+	pause: @import "./areas/pause.js",
 	game: @import "./areas/game.js",
 };
 
