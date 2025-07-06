@@ -1,4 +1,4 @@
-<content data-show="start" data-dialog="laboratory" data-context="game-content">
+<content data-show="start" data-dialog="pause" data-context="game-content">
 	<!-- start view -->
 	<div data-area="start">
 		<div class="top-level">23</div>
@@ -31,6 +31,7 @@
 	<!-- academy view -->
 	<div data-area="academy">
 		<div class="bg-academy">
+			<div class="dlg-exit-button"></div>
 			<div class="btn-ok"></div>
 		</div>
 	</div>
@@ -48,10 +49,12 @@
 				</div>
 			</div>
 			<div class="ammo">
-				<!-- frontline -->
-				<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-				<!-- backline -->
-				<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+				<span class="front-ammo">
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+				</span>
+				<span class="back-ammo">
+					<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+				</span>
 			</div>
 			<div class="backline">
 				<div class="info">
@@ -70,6 +73,7 @@
 	<!-- pause view -->
 	<div data-area="pause">
 		<div class="bg-pause">
+			<div class="dlg-exit-button"></div>
 			<div class="btn-resume"></div>
 		</div>
 	</div>
