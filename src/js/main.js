@@ -31,6 +31,19 @@ const bounzy = {
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
+			case "open-dialog":
+				Self.content.data({ dialog: event.arg });
+				setTimeout(() => {
+					Self.content.cssSequence("open-dialog", "transitionend", el => {
+						
+					});
+				}, 10);
+				break;
+			case "close-dialog":
+				Self.content.cssSequence("close-dialog", "transitionend", el => {
+					Self.content.removeAttr("data-dialog").removeClass("open-dialog close-dialog");
+				});
+				break;
 			// proxy events
 			default:
 				el = event.el;

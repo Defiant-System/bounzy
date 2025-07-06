@@ -1,16 +1,16 @@
-<content data-show="start" data-dialog="reward" data-context="game-content">
+<content data-show="start" data-dialog="reward1" data-context="game-content">
 	<!-- start view -->
 	<div data-area="start">
 		<div class="top-level">23</div>
 		<div class="top-coins">1234</div>
 		<div class="top-jems">1234</div>
-		<div class="wall"></div>
-		<div class="chest">
+		<div class="wall" data-click="open-dialog" data-arg="wall"></div>
+		<div class="chest" data-click="open-dialog" data-arg="reward">
 			<span class="timer">00:30</span>
 		</div>
 		<div class="wizard"></div>
-		<div class="book"></div>
-		<div class="ball"></div>
+		<div class="book" data-click="open-dialog" data-arg="academy"></div>
+		<div class="ball" data-click="open-dialog" data-arg="laboratory"></div>
 		<div class="cloud-1"></div>
 		<div class="cloud-2"></div>
 		<div class="btn-play"></div>
@@ -33,7 +33,7 @@
 	<!-- academy view -->
 	<div data-area="academy">
 		<div class="bg-academy">
-			<div class="dlg-exit-button"></div>
+			<div class="dlg-exit-button" data-click="close-dialog"></div>
 			<h2>Academy</h2>
 			<h3 class="front">Frontline</h3>
 			<h3 class="back">Backline</h3>
@@ -56,14 +56,14 @@
 				<span class="price active">510</span>
 			</div>
 
-			<div class="btn-ok"></div>
+			<div class="btn-ok" data-click="close-dialog"></div>
 		</div>
 	</div>
 
 	<!-- laboratory view -->
 	<div data-area="laboratory">
 		<div class="bg-laboratory">
-			<div class="dlg-exit-button"></div>
+			<div class="dlg-exit-button" data-click="close-dialog"></div>
 			<h2>Laboratory</h2>
 			<div class="frontline">
 				<h3>Upgrade Frontline</h3>
@@ -97,7 +97,7 @@
 	<!-- wall view -->
 	<div data-area="wall">
 		<div class="bg-wall">
-			<div class="dlg-exit-button"></div>
+			<div class="dlg-exit-button" data-click="close-dialog"></div>
 			<h2>Wall</h2>
 			<div class="text">
 				The wall protects you from enemies
@@ -106,27 +106,27 @@
 				<span class="value">36</span>
 				<span class="price active1">600</span>
 			</div>
-			<div class="btn-ok"></div>
+			<div class="btn-ok" data-click="close-dialog"></div>
 		</div>
 	</div>
 
 	<!-- reward view -->
 	<div data-area="reward">
 		<div class="bg-reward">
-			<div class="dlg-exit-button"></div>
+			<div class="dlg-exit-button" data-click="close-dialog"></div>
 			<h2>Reward</h2>
 			<div class="info">
 				<span class="jems">23</span>
 				<span class="coins">23</span>
 			</div>
-			<div class="btn-ok"></div>
+			<div class="btn-ok" data-click="close-dialog"></div>
 		</div>
 	</div>
 
 	<!-- pause view -->
 	<div data-area="pause">
 		<div class="bg-pause">
-			<div class="dlg-exit-button"></div>
+			<div class="dlg-exit-button" data-click="close-dialog"></div>
 			<h2>Paused</h2>
 			<div class="options">
 				<div class="btn-fullscreen"></div>
@@ -135,7 +135,7 @@
 				<div class="btn-replay"></div>
 				<div class="btn-home"></div>
 			</div>
-			<div class="btn-resume"></div>
+			<div class="btn-resume" data-click="close-dialog"></div>
 		</div>
 	</div>
 </content>
