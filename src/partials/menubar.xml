@@ -4,6 +4,12 @@
 		<Menu type="divider"/>
 		<Menu name="Quit Bounzy" shell="win -c"/>
 	</Menu>
+	<Menu name="Game" for="game-content">
+		<Menu name="Show&#8230;">
+			<Menu name="Start" click="show-view" arg="start"/>
+			<Menu name="Game" click="show-view" arg="game"/>
+		</Menu>
+	</Menu>
 	<Menu name="Help">
 		<Menu name="Help" click="open-help"/>
 		<Menu type="divider"/>
