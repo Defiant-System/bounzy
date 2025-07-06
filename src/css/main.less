@@ -325,6 +325,107 @@ content {
 				.dlg-exit-button {
 					top: 48px;
 				}
+
+				h2 {
+					position: absolute;
+					top: 100px;
+					left: 40px;
+					right: 40px;
+				}
+
+				h3 {
+					position: absolute;
+					color: #006ae0;
+
+					&.front {
+						top: 152px;
+						left: 63px;
+					}
+
+					&.back {
+						top: 152px;
+						left: 208px;
+					}
+
+					&.magic {
+						top: 350px;
+						left: 120px;
+					}
+				}
+
+				.box {
+					// background: #0002;
+					position: absolute;
+					width: 101px;
+					height: 47px;
+					text-align: center;
+
+					&.front {
+						top: 256px;
+						left: 59px;
+					}
+
+					&.back {
+						top: 256px;
+						left: 199px;
+					}
+
+					&.potion {
+						top: 463px;
+						left: 59px;
+					}
+
+					&.comet {
+						top: 463px;
+						left: 199px;
+					}
+
+					.value {
+						position: relative;
+						padding: 0 0 0 31px;
+						color: #fff;
+						font-size: 22px;
+						text-shadow: 0 1px 1px #f00a,
+									0 -1px 1px #f00a,
+									1px 0 1px #f00a,
+									-1px 0 1px #f00a;
+
+						&:before {
+							content: "";
+							background: url(~/gfx/attsprite-sheet0.png) 50% 50%/contain no-repeat;
+							position: absolute;
+							top: 3px;
+							left: 5px;
+							width: 24px;
+							height: 24px;
+						}
+					}
+
+					.price {
+						background: url(~/gfx/academybtn-sheet0.png) 50% 50% no-repeat;
+						background-position: 0 -35px;
+						background-size: 100% auto;
+						position: absolute;
+						bottom: -17px;
+						left: 0;
+						right: 0;
+						height: 33px;
+						color: #fff;
+						font-size: 18px;
+						text-align: left;
+						text-shadow: 0 1px 1px #000a,
+									0 -1px 1px #000a,
+									1px 0 1px #000a,
+									-1px 0 1px #000a;
+						padding: 6px 0 0 49px;
+						filter: drop-shadow(0 0 1px #0007);
+
+						&.active {
+							background-position: 0 0;
+							cursor: pointer;
+						}
+					}
+				}
 			}
 		}
 
