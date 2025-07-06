@@ -20,6 +20,20 @@ content {
 		> div[data-area="game"] { display: block; }
 	}
 
+
+	&[data-dialog="pause"] {
+		> div[data-area="pause"] { display: block; }
+	}
+
+	&[data-dialog="academy"] {
+		> div[data-area="academy"] { display: block; }
+	}
+
+	&[data-dialog="laboratory"] {
+		> div[data-area="laboratory"] { display: block; }
+	}
+
+
 	> div {
 		display: none;
 		position: absolute;
@@ -205,6 +219,66 @@ content {
 				height: 111px;
 				animation: wizard-back-hover 1600ms steps(14) infinite;
 			}
+		}
+
+		&[data-area="pause"] {
+			background: #0005;
+			backdrop-filter: blur(3px);
+
+			.bg-pause {
+				background: url(~/gfx/pausebg-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 167px;
+				left: 89px;
+				width: 300px;
+				height: 403px;
+			}
+		}
+
+		&[data-area="academy"] {
+			background: #0005;
+			backdrop-filter: blur(3px);
+
+			.bg-academy {
+				background: url(~/gfx/academybg-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 67px;
+				left: 59px;
+				width: 360px;
+				height: 625px;
+			}
+		}
+
+		&[data-area="laboratory"] {
+			background: #0005;
+			backdrop-filter: blur(3px);
+
+			.bg-laboratory {
+				background: url(~/gfx/laboratorybg-sheet0.png) 50% 50% no-repeat;
+				position: absolute;
+				top: 67px;
+				left: 59px;
+				width: 360px;
+				height: 636px;
+			}
+		}
+
+		.btn-ok {
+			background: url(~/gfx/academyback-sheet0.png) 50% 50% no-repeat;
+			position: absolute;
+			bottom: 5px;
+			left: 119px;
+			width: 119px;
+			height: 64px;
+		}
+
+		.btn-resume {
+			background: url(~/gfx/repausebtn-sheet0.png) 50% 50% no-repeat;
+			position: absolute;
+			bottom: -11px;
+			left: 66px;
+			width: 168px;
+			height: 68px;
 		}
 
 		.top-level {
