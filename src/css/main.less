@@ -90,18 +90,20 @@ content {
 				background: url(~/gfx/yun1-sheet0.webp) 50% 50% no-repeat;
 				position: absolute;
 				top: 545px;
-				left: -63px;
+				// left: -63px;
 				width: 250px;
 				height: 308px;
+				animation: left-cloud 13s ease-in-out alternate infinite;
 			}
 
 			.cloud-2 {
 				background: url(~/gfx/yun2-sheet0.webp) 50% 50% no-repeat;
 				position: absolute;
 				top: 505px;
-				left: 257px;
+				// left: 257px;
 				width: 361px;
 				height: 364px;
+				animation: right-cloud 19s ease-in-out alternate infinite;
 			}
 
 			.btn-play {
@@ -212,7 +214,7 @@ content {
 			left: 13px;
 			width: 65px;
 			height: 29px;
-			padding: 2px 0 0 29px;
+			padding: 3px 0 0 29px;
 			border-radius: 3px;
 			font-size: 23px;
 			color: #666;
@@ -277,6 +279,16 @@ content {
 	}
 }
 
+
+@keyframes left-cloud {
+	0%   { left: -253px; }
+	100% { left: -47px; }
+}
+
+@keyframes right-cloud {
+	0%   { left: 397px; }
+	100% { left: 167px; }
+}
 
 @keyframes wizard-hover {
 	0%   { background-position: -1320px 0px; }
