@@ -1121,19 +1121,19 @@ content {
 			.waves {
 				background: #3b6db9;
 				position: absolute;
-				top: 0;
-				left: 54px;
-				width: 290px;
-				height: 29px;
+				top: 1px;
+				left: 53px;
+				width: 291px;
+				height: 27px;
 				padding: 3px 0 0 29px;
-				border-radius: 3px;
+				border-radius: 0 4px 4px 0;
 				box-shadow: 0px 5px 0px 0px darken(#3b6db9, 13%);
 
 				&:before {
 					content: "";
 					background: repeating-linear-gradient(90deg, #1d3c6c 0, #1d3c6c 11px, #0000 11px, #0000 14px);
 					position: absolute;
-					top: 12px;
+					top: 11px;
 					left: 7px;
 					width: 277px;
 					height: 7px;
@@ -1143,11 +1143,67 @@ content {
 					content: "";
 					background: repeating-linear-gradient(90deg, #fff 0, #fff 11px, #0000 11px, #0000 14px);
 					position: absolute;
-					top: 12px;
+					top: 11px;
 					left: 7px;
 					width: 167px;
 					height: 7px;
 					filter: drop-shadow(0 1px 0 #1d3c6c);
+				}
+
+				.marker-chest {
+					background: url(~/gfx/treasure-sheet0.png) no-repeat;
+					background-size: 66px auto;
+					background-position: 0 0;
+					position: absolute;
+					top: 29px;
+					left: 137px;
+					width: 32px;
+					height: 32px;
+
+					&.on {
+						background-position: -34px 0;
+					}
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: -9px;
+						left: 11px;
+						width: 0;
+						height: 0;
+						border-left: 5px solid transparent;
+						border-right: 5px solid transparent;
+						border-bottom: 6px solid #fff;
+						filter: drop-shadow(0 1px 1px #0007);
+					}
+				}
+
+				.marker-key {
+					background: url(~/gfx/treasure-sheet0.png) no-repeat;
+					background-size: 66px auto;
+					background-position: 0 -32px;
+					position: absolute;
+					top: 29px;
+					left: 263px;
+					width: 32px;
+					height: 29px;
+
+					&.on {
+						background-position: -34px -32px;
+					}
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: -9px;
+						left: 11px;
+						width: 0;
+						height: 0;
+						border-left: 5px solid transparent;
+						border-right: 5px solid transparent;
+						border-bottom: 6px solid #fff;
+						filter: drop-shadow(0 1px 1px #0007);
+					}
 				}
 			}
 
