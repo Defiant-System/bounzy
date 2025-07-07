@@ -314,87 +314,150 @@ content {
 			}
 
 			.front-damage {
-				background: #0006;
+				background: url(~/gfx/bulletattack-sheet0.png) no-repeat;
+				background-position: 0 0;
 				position: absolute;
-				top: 440px;
+				top: 390px;
 				left: 7px;
-				width: 46px;
-				height: 40px;
-				border-radius: 5px;
-				box-shadow: 0px 5px 0px 0px #0007;
+				width: 50px;
+				height: 51px;
+				padding: 49px 0 0 18px;
+				font-size: 18px;
+				text-shadow: 0 1px 1px #f00a,
+							0 -1px 1px #f00a,
+							1px 0 1px #f00a,
+							-1px 0 1px #f00a;
+
+				&:before {
+					content: "";
+					background: url(~/gfx/attsprite-sheet0.png) 50% 50%/contain no-repeat;
+					position: absolute;
+					top: 46px;
+					left: -4px;
+					width: 22px;
+					height: 22px;
+				}
 			}
 
 			.back-damage {
-				background: #0006;
+				background: url(~/gfx/bulletattack-sheet0.png) no-repeat;
+				background-position: -54px 0;
 				position: absolute;
-				top: 500px;
+				top: 470px;
 				left: 7px;
-				width: 46px;
-				height: 40px;
-				border-radius: 5px;
-				box-shadow: 0px 5px 0px 0px #0007;
+				width: 50px;
+				height: 51px;
+				padding: 49px 0 0 18px;
+				font-size: 18px;
+				text-shadow: 0 1px 1px #f00a,
+							0 -1px 1px #f00a,
+							1px 0 1px #f00a,
+							-1px 0 1px #f00a;
+
+				&:before {
+					content: "";
+					background: url(~/gfx/attsprite-sheet0.png) 50% 50%/contain no-repeat;
+					position: absolute;
+					top: 46px;
+					left: -4px;
+					width: 22px;
+					height: 22px;
+				}
 			}
-			
+
 			.line-damage {
 				background: #0006;
 				position: absolute;
-				top: 565px;
+				top: 556px;
 				left: 7px;
 				width: 46px;
-				height: 40px;
+				height: 25px;
 				border-radius: 5px;
-				box-shadow: 0px 5px 0px 0px #0007;
+				box-shadow: 0px 4px 0px 0px #0007;
+				padding: 4px 0 0 21px;
+				font-size: 18px;
+				text-shadow: 0 1px 1px #f00a,
+							0 -1px 1px #f00a,
+							1px 0 1px #f00a,
+							-1px 0 1px #f00a;
+
+				&:before {
+					content: "";
+					background: url(~/gfx/attsprite-sheet0.png) 50% 50%/contain no-repeat;
+					position: absolute;
+					top: 0;
+					left: -6px;
+					width: 24px;
+					height: 24px;
+				}
 			}
 
 			.btn-pause {
-				background: #0006;
+				background: #0006 url(~/gfx/pausebtn-sheet0.png) 50% 2px/contain no-repeat;
 				position: absolute;
-				top: 45px;
+				top: 51px;
 				left: 425px;
 				width: 46px;
 				height: 40px;
 				border-radius: 5px;
 				box-shadow: 0px 5px 0px 0px #0007;
+				cursor: pointer;
+
+				&:active {
+					top: 52px;
+					box-shadow: 0px 4px 0px 0px #0007;
+				}
 			}
 
 			.skill-magic {
-				background: #69d6;
+				background: url(~/gfx/playerskillsbtn-sheet1.png) 50% 50%/contain no-repeat;
 				position: absolute;
-				top: 440px;
-				left: 425px;
-				width: 46px;
-				height: 46px;
-				border-radius: 50%;
+				top: 390px;
+				left: 421px;
+				width: 60px;
+				height: 61px;
+				cursor: pointer;
+
+				&:active {
+					top: 391px;
+					filter: brightness(.9) contrast(.9);
+				}
 			}
 
 			.skill-comet {
-				background: #69d6;
+				background: url(~/gfx/playerskillsbtn-sheet0.png) 50% 50%/contain no-repeat;
 				position: absolute;
-				top: 500px;
-				left: 425px;
-				width: 46px;
-				height: 46px;
-				border-radius: 50%;
+				top: 455px;
+				left: 421px;
+				width: 60px;
+				height: 61px;
+				cursor: pointer;
+
+				&:active {
+					top: 456px;
+					filter: brightness(.9) contrast(.9);
+				}
 			}
 
 			.clear {
-				background: #0006;
+				background: #0006 url(~/gfx/clearballbtn-sheet1.png) 50% 2px/contain no-repeat;
 				position: absolute;
-				top: 565px;
+				top: 540px;
 				left: 429px;
 				width: 46px;
 				height: 40px;
 				border-radius: 5px;
 				box-shadow: 0px 5px 0px 0px #0007;
+				cursor: pointer;
 
-				&:before1 {
-					content: "";
-					background: url(~/gfx/jem.webp) 50% 50% no-repeat;
-					position: absolute;
-					top: -1px;
-					left: -17px;
-					width: 35px;
-					height: 35px;
+				&:active:not(.disabled) {
+					top: 541px;
+					box-shadow: 0px 4px 0px 0px #0007;
+				}
+
+				&.disabled {
+					opacity: .6;
+					cursor: default;
 				}
 			}
 
