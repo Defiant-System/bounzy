@@ -37,7 +37,28 @@ content {
 	}
 
 	&[data-show="game"] {
-		.top-bar { top: 8px; }
+		.top-bar {
+			top: 8px;
+
+			.shield {
+				opacity: 0;
+				pointer-events: none;
+			}
+
+			.level {
+				left: -3px;
+			}
+
+			.coins {
+				opacity: 0;
+				pointer-events: none;
+			}
+
+			.jems {
+				left: 368px;
+			}
+		}
+
 		> div[data-area="game"] { display: block; }
 	}
 
@@ -459,6 +480,16 @@ content {
 					opacity: .6;
 					cursor: default;
 				}
+			}
+
+			.next-position {
+				background: url(~/gfx/endpostion-sheet0.png) 50% 50%/contain no-repeat;
+				position: absolute;
+				top: 701px;
+				left: 120px;
+				width: 37px;
+				height: 37px;
+				animation: rotate-360 5s linear infinite;
 			}
 
 			.wizard {
@@ -1067,9 +1098,10 @@ content {
 				position: absolute;
 				top: 0;
 				left: 77px;
-				width: 65px;
+				width: 58px;
 				height: 29px;
-				padding: 3px 0 0 29px;
+				z-index: 2;
+				padding: 3px 0 0 26px;
 				border-radius: 3px;
 				font-size: 23px;
 				color: #265dbc;
@@ -1080,9 +1112,42 @@ content {
 					background: url(~/gfx/flag.webp) 50% 50% no-repeat;
 					position: absolute;
 					top: 3px;
-					left: 7px;
+					left: 5px;
 					width: 17px;
 					height: 22px;
+				}
+			}
+
+			.waves {
+				background: #3b6db9;
+				position: absolute;
+				top: 0;
+				left: 54px;
+				width: 290px;
+				height: 29px;
+				padding: 3px 0 0 29px;
+				border-radius: 3px;
+				box-shadow: 0px 5px 0px 0px darken(#3b6db9, 13%);
+
+				&:before {
+					content: "";
+					background: repeating-linear-gradient(90deg, #1d3c6c 0, #1d3c6c 11px, #0000 11px, #0000 14px);
+					position: absolute;
+					top: 12px;
+					left: 7px;
+					width: 277px;
+					height: 7px;
+				}
+
+				&:after {
+					content: "";
+					background: repeating-linear-gradient(90deg, #fff 0, #fff 11px, #0000 11px, #0000 14px);
+					position: absolute;
+					top: 12px;
+					left: 7px;
+					width: 167px;
+					height: 7px;
+					filter: drop-shadow(0 1px 0 #1d3c6c);
 				}
 			}
 
@@ -1090,8 +1155,8 @@ content {
 				background: #0005;
 				position: absolute;
 				top: 0;
-				left: 228px;
-				width: 97px;
+				left: 238px;
+				width: 87px;
 				height: 29px;
 				padding: 2px 0 0 23px;
 				border-radius: 3px;
@@ -1113,8 +1178,8 @@ content {
 				background: #0005;
 				position: absolute;
 				top: 0;
-				left: 356px;
-				width: 97px;
+				left: 366px;
+				width: 87px;
 				height: 29px;
 				padding: 2px 0 0 23px;
 				border-radius: 3px;
@@ -1237,6 +1302,11 @@ content {
 @keyframes wizard-back-hover {
 	0%   { background-position: -1372px 0px; }
 	100% { background-position: 0px 0px; }
+}
+
+@keyframes rotate-360 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }
 
 
