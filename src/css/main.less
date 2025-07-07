@@ -37,6 +37,7 @@ content {
 	}
 
 	&[data-show="game"] {
+		.top-bar { top: 8px; }
 		> div[data-area="game"] { display: block; }
 	}
 
@@ -55,23 +56,12 @@ content {
 	&.open-dialog {
 		min-height: 1px;
 
-		> div[data-area="wall"]       { .bg-wall { opacity: 1; transform: scale(1); } }
-		> div[data-area="reward"]     { .bg-reward { opacity: 1; transform: scale(1); } }
-		> div[data-area="laboratory"] { .bg-laboratory { opacity: 1; transform: scale(1); } }
-		> div[data-area="academy"]    { .bg-academy { opacity: 1; transform: scale(1); } }
-		> div[data-area="pause"]      { .bg-pause { opacity: 1; transform: scale(1); } }
+		> div[data-area="wall"]       { z-index: 3; .bg-wall { opacity: 1; transform: scale(1); } }
+		> div[data-area="reward"]     { z-index: 3; .bg-reward { opacity: 1; transform: scale(1); } }
+		> div[data-area="laboratory"] { z-index: 3; .bg-laboratory { opacity: 1; transform: scale(1); } }
+		> div[data-area="academy"]    { z-index: 3; .bg-academy { opacity: 1; transform: scale(1); } }
+		> div[data-area="pause"]      { z-index: 3; .bg-pause { opacity: 1; transform: scale(1); } }
 	}
-
-	// &.close-dialog {
-	// 	min-height: 0;
-
-	// 	> div[data-area="wall"]       { .bg-wall { opacity: 0; transform: scale(.9); } }
-	// 	> div[data-area="reward"]     { .bg-reward { opacity: 0; transform: scale(.9); } }
-	// 	> div[data-area="laboratory"] { .bg-laboratory { opacity: 0; transform: scale(.9); } }
-	// 	> div[data-area="academy"]    { .bg-academy { opacity: 0; transform: scale(.9); } }
-	// 	> div[data-area="pause"]      { .bg-pause { opacity: 0; transform: scale(.9); } }
-	// }
-
 
 	> div {
 		position: absolute;
@@ -93,12 +83,6 @@ content {
 			display: none;
 			background: url(~/gfx/bg-sheet0.webp) 50% 50% no-repeat;
 			background-position: 0 0;
-
-			.top-level,
-			.top-coins,
-			.top-jems {
-				top: 15px;
-			}
 
 			.wall {
 				background: url(~/gfx/homeborder-sheet0.webp) 50% 50% no-repeat;
@@ -258,6 +242,7 @@ content {
 				left: 21px;
 				width: 78px;
 				height: 81px;
+				cursor: pointer;
 			}
 
 			.settings {
@@ -288,6 +273,7 @@ content {
 					margin-bottom: -40px;
 					transition: opacity 200ms ease-in-out,
 								margin-bottom 200ms ease-in-out;
+					cursor: pointer;
 				}
 
 				.btn-info {
@@ -305,7 +291,7 @@ content {
 				}
 
 				.btn-music {
-					background: url(~/gfx/musicbtn-sheet1.webp) 50% 50%/contain no-repeat;
+					background: url(~/gfx/musicbtn-sheet0.webp) 50% 50%/contain no-repeat;
 					display: inline-block;
 					width: 67px;
 					height: 67px;
@@ -651,7 +637,7 @@ content {
 						position: absolute;
 						bottom: -17px;
 						left: 0;
-						right: 0;
+						width: 99px;
 						height: 33px;
 						color: #fff;
 						font-size: 18px;
@@ -666,6 +652,17 @@ content {
 						&.active {
 							background-position: 0 0;
 							cursor: pointer;
+						}
+
+						&.disabled {
+							background-position: 5px -71px;
+							left: 11px;
+							width: 101px;
+							color: #aaa;
+							text-shadow: 0 1px 1px #0006,
+										0 -1px 1px #0006,
+										1px 0 1px #0006,
+										-1px 0 1px #0006;
 						}
 					}
 				}
@@ -884,6 +881,110 @@ content {
 			}
 		}
 
+		&.top-bar {
+			position: absolute;
+			top: 17px;
+			left: 17px;
+			right: 17px;
+			bottom: auto;
+			z-index: 2;
+			transition: top 200ms ease-in-out;
+		
+			.shield {
+				background: #ba62e9;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 67px;
+				height: 29px;
+				padding: 3px 0 0 29px;
+				border-radius: 3px;
+				font-size: 23px;
+				color: #fff;
+				box-shadow: 0px 5px 0px 0px darken(#ba62e9, 13%);
+
+				&:before {
+					content: "";
+					background: url(~/icons/icon-shield.png) 50% 50%/contain no-repeat;
+					position: absolute;
+					top: -1px;
+					left: -12px;
+					width: 32px;
+					height: 32px;
+				}
+			}
+
+			.level {
+				background: #fff;
+				position: absolute;
+				top: 0;
+				left: 77px;
+				width: 65px;
+				height: 29px;
+				padding: 3px 0 0 29px;
+				border-radius: 3px;
+				font-size: 23px;
+				color: #265dbc;
+				box-shadow: 0px 5px 0px 0px darken(#fff, 13%);
+
+				&:before {
+					content: "";
+					background: url(~/gfx/flag.webp) 50% 50% no-repeat;
+					position: absolute;
+					top: 3px;
+					left: 7px;
+					width: 17px;
+					height: 22px;
+				}
+			}
+
+			.coins {
+				background: #0005;
+				position: absolute;
+				top: 0;
+				left: 228px;
+				width: 97px;
+				height: 29px;
+				padding: 2px 0 0 23px;
+				border-radius: 3px;
+				box-shadow: 0px 5px 0px 0px #0007;
+				text-shadow: 0 1px 0 #0005;
+
+				&:before {
+					content: "";
+					background: url(~/gfx/coin.webp) 50% 50% no-repeat;
+					position: absolute;
+					top: -1px;
+					left: -17px;
+					width: 35px;
+					height: 35px;
+				}
+			}
+
+			.jems {
+				background: #0005;
+				position: absolute;
+				top: 0;
+				left: 356px;
+				width: 97px;
+				height: 29px;
+				padding: 2px 0 0 23px;
+				border-radius: 3px;
+				box-shadow: 0px 5px 0px 0px #0007;
+				text-shadow: 0 1px 0 #0005;
+
+				&:before {
+					content: "";
+					background: url(~/gfx/jem.webp) 50% 50% no-repeat;
+					position: absolute;
+					top: -1px;
+					left: -17px;
+					width: 35px;
+					height: 35px;
+				}
+			}
+		}
+
 		.dlg-exit-button {
 			background: url(~/gfx/exitbtn-sheet0.png) 50% 50% no-repeat;
 			position: absolute;
@@ -914,76 +1015,6 @@ content {
 			width: 168px;
 			height: 68px;
 			filter: drop-shadow(0px 3px 7px #0007);
-		}
-
-		.top-level {
-			background: #fff;
-			position: absolute;
-			top: 8px;
-			left: 13px;
-			width: 65px;
-			height: 29px;
-			padding: 3px 0 0 29px;
-			border-radius: 3px;
-			font-size: 23px;
-			color: #265dbc;
-			box-shadow: 0px 5px 0px 0px darken(#fff, 11%);
-
-			&:before {
-				content: "";
-				background: url(~/gfx/flag.webp) 50% 50% no-repeat;
-				position: absolute;
-				top: 3px;
-				left: 7px;
-				width: 17px;
-				height: 22px;
-			}
-		}
-
-		.top-coins {
-			background: #0005;
-			position: absolute;
-			top: 8px;
-			left: 245px;
-			width: 97px;
-			height: 29px;
-			padding: 2px 0 0 23px;
-			border-radius: 3px;
-			box-shadow: 0px 5px 0px 0px #0007;
-			text-shadow: 0 1px 0 #0005;
-
-			&:before {
-				content: "";
-				background: url(~/gfx/coin.webp) 50% 50% no-repeat;
-				position: absolute;
-				top: -1px;
-				left: -17px;
-				width: 35px;
-				height: 35px;
-			}
-		}
-
-		.top-jems {
-			background: #0005;
-			position: absolute;
-			top: 8px;
-			left: 373px;
-			width: 97px;
-			height: 29px;
-			padding: 2px 0 0 23px;
-			border-radius: 3px;
-			box-shadow: 0px 5px 0px 0px #0007;
-			text-shadow: 0 1px 0 #0005;
-
-			&:before {
-				content: "";
-				background: url(~/gfx/jem.webp) 50% 50% no-repeat;
-				position: absolute;
-				top: -1px;
-				left: -17px;
-				width: 35px;
-				height: 35px;
-			}
 		}
 
 		.info {
