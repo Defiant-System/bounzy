@@ -129,7 +129,7 @@ content {
 
 
 	&.open-dialog {
-		min-height: 1px;
+		min-height: 2px;
 
 		> div[data-area="wall"]       { z-index: 3; .bg-wall { opacity: 1; transform: scale(1); } }
 		> div[data-area="reward"]     { z-index: 3; .bg-reward { opacity: 1; transform: scale(1); } }
@@ -256,7 +256,7 @@ content {
 
 						&.minutes {
 							margin-right: 4px;
-							text-align: right;
+							padding-left: 2px;
 
 							&:after {
 								// transform: translateY(-50%);
@@ -441,6 +441,10 @@ content {
 			background: url(~/gfx/bg-sheet0.webp) 50% 50% no-repeat;
 			background-position: -482px 0;
 
+			canvas {
+				// background: red;
+			}
+
 			.wall {
 				background: url(~/gfx/homeborder-sheet0.webp) 50% 50% no-repeat;
 				position: absolute;
@@ -601,7 +605,7 @@ content {
 			.next-position {
 				background: url(~/gfx/endpostion-sheet0.webp) 50% 50%/contain no-repeat;
 				position: absolute;
-				top: 701px;
+				top: 738px;
 				left: 120px;
 				width: 37px;
 				height: 37px;
@@ -699,7 +703,7 @@ content {
 					height: 670px;
 					animation: rotate-360 20s linear infinite;
 				}
-				
+
 				.pyro {
 					position: absolute;
 					top: 0;

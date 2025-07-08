@@ -1,5 +1,13 @@
 
+
+@import "./classes/arena.js"
+
+@import "./ext/matter.min.js"
+
 @import "./modules/test.js"
+
+
+const Matter = window.Matter;
 
 
 const bounzy = {
@@ -24,9 +32,19 @@ const bounzy = {
 			// system events
 			case "window.init":
 				break;
+			case "window.focus":
+				Self.game.dispatch({ type: "resume-if-started" });
+				break;
+			case "window.blur":
+				Self.game.dispatch({ type: "pause-if-started" });
+				break;
 			// custom events
 			case "show-view":
+				// exit active view, if any
+				if (Self._activeView) Self[Self._activeView].dispatch({ type: "exit-view" });
+				// active view init
 				Self[event.arg].dispatch({ type: "init-view" });
+				Self._activeView = event.arg;
 
 				val = event.arg == "game" ? "start-to-game" : "game-to-start";
 				Self.content.cssSequence(val, "transitionend", el => {

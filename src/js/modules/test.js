@@ -4,6 +4,9 @@ let Test = {
 		// APP.dispatch({ type: "show-view", arg: "game" });
 		// APP.dispatch({ type: "open-dialog", arg: "reward", addClass: "completed" });
 
+		setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 500);
+		setTimeout(() => APP.game.dispatch({ type: "pause-game" }), 3000);
+
 		// setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 1000);
 		// setTimeout(() => APP.dispatch({ type: "show-view", arg: "start" }), 4000);
 
