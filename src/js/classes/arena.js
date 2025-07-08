@@ -9,11 +9,21 @@ class Arena {
 		this.height = window.innerHeight;
 		// set dimenstions
 		this.cvs.attr({ width: this.width, height: this.height });
+		// arena dimensions
+		this.offset = { x: 46, y: 68, w: 392, h: 576 };
 
 		// physics engine
 		this.engine = Matter.Engine.create({ gravity: { x: 0, y: 0, scale: 1 } });
 		// create runner
 		this.runner = Matter.Runner.create();
+
+		// entities array
+		this.entities = [];
+		// physical bodies
+		this.bodies = [];
+
+		// temp
+		this.entities.push(new Monster({ parent: this }));
 
 		// dev / debug purpose
 		this.debug = {
@@ -56,27 +66,44 @@ class Arena {
 	}
 
 	ready() {
-		// stadium & field
-		// this.setStadium();
-		// play FPS control
-		// this.fpsControl.start();
+		this.setPhysicalWorld();
+	}
+
+	setPhysicalWorld() {
+		let thick = 30;
+		// add physical walls
+		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick));
+		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h));
+		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h));
+		// physics setup
+		Matter.Composite.add(this.engine.world, this.bodies);
 	}
 
 	update(delta, time) {
-		
+		// update all entities
+		this.entities.map(item => item.update(delta, time));
 	}
 
 	render() {
 		// clear canvas
 		this.cvs.attr({ width: this.width });
-		
-		if (this.debug.mode >= 2) {
-			let bodies = Matter.Composite.allBodies(this.engine.world);
 
+		this.ctx.save();
+		this.ctx.translate(this.offset.x, this.offset.y);
+
+		// render all entities
+		this.entities.map(item => item.render(this.ctx));
+
+		if (this.debug.mode >= 2) {
+			// game arena
+			this.ctx.fillStyle = "#f003";
+			this.ctx.fillRect(0, 0, this.offset.w, this.offset.h);
+			// physical bodies
+			let bodies = Matter.Composite.allBodies(this.engine.world);
 			this.ctx.save();
 			this.ctx.lineWidth = 1;
-			this.ctx.fillStyle = "#33669977";
-			this.ctx.strokeStyle = "#113355cc";
+			this.ctx.fillStyle = "#3697";
+			this.ctx.strokeStyle = "#135c";
 			this.ctx.beginPath();
 			bodies.map(body => {
 				this.ctx.moveTo(body.vertices[0].x, body.vertices[0].y);
@@ -87,7 +114,8 @@ class Arena {
 			this.ctx.stroke();
 			this.ctx.restore();
 		}
-		
+		this.ctx.restore();
+
 		if (this.debug.mode >= 1) {
 			this.drawFps(this.ctx);
 		}

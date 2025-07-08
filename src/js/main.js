@@ -1,6 +1,8 @@
 
 
 @import "./classes/arena.js"
+@import "./classes/boss.js"
+@import "./classes/monster.js"
 
 @import "./ext/matter.min.js"
 
