@@ -18,6 +18,7 @@ const bounzy = {
 	},
 	dispatch(event) {
 		let Self = bounzy,
+			val,
 			el;
 		switch (event.type) {
 			// system events
@@ -25,8 +26,12 @@ const bounzy = {
 				break;
 			// custom events
 			case "show-view":
-				Self.content.data({ show: event.arg });
 				Self[event.arg].dispatch({ type: "init-view" });
+
+				val = event.arg == "game" ? "start-to-game" : "game-to-start";
+				Self.content.cssSequence(val, "transitionend", el => {
+					el.data({ show: event.arg }).removeClass(val);
+				});
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
