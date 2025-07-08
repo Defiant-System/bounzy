@@ -32,15 +32,17 @@ const bounzy = {
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;
 			case "open-dialog":
+				if (event.addClass) Self.content.find(`div[data-area="${event.arg}"]`).addClass(event.addClass);
 				Self.content.data({ dialog: event.arg });
 				Self.content.cssSequence("open-dialog", "transitionend", el => {
-					// TODO
+					// TODO ?
 				});
 				break;
 			case "close-dialog":
 				Self.content.removeAttr("data-dialog");
 				Self.content.cssSequence("!open-dialog", "transitionend", el => {
-					// TODO
+					// reset dialog class
+					el.find(`div[data-area]`).removeAttr("class");
 				});
 				break;
 			case "empty-close-dialog":

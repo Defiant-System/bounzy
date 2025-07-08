@@ -18,6 +18,13 @@
 			// custom events
 			case "init-view":
 				break;
+			case "resume-game":
+				APP.dispatch({ type: "close-dialog" });
+				break;
+			case "go-to-start":
+				APP.dispatch({ type: "close-dialog" });
+				APP.dispatch({ type: "show-view", arg: "start" });
+				break;
 		}
 	}
 }

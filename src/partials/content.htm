@@ -23,7 +23,7 @@
 		<div class="ball" data-click="open-dialog" data-arg="laboratory"></div>
 		<div class="cloud-1"></div>
 		<div class="cloud-2"></div>
-		<div class="btn-play"></div>
+		<div class="btn-play" data-click="show-view" data-arg="game"></div>
 		<div class="settings">
 			<div class="btn-info"></div>
 			<div class="btn-fullscreen"></div>
@@ -38,7 +38,7 @@
 		<div class="front-damage">123</div>
 		<div class="back-damage">123</div>
 		<div class="line-damage">87</div>
-		<div class="btn-pause"></div>
+		<div class="btn-pause" data-click="open-dialog" data-arg="pause"></div>
 		<div class="skill-magic"></div>
 		<div class="skill-comet"></div>
 		<div class="clear disabled1"></div>
@@ -130,6 +130,10 @@
 	<div data-area="reward" data-click="empty-close-dialog">
 		<div class="bg-reward">
 			<div class="dlg-exit-button" data-click="close-dialog"></div>
+			<div class="enemies-defeated">
+				<h2>Completed!</h2>
+				<h3>Enemies Defeated</h3>
+			</div>
 			<h2>Reward</h2>
 			<div class="info">
 				<span class="jems">23</span>
@@ -149,7 +153,7 @@
 				<div class="btn-gamepad"></div>
 				<div class="btn-audio"></div>
 				<div class="btn-replay"></div>
-				<div class="btn-home"></div>
+				<div class="btn-home" data-click="go-to-start"></div>
 			</div>
 			<div class="btn-resume" data-click="resume-game"></div>
 		</div>
