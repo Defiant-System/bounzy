@@ -125,6 +125,11 @@ content {
 					bottom: 55px;
 					cursor: pointer;
 				}
+
+				.btn-upgrade {
+					top: 54px;
+					left: 101px;
+				}
 			}
 
 			.wizard {
@@ -201,6 +206,11 @@ content {
 					border-radius: 50%;
 					cursor: pointer;
 				}
+
+				.btn-upgrade {
+					top: 73px;
+					left: 43px;
+				}
 			}
 
 			.ball {
@@ -221,6 +231,11 @@ content {
 					bottom: 5px;
 					border-radius: 50%;
 					cursor: pointer;
+				}
+
+				.btn-upgrade {
+					top: 101px;
+					left: 33px;
 				}
 			}
 
@@ -1377,6 +1392,30 @@ content {
 			filter: drop-shadow(0px 3px 7px #0007);
 		}
 
+		.btn-upgrade {
+			position: absolute;
+			top: 30px;
+			left: 30px;
+			width: 46px;
+			height: 44px;
+			background: #f2f2f2;
+			border-radius: 50%;
+			box-shadow: 0px 5px 0px 0px darken(#fff, 19%),
+						0 4px 7px #0009;
+
+			&:before {
+				content: "";
+				background: url(~/gfx/arrow-up.webp) 50% 50%/contain no-repeat;
+				position: absolute;
+				top: 7px;
+				left: 8px;
+				width: 30px;
+				height: 30px;
+				animation: pulsate 2000ms ease-in-out infinite;
+			}
+
+		}
+
 		.info {
 			background: #2222;
 			position: relative;
@@ -1449,6 +1488,14 @@ content {
 @keyframes wizard-back-hover {
 	0%   { background-position: -1372px 0px; }
 	100% { background-position: 0px 0px; }
+}
+
+@keyframes pulsate {
+	0%   { transform: scale(1); }
+	20%  { transform: scale(1.15); }
+	35%  { transform: scale(.9); }
+	40%  { transform: scale(1); }
+	100% { transform: scale(1); }
 }
 
 @keyframes rotate-360 {
