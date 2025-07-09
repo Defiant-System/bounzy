@@ -484,32 +484,37 @@ content {
 
 					&.red {
 						&:after { animation: monsterRed 600ms steps(5) infinite alternate; }
-						&:active:after { animation: monsterRedBump 200ms steps(3) infinite alternate; }
+						&:active:after { animation: monsterRedBump 100ms steps(3) infinite alternate; }
 					}
 
 					&.blue {
 						&:after { animation: monsterBlue 600ms steps(5) infinite alternate; }
-						&:active:after { animation: monsterBlueBump 200ms steps(3) infinite alternate; }
+						&:active:after { animation: monsterBlueBump 100ms steps(3) infinite alternate; }
 					}
 
 					&.green {
 						&:after { animation: monsterGreen 600ms steps(5) infinite alternate; }
+						&:active:after { animation: monsterGreenBump 100ms steps(3) infinite alternate; }
 					}
 
 					&.purple {
 						&:after { animation: monsterPurple 600ms steps(5) infinite alternate; }
+						&:active:after { animation: monsterPurpleBump 100ms steps(3) infinite alternate; }
 					}
 
 					&.brown {
 						&:after { animation: monsterBrown 600ms steps(5) infinite alternate; }
+						&:active:after { animation: monsterBrownBump 100ms steps(3) infinite alternate; }
 					}
 
 					&.black {
 						&:after { animation: monsterBlack 600ms steps(5) infinite alternate; }
+						&:active:after { animation: monsterBlackBump 100ms steps(3) infinite alternate; }
 					}
 
 					&.chest {
 						&:after { animation: chest 800ms steps(5) infinite alternate; }
+						&:active:after { animation: chestBump 100ms steps(3) infinite alternate; }
 					}
 				}
 			}
@@ -1884,8 +1889,8 @@ content {
 	100% { background-position: -325px 0; }
 }
 @keyframes monsterRedBump {
-	0%   { background-position: -910px 0; }
-	100% { background-position: -1105px 0; }
+	0%   { background-position: -325px 0; }
+	100% { background-position: -520px 0; }
 }
 
 @keyframes monsterBlue {
@@ -1893,33 +1898,53 @@ content {
 	100% { background-position: -325px -65px; }
 }
 @keyframes monsterBlueBump {
-	0%   { background-position: -910px -65px; }
-	100% { background-position: -1105px -65px; }
+	0%   { background-position: -325px -65px; }
+	100% { background-position: -520px -65px; }
 }
 
 @keyframes monsterGreen {
 	0%   { background-position: 0 -130px; }
 	100% { background-position: -325px -130px; }
 }
+@keyframes monsterGreenBump {
+	0%   { background-position: -325px -130px; }
+	100% { background-position: -520px -130px; }
+}
 
 @keyframes monsterPurple {
 	0%   { background-position: 0 -195px; }
 	100% { background-position: -325px -195px; }
+}
+@keyframes monsterPurpleBump {
+	0%   { background-position: -325px -195px; }
+	100% { background-position: -520px -195px; }
 }
 
 @keyframes monsterBrown {
 	0%   { background-position: 0 -260px; }
 	100% { background-position: -325px -260px; }
 }
+@keyframes monsterBrownBump {
+	0%   { background-position: -325px -260px; }
+	100% { background-position: -520px -260px; }
+}
 
 @keyframes monsterBlack {
 	0%   { background-position: 0 -325px; }
 	100% { background-position: -325px -325px; }
 }
+@keyframes monsterBlackBump {
+	0%   { background-position: -325px -325px; }
+	100% { background-position: -520px -325px; }
+}
 
 @keyframes chest {
 	0%   { background-position: 0 -390px; }
 	100% { background-position: -325px -390px; }
+}
+@keyframes chestBump {
+	0%   { background-position: -325px -390px; }
+	100% { background-position: -520px -390px; }
 }
 
 
