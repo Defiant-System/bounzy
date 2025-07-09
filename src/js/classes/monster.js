@@ -9,7 +9,8 @@ class Monster {
 		this.sW = shadow.item.width;
 		this.sH = shadow.item.height;
 
-		let size = 65;
+		let size = 65,
+			sH = size >> 1;
 		this.width = size;
 		this.height = size;
 		this.x = x * size;
@@ -17,7 +18,13 @@ class Monster {
 		this.type = (type - 1) * size;
 
 		// physical body
-		this.body = Matter.Bodies.rectangle(this.x, this.y, size, size, { isStatic: true });
+		// this.body = Matter.Bodies.rectangle(this.x + sH, this.y + sH, size, size, { isStatic: true });
+		// this.body = Matter.Bodies.polygon(this.x+sH, this.y+sH, 8, sH, { isStatic: true });
+		let path = window.find(`svg#monster-mask path`)[0],
+			vertexSets = Matter.Svg.pathToVertices(path, 12);
+		this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true });
+		// prevents rotation
+		Matter.Body.setInertia(this.body, Infinity);
 
 		// monster animation
 		this.frame = {
@@ -49,17 +56,6 @@ class Monster {
 		ctx.translate(0, 0);
 		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, x-18, y+9, w, h);
 		ctx.drawImage(this.asset, fX, fY, w, h, x, y, w, h);
-
-		// ctx.fillStyle = "#f005";
-		// ctx.fillRect(0, 0, w, h);
-		// ctx.fillRect((w*1), (h*1), w, h);
-		// ctx.fillRect((w*2), (h*2), w, h);
-		// ctx.fillRect((w*3), (h*3), w, h);
-		// ctx.fillRect((w*4), (h*4), w, h);
-		// ctx.fillRect((w*5), (h*5), w, h);
-		// ctx.fillRect((w*4), (h*6), w, h);
-		// ctx.fillRect((w*3), (h*7), w, h);
-
 		ctx.restore();
 	}
 }

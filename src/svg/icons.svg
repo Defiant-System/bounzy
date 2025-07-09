@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
 
+	<svg id="monster-mask" viewBox="0 0 65 65" cache="keep">
+		<path d="M49.3,62.2H15.7c-7.1,0-12.9-5.8-12.9-12.9V15.7c0-7.1,5.8-12.9,12.9-12.9h33.5c7.1,0,12.9,5.8,12.9,12.9v33.5
+	C62.2,56.4,56.4,62.2,49.3,62.2z"/>
+	</svg>
+
 	<svg id="icon-shield" viewBox="0 0 32 32">
 		<style type="text/css">
 			.st0{fill:url(#SVGID_1_);}

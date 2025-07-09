@@ -5,6 +5,7 @@
 @import "./classes/monster.js"
 
 @import "./ext/matter.min.js"
+@import "./ext/pathseg.js"
 
 @import "./modules/test.js"
 
