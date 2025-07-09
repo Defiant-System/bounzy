@@ -10,7 +10,7 @@ class Arena {
 		// set dimenstions
 		this.cvs.attr({ width: this.width, height: this.height });
 		// arena dimensions
-		this.offset = { x: 46, y: 68, w: 392, h: 576 };
+		this.offset = { x: 47, y: 69, w: 390, h: 576 };
 
 		// physics engine
 		this.engine = Matter.Engine.create({ gravity: { x: 0, y: 0, scale: 1 } });
@@ -27,7 +27,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 2,
+			mode: 1,
 		};
 
 		// create FPS controller
@@ -43,8 +43,8 @@ class Arena {
 
 		// assets list
 		let assets = [
-				{ id: "bosses", width: 1024, height: 1024, src: "~/gfx/monster-sheet0.webp" },
-				{ id: "monsters", width: 1024, height: 1024, src: "~/gfx/monster-sheet1.webp" },
+				{ id: "bosses", width: 1024, height: 1024, src: "~/gfx/bosses.webp" },
+				{ id: "monsters", width: 1024, height: 1024, src: "~/gfx/monsters.png" },
 				{ id: "shield", width: 64, height: 41, src: "~/gfx/shield-sheet0.webp" },
 			],
 			loadAssets = () => {

@@ -23,7 +23,7 @@
 				Self.dispatch({ type: "start-game" });
 				break;
 			case "exit-view":
-				Self.dispatch({ type: "pause-game" });
+				Self.dispatch({ type: "pause-game", dialog: "none" });
 				break;
 			case "start-game":
 			case "resume-game":
@@ -32,7 +32,9 @@
 				Self._gameState = "started";
 				break;
 			case "pause-game":
-				APP.dispatch({ type: "open-dialog", arg: "pause" });
+				if (!event.dialog) {
+					APP.dispatch({ type: "open-dialog", arg: "pause" });
+				}
 				Self.arena.fpsControl.stop();
 				Self._gameState = "paused";
 				break;

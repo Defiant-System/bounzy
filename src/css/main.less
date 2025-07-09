@@ -445,8 +445,75 @@ content {
 				// background: red;
 			}
 
+			.dev-preview {
+				// background: #f003;
+				position: absolute;
+				top: 69px;
+				left: 49px;
+				width: 390px;
+				height: 576px;
+
+				.monster {
+					// background-color: #f003;
+					position: absolute;
+					top: calc( var( --y ) * 65px );
+					left: calc( var( --x ) * 65px );
+					width: 65px;
+					height: 65px;
+
+					&:before {
+						content: "";
+						background: url(~/gfx/shadow.png) 50% 50%/contain no-repeat;
+						position: absolute;
+						top: 6px;
+						left: -20px;
+						width: 100%;
+						height: 100%;
+					}
+
+					&:after {
+						content: "";
+						background: url(~/gfx/monsters.png) no-repeat;
+						background-position: 65px 65px;
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+					}
+
+					&.red {
+						&:after { animation: monster-red 600ms steps(5) infinite alternate; }
+					}
+
+					&.blue {
+						&:after { animation: monster-blue 600ms steps(5) infinite alternate; }
+					}
+
+					&.green {
+						&:after { animation: monster-green 600ms steps(5) infinite alternate; }
+					}
+
+					&.purple {
+						&:after { animation: monster-purple 600ms steps(6) infinite alternate; }
+					}
+
+					&.brown {
+						&:after { animation: monster-brown 600ms steps(5) infinite alternate; }
+					}
+
+					&.black {
+						&:after { animation: monster-black 600ms steps(5) infinite alternate; }
+					}
+
+					&.chest {
+						&:after { animation: chest 600ms steps(5) infinite alternate; }
+					}
+				}
+			}
+
 			.wall {
-				display: none; // TEMP
+				// display: none; // TEMP
 				background: url(~/gfx/homeborder-sheet0.webp) 50% 50% no-repeat;
 				position: absolute;
 				top: 610px;
@@ -1761,6 +1828,41 @@ content {
 		margin-top: 30%;
 		margin-left: 80%;
 	}
+}
+
+@keyframes monster-red {
+	0%   { background-position: 0 0px; }
+	100% { background-position: -325px 0px; }
+}
+
+@keyframes monster-green {
+	0%   { background-position: 0 -130px; }
+	100% { background-position: -325px -130px; }
+}
+
+@keyframes monster-purple {
+	0%   { background-position: 0 -195px; }
+	100% { background-position: -390px -195px; }
+}
+
+@keyframes monster-brown {
+	0%   { background-position: 0 -260px; }
+	100% { background-position: -325px -260px; }
+}
+
+@keyframes monster-black {
+	0%   { background-position: 0 -325px; }
+	100% { background-position: -325px -325px; }
+}
+
+@keyframes monster-blue {
+	0%   { background-position: 0 -65px; }
+	100% { background-position: -325px -65px; }
+}
+
+@keyframes chest {
+	0%   { background-position: 0 -390px; }
+	100% { background-position: -325px -390px; }
 }
 
 
