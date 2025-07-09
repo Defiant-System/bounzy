@@ -10,7 +10,7 @@ class Arena {
 		// set dimenstions
 		this.cvs.attr({ width: this.width, height: this.height });
 		// arena dimensions
-		this.offset = { x: 47, y: 69, w: 390, h: 576 };
+		this.offset = { x: 49, y: 69, w: 390, h: 576 };
 
 		// physics engine
 		this.engine = Matter.Engine.create({ gravity: { x: 0, y: 0, scale: 1 } });
@@ -21,9 +21,6 @@ class Arena {
 		this.entities = [];
 		// physical bodies
 		this.bodies = [];
-
-		// temp
-		this.entities.push(new Monster({ parent: this }));
 
 		// dev / debug purpose
 		this.debug = {
@@ -45,6 +42,7 @@ class Arena {
 		let assets = [
 				{ id: "bosses", width: 1024, height: 1024, src: "~/gfx/bosses.webp" },
 				{ id: "monsters", width: 1024, height: 1024, src: "~/gfx/monsters.png" },
+				{ id: "shadow", width: 98, height: 125, src: "~/gfx/shadow.png" },
 				{ id: "shield", width: 64, height: 41, src: "~/gfx/shield-sheet0.webp" },
 			],
 			loadAssets = () => {
@@ -67,6 +65,15 @@ class Arena {
 
 	ready() {
 		this.setPhysicalWorld();
+
+		// temp
+		let asset = this.assets.monsters,
+			shadow = this.assets.shadow;
+		this.entities.push(new Monster({ parent: this, asset, shadow, type: 1, x: 0, y: 1 }));
+		this.entities.push(new Monster({ parent: this, asset, shadow, type: 1, x: 1, y: 1 }));
+
+		this.entities.push(new Monster({ parent: this, asset, shadow, type: 2, x: 3, y: 1 }));
+		this.entities.push(new Monster({ parent: this, asset, shadow, type: 3, x: 4, y: 1 }));
 	}
 
 	setPhysicalWorld() {
