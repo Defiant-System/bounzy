@@ -24,7 +24,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 1,
+			mode: 2,
 		};
 
 		// create FPS controller
@@ -64,16 +64,25 @@ class Arena {
 	}
 
 	ready() {
-		this.setPhysicalWorld();
-
 		// temp
-		let asset = this.assets.monsters,
+		let level = [
+				[0,0,0,0,0,0],
+				[1,1,2,2,0,1],
+				[3,3,4,4,5,5],
+				[0,7,0,6,6,0],
+			],
+			asset = this.assets.monsters,
 			shadow = this.assets.shadow;
-		this.entities.push(new Monster({ parent: this, asset, shadow, type: 1, x: 0, y: 1 }));
-		this.entities.push(new Monster({ parent: this, asset, shadow, type: 1, x: 1, y: 1 }));
 
-		this.entities.push(new Monster({ parent: this, asset, shadow, type: 2, x: 3, y: 1 }));
-		this.entities.push(new Monster({ parent: this, asset, shadow, type: 3, x: 4, y: 1 }));
+		level.map((r, y) => {
+			r.map((type, x) => {
+				if (type > 0) {
+					this.entities.push(new Monster({ parent: this, asset, shadow, type, x, y }));
+				}
+			});
+		});
+		
+		this.setPhysicalWorld();
 	}
 
 	setPhysicalWorld() {
@@ -82,8 +91,11 @@ class Arena {
 		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick));
 		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h));
 		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h));
+
+		let bodies = [...this.bodies, ...this.entities.map(m => m.body)];
+
 		// physics setup
-		Matter.Composite.add(this.engine.world, this.bodies);
+		Matter.Composite.add(this.engine.world, bodies);
 	}
 
 	update(delta, time) {
@@ -103,8 +115,8 @@ class Arena {
 
 		if (this.debug.mode >= 2) {
 			// game arena
-			this.ctx.fillStyle = "#f003";
-			this.ctx.fillRect(0, 0, this.offset.w, this.offset.h);
+			// this.ctx.fillStyle = "#f003";
+			// this.ctx.fillRect(0, 0, this.offset.w, this.offset.h);
 			// physical bodies
 			let bodies = Matter.Composite.allBodies(this.engine.world);
 			this.ctx.save();

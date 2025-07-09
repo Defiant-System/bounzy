@@ -16,6 +16,9 @@ class Monster {
 		this.y = y * size;
 		this.type = (type - 1) * size;
 
+		// physical body
+		this.body = Matter.Bodies.rectangle(this.x, this.y, size, size, { isStatic: true });
+
 		// monster animation
 		this.frame = {
 			index: 0,
