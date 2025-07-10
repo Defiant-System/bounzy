@@ -1,6 +1,7 @@
 
 
 @import "./classes/arena.js"
+@import "./classes/wizard.js"
 @import "./classes/boss.js"
 @import "./classes/monster.js"
 

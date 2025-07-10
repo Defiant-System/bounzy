@@ -12,6 +12,8 @@ class Arena {
 		// arena dimensions
 		this.offset = { x: 49, y: 69, w: 390, h: 576 };
 
+		this.wizard = new Wizard({ parent: this });
+
 		// physics engine
 		this.engine = Matter.Engine.create({ gravity: { x: 0, y: 0, scale: 1 } });
 		// create runner
@@ -24,7 +26,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 2,
+			mode: 1,
 		};
 
 		// create FPS controller
@@ -81,7 +83,7 @@ class Arena {
 				}
 			});
 		});
-		
+
 		this.setPhysicalWorld();
 	}
 

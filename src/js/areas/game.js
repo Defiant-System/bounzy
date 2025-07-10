@@ -10,6 +10,8 @@
 		};
 		// instantiate arena
 		this.arena = new Arena({ canvas: this.els.canvas });
+		// bind event handlers
+		this.els.canvas.on("mousedown", this.doAim);
 	},
 	async dispatch(event) {
 		let APP = bounzy,
@@ -43,6 +45,44 @@
 				break;
 			case "pause-if-started":
 				if (Self._gameState === "started") Self.dispatch({ type: "pause-game" });
+				break;
+		}
+	},
+	doAim(event) {
+		let APP = bounzy,
+			Self = APP.game,
+			Drag = Self.drag;
+		switch (event.type) {
+			// pan stadium
+			case "mousedown":
+				// prevent default behaviour
+				event.preventDefault();
+
+				let doc = $(document),
+					cvs = Self.els.canvas,
+					offset = {
+						y: event.offsetY,
+						x: event.offsetX,
+					},
+					click = {
+						y: event.clientY,
+						x: event.clientX,
+					};
+
+				// drag info
+				Self.drag = { doc, cvs, click, offset };
+				// bind event handlers
+				Self.drag.doc.on("mousemove mouseup", Self.doAim);
+				break;
+			case "mousemove":
+				let y = Drag.offset.y - (event.clientY - Drag.click.y),
+					x = Drag.offset.x - (event.clientX - Drag.click.x);
+				// Drag.arena.stadium.ball.body.position.y = y;
+				// Drag.arena.stadium.ball.body.position.x = x;
+				break;
+			case "mouseup":
+				// unbind event handlers
+				Self.drag.doc.off("mousemove mouseup", Self.doAim);
 				break;
 		}
 	}
