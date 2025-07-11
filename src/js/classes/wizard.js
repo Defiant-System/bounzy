@@ -39,10 +39,10 @@ class Wizard {
 			}
 		}
 
-		cols.sort((a, b) => a.point.distance(start) - b.point.distance(start));
+		cols.sort((a, b) => a.distance(start) - b.distance(start));
 		// console.log(cols);
 		
-		if (cols.length) end = cols[0].point;
+		if (cols.length) end = cols[0];
 		this.setTarget(end);
 	}
 

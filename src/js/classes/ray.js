@@ -34,11 +34,9 @@ class Ray {
 		//reference point
 		var dif = this.difference; //gets the two possible normals as points that lie
 		//perpendicular to the ray
-
 		var norm1 = dif.normalized().rotate(Math.PI / 2);
 		var norm2 = dif.normalized().rotate(Math.PI / -2); //returns the normal that is closer to the provided
 		//reference point
-
 		if (this.start.plus(norm1).distance(ref) < this.start.plus(norm2).distance(ref)) return norm1;
 		return norm2;
 	}
@@ -83,10 +81,6 @@ class Ray {
 		if (Ray.compareNum(rayA.slope, rayB.slope)) return null;
 		if (rayA.isHorizontal) return new Vec2(rayB.xValueAt(rayA.start.y), rayA.start.y);
 		if (rayB.isHorizontal) return new Vec2(rayA.xValueAt(rayB.start.y), rayB.start.y); //slope intercept form:
-		//y1 = m2 * x + b2; where y1 = m1 * x + b1:
-		//m1 * x + b1 = m2 * x + b2:
-		//x = (b2 - b1) / (m1 - m2)
-
 		var x = (rayB.offsetY - rayA.offsetY) / (rayA.slope - rayB.slope);
 		return new Vec2(x, rayA.yValueAt(x));
 	}
@@ -105,7 +99,6 @@ class Ray {
 		//returns all of the edges of a body in the
 		//form of an array of ray objects
 		var r = [];
-
 		for (var i = body.parts.length - 1; i >= 0; i--) {
 			for (var k = body.parts[i].vertices.length - 1; k >= 0; k--) {
 				var k2 = k + 1;
@@ -124,13 +117,11 @@ class Ray {
 		//and body in the form of an array of 'raycol' objects
 		var r = []; //gets the edge rays from the body
 		var edges = Ray.bodyEdges(body); //iterates through each edge and tests for collision
-		//with 'rayA'
 		for (var i = edges.length - 1; i >= 0; i--) {
 			//gets the collision point
 			var colpoint = Ray.collisionPoint(rayA, edges[i]); //if there is no collision, then go to next edge
 			if (!colpoint) continue; //calculates the edge's normal
-			var normal = edges[i].calculateNormal(rayA.start); //adds the ray collision to the return array
-			r.push(new RayCollisions(body, colpoint, normal, edges[i].verts));
+			r.push(colpoint);
 		}
 		return r;
 	}

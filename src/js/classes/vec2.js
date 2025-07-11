@@ -1,13 +1,4 @@
 
-class RayCollisions {
-	constructor(body, point, normal, verts) {
-		this.body = body;
-		this.point = point;
-		this.normal = normal;
-		this.verts = verts;
-	}
-}
-
 class Vec2 {
 	constructor(x, y) {
 		this.x = x;
@@ -77,7 +68,7 @@ class Vec2 {
 
 	get direction() {
 		//returns the angle this vector is pointing in radians
-			return Math.atan2(this.y, this.x);
+		return Math.atan2(this.y, this.x);
 	}
 
 	static fromAng(angle) {
