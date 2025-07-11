@@ -12,8 +12,6 @@ class Arena {
 		// arena dimensions
 		this.offset = { x: 49, y: 69, w: 390, h: 576 };
 
-		this.wizard = new Wizard({ parent: this });
-
 		// physics engine
 		this.engine = Matter.Engine.create({ gravity: { x: 0, y: 0, scale: 1 } });
 		// create runner
@@ -46,6 +44,7 @@ class Arena {
 				{ id: "monsters", width: 1024, height: 1024, src: "~/gfx/monsters.png" },
 				{ id: "shadow", width: 98, height: 125, src: "~/gfx/shadow.png" },
 				{ id: "shield", width: 64, height: 41, src: "~/gfx/shield-sheet0.webp" },
+				{ id: "arrows", width: 20, height: 1024, src: "~/icons/target-arrows.png" },
 			],
 			loadAssets = () => {
 				let item = assets.pop(),
@@ -83,7 +82,9 @@ class Arena {
 				}
 			});
 		});
-
+		// add wizard
+		this.wizard = new Wizard({ parent: this, asset: this.assets.arrows });
+		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 	}
 
@@ -94,6 +95,7 @@ class Arena {
 		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h));
 		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h));
 
+		// temp
 		let bodies = [...this.bodies, ...this.entities.map(m => m.body)];
 
 		// physics setup
@@ -103,6 +105,7 @@ class Arena {
 	update(delta, time) {
 		// update all entities
 		this.entities.map(item => item.update(delta, time));
+		this.wizard.update(delta, time);
 	}
 
 	render() {
@@ -114,6 +117,7 @@ class Arena {
 
 		// render all entities
 		this.entities.map(item => item.render(this.ctx));
+		this.wizard.render(this.ctx);
 
 		if (this.debug.mode >= 2) {
 			// game arena
