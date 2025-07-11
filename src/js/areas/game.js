@@ -62,25 +62,19 @@
 					cvs = Self.els.canvas,
 					wizard = Self.arena.wizard,
 					offset = {
-						y: event.offsetY,
-						x: event.offsetX,
-					},
-					click = {
-						y: event.clientY,
-						x: event.clientX,
+						y: event.clientY - event.offsetY + Self.arena.offset.y,
+						x: event.clientX - event.offsetX + Self.arena.offset.x,
 					};
 
 				// drag info
-				Self.drag = { doc, cvs, wizard, click, offset };
+				Self.drag = { doc, cvs, wizard, offset };
 				// bind event handlers
 				Self.drag.doc.on("mousemove mouseup", Self.doAim);
 				break;
 			case "mousemove":
-				let y = (event.clientY - Drag.click.y) + Drag.offset.y,
-					x = (event.clientX - Drag.click.x) + Drag.offset.x;
-				// Drag.arena.stadium.ball.body.position.y = y;
-				// Drag.arena.stadium.ball.body.position.x = x;
-				Drag.wizard.setTarget(x, y);
+				let y = event.clientY - Drag.offset.y,
+					x = event.clientX - Drag.offset.x;
+				Drag.wizard.setMouse(x, y);
 				break;
 			case "mouseup":
 				// unbind event handlers

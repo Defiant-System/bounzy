@@ -24,7 +24,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 1,
+			mode: 2,
 		};
 
 		// create FPS controller
@@ -68,6 +68,10 @@ class Arena {
 		// temp
 		let level = [
 				[0,0,0,0,0,0],
+				[0,0,0,0,0,0],
+				[0,0,0,0,0,0],
+				[0,0,1,0,1,0],
+				// [1,1,2,2,0,1],
 				// [1,1,2,2,0,1],
 				// [3,3,4,4,5,5],
 				// [0,7,0,6,6,0],

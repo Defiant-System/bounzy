@@ -10,21 +10,52 @@ class Wizard {
 		this.w = 20;
 		this.h = 1024;
 		this.speed = .8;
-		this.degToRad = Math.PI / 180;
 
 		// this animation / overlapping helpers
 		this.a1 = { x: 0, y: 500 };
 		this.a2 = { x: 0, y: -this.h+this.a1.y };
 		// start + target
 		this.start = new Point(160, 590);
-		this.setTarget(80, 50);
+		this.setMouse(90, 150);
+		this.setTarget(this.mouse);
+
+		// target seeker
+		Matter.Events.on(parent.engine, "afterUpdate", this.checkCollisions.bind(this));
 	}
 
-	setTarget(x, y) {
-		this.target = new Point(x, y);
+	checkCollisions() {
+		var bodies = Matter.Composite.allBodies(this.parent.engine.world),
+			start = new Vec2(this.start.x, this.start.y),
+			end = new Vec2(this.mouse.x, this.mouse.y);
+
+		let query = Matter.Query.ray(bodies, start, end);
+		let cols = [];
+		let rayTest = new Ray(start, end);
+
+		for (let i=query.length-1; i>=0; i--) {
+			let bcols = Ray.bodyCollisions(rayTest, query[i].body);
+			for (let k=bcols.length-1; k>=0; k--) {
+				cols.push(bcols[k]);
+			}
+		}
+
+		cols.sort((a, b) => a.point.distance(start) - b.point.distance(start));
+		// console.log(cols);
+		
+		if (cols.length) end = cols[0].point;
+		this.setTarget(end);
+	}
+
+	setMouse(x, y) {
+		this.mouse = new Point(x, y);
+	}
+
+	setTarget(point) {
+		this.target = point;
 		// target angle
 		this.angle = this.start.direction(this.target) - (Math.PI / 2);
-		this.distance = this.start.distance(this.target);
+		this.distance = this.start.distance(this.target) - 10;
+		this.d2 = this.distance - 10;
 	}
 
 	update(delta, time) {
@@ -37,6 +68,12 @@ class Wizard {
 
 	render(ctx) {
 		ctx.save();
+		// target point
+		ctx.fillStyle = "#fff6";
+		ctx.beginPath();
+		ctx.arc(this.target.x, this.target.y, 15, 0, Math.TAU);
+		ctx.fill();
+
 		ctx.translate(this.start.x + 10, this.start.y);
 		ctx.rotate(this.angle);
 		// mask
@@ -44,16 +81,11 @@ class Wizard {
 		region.moveTo(0, 0);
 		region.lineTo(10, 10);
 		region.lineTo(20, 0);
-		region.lineTo(20, this.distance);
-		region.lineTo(10, this.distance+10);
-		region.lineTo(0, this.distance);
+		region.lineTo(20, this.d2);
+		region.lineTo(10, this.distance);
+		region.lineTo(0, this.d2);
 		region.closePath();
 		ctx.clip(region);
-
-		// for dev purpose
-		// ctx.fillStyle = "red";
-		// ctx.rect(0, 0, 20, 340);
-		// ctx.fill();
 
 		// arrows
 		ctx.drawImage(this.asset.img, this.a1.x, this.a1.y, this.w, this.h);

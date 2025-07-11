@@ -5,7 +5,7 @@ let Test = {
 		// APP.dispatch({ type: "open-dialog", arg: "reward", addClass: "completed" });
 
 		setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 500);
-		setTimeout(() => APP.game.arena.fpsControl.stop(), 5000);
+		setTimeout(() => APP.game.arena.fpsControl.stop(), 10000);
 		// setTimeout(() => APP.game.dispatch({ type: "pause-game" }), 3000);
 
 		// setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 1000);
