@@ -4,6 +4,7 @@
 @import "./classes/wizard.js"
 @import "./classes/boss.js"
 @import "./classes/monster.js"
+@import "./classes/bullet.js"
 @import "./classes/ray.js"
 @import "./classes/vec2.js"
 @import "./classes/point.js"

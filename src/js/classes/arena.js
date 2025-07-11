@@ -106,6 +106,13 @@ class Arena {
 		Matter.Composite.add(this.engine.world, bodies);
 	}
 
+	addEntity(item) {
+		// add item body to physical world
+		if (item.body) Matter.Composite.add(this.engine.world, item.body);
+		// to ben updated & rendered
+		this.entities.push(item);
+	}
+
 	update(delta, time) {
 		// update all entities
 		this.entities.map(item => item.update(delta, time));

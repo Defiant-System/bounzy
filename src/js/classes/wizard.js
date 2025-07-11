@@ -16,7 +16,9 @@ class Wizard {
 		this.a2 = { x: 0, y: -this.h+this.a1.y };
 		// start + target
 		this.start = new Point(160, 590);
-		this.setMouse(90, 150);
+		this.setMouse(208, 114);
+		// this.setMouse(206, 111);
+		// this.setMouse(90, 150);
 		this.setTarget(this.mouse);
 
 		// target seeker
@@ -29,6 +31,7 @@ class Wizard {
 			end = new Vec2(this.mouse.x, this.mouse.y);
 
 		let query = Matter.Query.ray(bodies, start, end, 10);
+		// console.log(query);
 		let cols = [];
 		let rayTest = new Ray(start, end);
 
@@ -56,6 +59,12 @@ class Wizard {
 		this.angle = this.start.direction(this.target) - (Math.PI / 2);
 		this.distance = this.start.distance(this.target) - 10;
 		this.d2 = this.distance - 10;
+	}
+
+	shoot() {
+		let start = new Point(200, 200),
+			target = new Point(100, 200);
+		this.parent.addEntity(new Bullet({ parent: this.parent, start, target }));
 	}
 
 	update(delta, time) {

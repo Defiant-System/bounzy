@@ -8,6 +8,7 @@ class Monster {
 		this.shadow = shadow.img;
 		this.sW = shadow.item.width;
 		this.sH = shadow.item.height;
+		this.label = "monster-"+ Date.now();
 
 		let size = 65,
 			sH = size >> 1;
