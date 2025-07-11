@@ -28,7 +28,7 @@ class Wizard {
 			start = new Vec2(this.start.x, this.start.y),
 			end = new Vec2(this.mouse.x, this.mouse.y);
 
-		let query = Matter.Query.ray(bodies, start, end);
+		let query = Matter.Query.ray(bodies, start, end, 10);
 		let cols = [];
 		let rayTest = new Ray(start, end);
 
