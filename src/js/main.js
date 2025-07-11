@@ -4,6 +4,7 @@
 @import "./classes/wizard.js"
 @import "./classes/boss.js"
 @import "./classes/monster.js"
+@import "./classes/point.js"
 
 @import "./ext/matter.min.js"
 @import "./ext/pathseg.js"
