@@ -68,9 +68,9 @@ class Arena {
 		// temp
 		let level = [
 				[0,0,0,0,0,0],
-				[1,1,2,2,0,1],
-				[3,3,4,4,5,5],
-				[0,7,0,6,6,0],
+				// [1,1,2,2,0,1],
+				// [3,3,4,4,5,5],
+				// [0,7,0,6,6,0],
 			],
 			asset = this.assets.monsters,
 			shadow = this.assets.shadow;

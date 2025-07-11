@@ -9,17 +9,19 @@ class Wizard {
 		// static / asset dimensions
 		this.w = 20;
 		this.h = 1024;
-		this.speed = .5;
+		this.speed = 2;
 		this.degToRad = Math.PI / 180;
 
 		// this animation / overlapping helpers
-		this.a1 = { x: 0, y: 0 };
-		this.a2 = { x: 0, y: -this.h };
+		this.a1 = { x: 0, y: 500 };
+		this.a2 = { x: 0, y: -this.h+this.a1.y };
 		// start + target
 		this.start = { x: 160, y: 590 };
 		this.target = { x: 40, y: 250 };
 		// target angle
-		this.angle = 165;
+		this.angle = 175;
+
+		this.len = 600;
 	}
 
 	setTarget(x, y) {
@@ -30,6 +32,9 @@ class Wizard {
 	update(delta, time) {
 		this.a1.y += this.speed;
 		this.a2.y += this.speed;
+		// continuous arrows
+		if (this.len - this.a1.y < 0) this.a1.y = -this.h + this.a2.y;
+		if (this.len - this.a2.y < 0) this.a2.y = -this.h + this.a1.y;
 	}
 
 	render(ctx) {
@@ -41,9 +46,9 @@ class Wizard {
 		region.moveTo(0, 0);
 		region.lineTo(10, 10);
 		region.lineTo(20, 0);
-		region.lineTo(20, 330);
-		region.lineTo(10, 340);
-		region.lineTo(0, 330);
+		region.lineTo(20, this.len);
+		region.lineTo(10, this.len+10);
+		region.lineTo(0, this.len);
 		region.closePath();
 		ctx.clip(region);
 
