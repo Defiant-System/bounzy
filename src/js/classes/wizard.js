@@ -10,22 +10,25 @@ class Wizard {
 		this.w = 20;
 		this.h = 1024;
 		this.speed = .8;
+		this._aiming = false;
 
 		// this animation / overlapping helpers
 		this.a1 = { x: 0, y: 500 };
 		this.a2 = { x: 0, y: -this.h+this.a1.y };
 		// start + target
 		this.start = new Point(160, 590);
-		this.setMouse(208, 114);
+		// this.setMouse(208, 114);
 		// this.setMouse(206, 111);
 		// this.setMouse(90, 150);
-		this.setTarget(this.mouse);
+		// this.setTarget(this.mouse);
 
 		// target seeker
 		Matter.Events.on(parent.engine, "afterUpdate", this.checkCollisions.bind(this));
 	}
 
 	checkCollisions() {
+		if (!this._aiming) return;
+		
 		var bodies = Matter.Composite.allBodies(this.parent.engine.world),
 			start = new Vec2(this.start.x, this.start.y),
 			end = new Vec2(this.mouse.x, this.mouse.y);
