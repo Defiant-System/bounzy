@@ -51,6 +51,8 @@ class Wizard {
 
 	setMouse(x, y) {
 		this.mouse = new Point(x, y);
+		// aiming
+		this._aiming = true;
 	}
 
 	setTarget(point) {
@@ -62,12 +64,17 @@ class Wizard {
 	}
 
 	shoot() {
-		let start = new Point(200, 200),
-			target = new Point(100, 200);
-		this.parent.addEntity(new Bullet({ parent: this.parent, start, target }));
+		let start = this.start.clone(),
+			target = this.target.clone(),
+			angle = this.angle + (Math.PI / 2);
+		new Bullet({ parent: this.parent, start, target, angle });
+		// no more aiming
+		this._aiming = false;
 	}
 
 	update(delta, time) {
+		if (!this._aiming) return;
+
 		this.a1.y += this.speed;
 		this.a2.y += this.speed;
 		// continuous arrows
@@ -76,6 +83,8 @@ class Wizard {
 	}
 
 	render(ctx) {
+		if (!this._aiming) return;
+
 		ctx.save();
 		// target point
 		ctx.fillStyle = "#fff6";

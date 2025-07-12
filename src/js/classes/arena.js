@@ -95,9 +95,9 @@ class Arena {
 	setPhysicalWorld() {
 		let thick = 30;
 		// add physical walls
-		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick));
-		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h));
-		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h));
+		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick, { isStatic: true, density: 1 }));
+		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h, { isStatic: true, density: 1 }));
+		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h, { isStatic: true, density: 1 }));
 
 		// temp
 		let bodies = [...this.bodies, ...this.entities.map(m => m.body)];
