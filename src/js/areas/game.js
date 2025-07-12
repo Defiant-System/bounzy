@@ -59,7 +59,7 @@
 			// pan stadium
 			case "mousedown":
 				// exit on contextmenu
-				if (event.button == 2) return;
+				if (event.button == 2 || Self.arena.fpsControl._stopped) return;
 
 				// prevent default behaviour
 				event.preventDefault();

@@ -10,6 +10,9 @@ class Monster {
 		this.sH = shadow.item.height;
 		this.label = "monster-"+ Date.now();
 
+		this.power = 40;
+		this.health = +Math.random().toFixed(2);
+
 		let size = 65,
 			sH = size >> 1;
 		this.width = size;
@@ -50,13 +53,31 @@ class Monster {
 		let w = this.width,
 			h = this.height,
 			fX = (this.frame.index | 0) * w,
-			fY = this.type,
-			x = this.x,
-			y = this.y;
+			fY = this.type;
 		ctx.save();
-		ctx.translate(0, 0);
-		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, x-18, y+9, w, h);
-		ctx.drawImage(this.asset, fX, fY, w, h, x, y, w, h);
+		ctx.translate(this.x, this.y);
+		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -18, 9, w, h);
+		ctx.drawImage(this.asset, fX, fY, w, h, 0, 0, w, h);
+
+		ctx.lineWidth = 2;
+		ctx.strokeStyle = "#0008";
+		ctx.fillStyle = "#fff";
+		ctx.beginPath();
+		ctx.roundRect(4, h-12, w-10, 8, 3);
+		ctx.fill();
+		ctx.stroke();
+
+		ctx.fillStyle = "#f00";
+		ctx.beginPath();
+		ctx.roundRect(6, h-10, (w-14) * this.health, 4, 2);
+		ctx.fill();
+
+		ctx.font = "24px Bakbak One";
+		ctx.strokeStyle = "#fff";
+		ctx.textAlign = "center";
+		ctx.fillText(this.power, w >> 1, h-15);
+		// ctx.strokeText(this.power, w >> 1, h-15);
+
 		ctx.restore();
 	}
 }
