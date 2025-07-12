@@ -8,10 +8,12 @@ class Monster {
 		this.shadow = shadow.img;
 		this.sW = shadow.item.width;
 		this.sH = shadow.item.height;
-		this.label = "monster-"+ Date.now();
 
-		this.power = 40;
-		this.health = +Math.random().toFixed(2);
+		this.health = {
+			full: 40,
+			curr: 40,
+			perc: 1,
+		};
 
 		let size = 65,
 			sH = size >> 1;
@@ -28,6 +30,7 @@ class Monster {
 			vertexSets = Matter.Svg.pathToVertices(path, 12),
 			collisionFilter = { category: parent.colMasks.monster };
 		this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true, collisionFilter });
+		this.body.label = "monster-"+ Date.now();
 		// prevents rotation
 		Matter.Body.setInertia(this.body, Infinity);
 
@@ -39,6 +42,16 @@ class Monster {
 			last: 120,
 			speed: 120,
 		};
+	}
+
+	kill() {
+		this.parent.removeEntity(this);
+	}
+
+	dealDamage(v) {
+		this.health.curr -= v;
+		this.health.perc = this.health.curr / this.health.full;
+		if (this.health.curr <= 0) this.kill();
 	}
 
 	update(delta, time) {
@@ -66,7 +79,7 @@ class Monster {
 		ctx.textAlign = "center";
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "#0008";
-		ctx.strokeText(this.power, wH, tH);
+		ctx.strokeText(this.health.curr, wH, tH);
 
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = "#0008";
@@ -78,13 +91,13 @@ class Monster {
 
 		ctx.fillStyle = "#f00";
 		ctx.beginPath();
-		ctx.roundRect(6, h-8, (w-14) * this.health, 4, 2);
+		ctx.roundRect(6, h-8, (w-14) * this.health.perc, 4, 2);
 		ctx.fill();
 
 		ctx.lineWidth = 3;
 		ctx.strokeStyle = "#fff";
-		ctx.strokeText(this.power, wH, tH);
-		ctx.fillText(this.power, wH, tH);
+		ctx.strokeText(this.health.curr, wH, tH);
+		ctx.fillText(this.health.curr, wH, tH);
 
 		ctx.restore();
 	}

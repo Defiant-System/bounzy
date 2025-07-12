@@ -49,6 +49,7 @@ class Bullet {
 				},
 			};
 		this.body = Matter.Bodies.circle(this.position.x, this.position.y, this.radius, opt);
+		this.body.label = "bullet-"+ Date.now();
 
 		// add to map entries
 		this.parent.addEntity(this);

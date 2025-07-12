@@ -22,8 +22,11 @@ class Arena {
 		this.engine = Matter.Engine.create({ gravity: { x: 0, y: 0, scale: 1 } });
 		// create runner
 		this.runner = Matter.Runner.create();
-
+		// resolves physical world in this game scenario
 		Matter.Resolver._restingThresh = 0.001;
+		// event handler
+		Matter.Events.on(this.engine, "collisionStart", this.handleCollision.bind(this));
+
 
 		// entities array
 		this.entities = [];
@@ -99,6 +102,21 @@ class Arena {
 		this.wizard = new Wizard({ parent: this, asset: this.assets.arrows });
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
+	}
+
+	handleCollision(event) {
+		event.pairs.map(pair => {
+			let [a1, b1] = pair.bodyA.label.split("-"),
+				[a2, b2] = pair.bodyB.label.split("-"),
+				bBody = a1 === "bullet" ? pair.bodyA : (a2 === "bullet" ? pair.bodyB : null),
+				mBody = a1 === "monster" ? pair.bodyA : (a2 === "monster" ? pair.bodyB : null);
+			// console.log( pair.bodyA, pair.bodyB );
+			if (bBody && mBody) {
+				let bullet = this.entities.find(item => item.body.label === bBody.label),
+					monster = this.entities.find(item => item.body.label === mBody.label);
+				monster.dealDamage(bullet.damage);
+			}
+		});
 	}
 
 	setPhysicalWorld() {
