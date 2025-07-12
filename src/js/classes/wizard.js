@@ -19,7 +19,7 @@ class Wizard {
 		this.start = new Point(160, 590);
 		// this.setMouse(208, 114);
 		// this.setMouse(206, 111);
-		// this.setMouse(90, 150);
+		// this.setMouse(60, 350);
 		// this.setTarget(this.mouse);
 
 		// target seeker
@@ -28,13 +28,12 @@ class Wizard {
 
 	checkCollisions() {
 		if (!this._aiming) return;
-		
+
 		var bodies = Matter.Composite.allBodies(this.parent.engine.world),
 			start = new Vec2(this.start.x, this.start.y),
 			end = new Vec2(this.mouse.x, this.mouse.y);
 
 		let query = Matter.Query.ray(bodies, start, end, 10);
-		// console.log(query);
 		let cols = [];
 		let rayTest = new Ray(start, end);
 
@@ -44,16 +43,17 @@ class Wizard {
 				cols.push(bcols[k]);
 			}
 		}
-
+		// sort collisions
 		cols.sort((a, b) => a.distance(start) - b.distance(start));
-		// console.log(cols);
 		
 		if (cols.length) end = cols[0];
 		this.setTarget(end);
 	}
 
 	setMouse(x, y) {
-		this.mouse = new Point(x, y);
+		let point = new Point(x, y),
+			start = this.start.clone();
+		this.mouse = start.moveTowards(point, 1200);
 		// aiming
 		this._aiming = true;
 	}
