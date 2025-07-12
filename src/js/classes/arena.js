@@ -17,6 +17,8 @@ class Arena {
 		// create runner
 		this.runner = Matter.Runner.create();
 
+		Matter.Resolver._restingThresh = 0.001;
+
 		// entities array
 		this.entities = [];
 		// physical bodies
@@ -93,11 +95,16 @@ class Arena {
 	}
 
 	setPhysicalWorld() {
-		let thick = 30;
+		let thick = 30,
+			opt = {
+				isStatic: true,
+				density: 1,
+				mass: 0,
+			};
 		// add physical walls
-		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick, { isStatic: true, density: 1 }));
-		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h, { isStatic: true, density: 1 }));
-		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h, { isStatic: true, density: 1 }));
+		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick, opt));
+		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h, opt));
+		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h, opt));
 
 		// temp
 		let bodies = [...this.bodies, ...this.entities.map(m => m.body)];

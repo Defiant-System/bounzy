@@ -9,28 +9,32 @@ class Bullet {
 		this.radius = 10;
 
 		let opt = {
+			frictionStatic: 1,
 			restitution: 1,
 			frictionAir: 0,
 			friction: 0,
 			inertia: Infinity,
 			density: 1e-10,
 			mass: 0,
+			slop: 0.5,
 		};
 		this.body = Matter.Bodies.circle(this.position.x, this.position.y, this.radius, opt);
 
 		// add to map entries
 		this.parent.addEntity(this);
 		
-		let speed = opt.density,
+		let speed = 5,
 			vX = Math.cos(angle) * speed,
  			vY = Math.sin(angle) * speed;
 		this.force = new Point(vX, vY);
 		// this.force = this.body.mass * .007;
+
+		Matter.Body.setVelocity(this.body, this.force);
 	}
 
 	update(delta, time) {
-		let force = this.force.setMagnitude(delta/50);
-		Matter.Body.applyForce(this.body, this.body.position, force);
+		// let force = this.force.setMagnitude(delta/50);
+		// Matter.Body.applyForce(this.body, this.body.position, force);
 		
 		// copy physical position to "this" internal position
 		this.position.x = this.body.position.x;
