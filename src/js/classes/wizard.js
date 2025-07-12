@@ -65,9 +65,9 @@ class Wizard {
 
 	reload() {
 		this.magasin = [];
-		this.magasin.push({ damage: 5, uI: "b1" });
-		this.magasin.push({ damage: 5, uI: "b1" });
-		this.magasin.push({ damage: 5, uI: "b1" });
+		this.magasin.push({ damage: 5, uI: "b2" });
+		this.magasin.push({ damage: 5, uI: "b3" });
+		this.magasin.push({ damage: 5, uI: "b4" });
 	}
 
 	shoot() {
