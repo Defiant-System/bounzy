@@ -12,6 +12,12 @@ class Arena {
 		// arena dimensions
 		this.offset = { x: 49, y: 69, w: 390, h: 576 };
 
+		this.colMasks = {
+			default: 0x0001,
+			monster: 0x0002,
+			walls: 0x0003,
+		};
+
 		// physics engine
 		this.engine = Matter.Engine.create({ gravity: { x: 0, y: 0, scale: 1 } });
 		// create runner
@@ -101,6 +107,7 @@ class Arena {
 				isStatic: true,
 				density: 1,
 				mass: 0,
+				collisionFilter: { category: this.colMasks.walls },
 			};
 		// add physical walls
 		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick, opt));

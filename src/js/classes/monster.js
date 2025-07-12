@@ -25,8 +25,9 @@ class Monster {
 		// this.body = Matter.Bodies.rectangle(this.x + sH, this.y + sH, size, size, { isStatic: true });
 		// this.body = Matter.Bodies.polygon(this.x+sH, this.y+sH, 8, sH, { isStatic: true });
 		let path = window.find(`svg#monster-mask path`)[0],
-			vertexSets = Matter.Svg.pathToVertices(path, 12);
-		this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true });
+			vertexSets = Matter.Svg.pathToVertices(path, 12),
+			collisionFilter = { category: parent.colMasks.monster };
+		this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true, collisionFilter });
 		// prevents rotation
 		Matter.Body.setInertia(this.body, Infinity);
 
@@ -55,11 +56,17 @@ class Monster {
 			fX = (this.frame.index | 0) * w,
 			fY = this.type,
 			wH = w >> 1,
-			tH = h - 10;
+			tH = h - 7;
 		ctx.save();
 		ctx.translate(this.x, this.y);
 		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -18, 9, w, h);
 		ctx.drawImage(this.asset, fX, fY, w, h, 0, 0, w, h);
+
+		ctx.font = "20px Bakbak One";
+		ctx.textAlign = "center";
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = "#0008";
+		ctx.strokeText(this.power, wH, tH);
 
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = "#0008";
@@ -74,11 +81,6 @@ class Monster {
 		ctx.roundRect(6, h-8, (w-14) * this.health, 4, 2);
 		ctx.fill();
 
-		ctx.font = "20px Bakbak One";
-		ctx.textAlign = "center";
-		ctx.lineWidth = 5;
-		ctx.strokeStyle = "#0008";
-		ctx.strokeText(this.power, wH, tH);
 		ctx.lineWidth = 3;
 		ctx.strokeStyle = "#fff";
 		ctx.strokeText(this.power, wH, tH);

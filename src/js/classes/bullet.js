@@ -35,21 +35,25 @@ class Bullet {
 		this.h = h;
 
 		let opt = {
-			// frictionStatic: 1,
-			// density: 1e-10,
-			// slop: 0.5,
-			restitution: 1,
-			frictionAir: 0,
-			friction: 0,
-			inertia: Infinity,
-			mass: 0,
-		};
+				// frictionStatic: 1,
+				// density: 1e-10,
+				// slop: 0.5,
+				restitution: 1,
+				frictionAir: 0,
+				friction: 0,
+				inertia: Infinity,
+				mass: 0,
+				collisionFilter: {
+					mask: parent.colMasks.monster,
+					// category: parent.colMasks.bullet,
+				},
+			};
 		this.body = Matter.Bodies.circle(this.position.x, this.position.y, this.radius, opt);
 
 		// add to map entries
 		this.parent.addEntity(this);
 		
-		let speed = 7,
+		let speed = 8,
 			vX = Math.cos(angle) * speed,
  			vY = Math.sin(angle) * speed;
 		this.force = new Point(vX, vY);
