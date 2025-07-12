@@ -53,7 +53,9 @@ class Monster {
 		let w = this.width,
 			h = this.height,
 			fX = (this.frame.index | 0) * w,
-			fY = this.type;
+			fY = this.type,
+			wH = w >> 1,
+			tH = h - 10;
 		ctx.save();
 		ctx.translate(this.x, this.y);
 		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -18, 9, w, h);
@@ -63,20 +65,24 @@ class Monster {
 		ctx.strokeStyle = "#0008";
 		ctx.fillStyle = "#fff";
 		ctx.beginPath();
-		ctx.roundRect(4, h-12, w-10, 8, 3);
+		ctx.roundRect(4, h-10, w-10, 8, 3);
 		ctx.fill();
 		ctx.stroke();
 
 		ctx.fillStyle = "#f00";
 		ctx.beginPath();
-		ctx.roundRect(6, h-10, (w-14) * this.health, 4, 2);
+		ctx.roundRect(6, h-8, (w-14) * this.health, 4, 2);
 		ctx.fill();
 
-		ctx.font = "24px Bakbak One";
-		ctx.strokeStyle = "#fff";
+		ctx.font = "20px Bakbak One";
 		ctx.textAlign = "center";
-		ctx.fillText(this.power, w >> 1, h-15);
-		// ctx.strokeText(this.power, w >> 1, h-15);
+		ctx.lineWidth = 5;
+		ctx.strokeStyle = "#0008";
+		ctx.strokeText(this.power, wH, tH);
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = "#fff";
+		ctx.strokeText(this.power, wH, tH);
+		ctx.fillText(this.power, wH, tH);
 
 		ctx.restore();
 	}
