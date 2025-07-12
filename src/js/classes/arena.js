@@ -46,6 +46,7 @@ class Arena {
 				{ id: "monsters", width: 1024, height: 1024, src: "~/gfx/monsters.png" },
 				{ id: "shadow", width: 98, height: 125, src: "~/gfx/shadow.png" },
 				{ id: "shield", width: 64, height: 41, src: "~/gfx/shield-sheet0.webp" },
+				{ id: "ammo", width: 128, height: 128, src: "~/gfx/ammo.webp" },
 				{ id: "arrows", width: 20, height: 1024, src: "~/icons/target-arrows.png" },
 			],
 			loadAssets = () => {
@@ -70,9 +71,9 @@ class Arena {
 		// temp
 		let level = [
 				[0,0,0,0,0,0],
-				[0,0,0,0,0,0],
-				[0,0,0,0,0,0],
 				[0,0,1,1,0,0],
+				[0,0,0,0,0,0],
+				[0,0,0,0,0,0],
 				// [1,1,2,2,0,1],
 				// [1,1,2,2,0,1],
 				// [3,3,4,4,5,5],
@@ -116,8 +117,16 @@ class Arena {
 	addEntity(item) {
 		// add item body to physical world
 		if (item.body) Matter.Composite.add(this.engine.world, item.body);
-		// to ben updated & rendered
+		// to be updated & rendered
 		this.entities.push(item);
+	}
+
+	removeEntity(item) {
+		// remove item body from physical world
+		if (item.body) Matter.Composite.remove(this.engine.world, item.body);
+		// stop update & render
+		let index = this.entities.findIndex(e => e == item);
+		this.entities.splice(index, 1);
 	}
 
 	update(delta, time) {
