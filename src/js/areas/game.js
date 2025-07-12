@@ -27,6 +27,9 @@
 			case "exit-view":
 				Self.dispatch({ type: "pause-game", dialog: "none" });
 				break;
+			case "set-debug-mode":
+				Self.arena.debug.mode = event.arg;
+				break;
 			case "start-game":
 			case "resume-game":
 				if (Self._gameState === "started") return;
@@ -55,6 +58,9 @@
 		switch (event.type) {
 			// pan stadium
 			case "mousedown":
+				// exit on contextmenu
+				if (event.button == 2) return;
+
 				// prevent default behaviour
 				event.preventDefault();
 

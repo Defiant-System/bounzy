@@ -9,6 +9,11 @@
 			<Menu name="Start" click="show-view" arg="start"/>
 			<Menu name="Game" click="show-view" arg="game"/>
 		</Menu>
+		<Menu name="Debug Mode">
+			<Menu name="0" check-group="debug" click="set-debug-mode" arg="0" is-checked="1"/>
+			<Menu name="1" check-group="debug" click="set-debug-mode" arg="1"/>
+			<Menu name="2" check-group="debug" click="set-debug-mode" arg="2"/>
+		</Menu>
 	</Menu>
 	<Menu name="Help">
 		<Menu name="Help" click="open-help"/>
