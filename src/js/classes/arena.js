@@ -57,7 +57,8 @@ class Arena {
 				{ id: "monsters", width: 1024, height: 1024, src: "~/gfx/monsters.png" },
 				{ id: "shadow", width: 98, height: 125, src: "~/gfx/shadow.png" },
 				{ id: "shield", width: 64, height: 41, src: "~/gfx/shield-sheet0.webp" },
-				{ id: "ammo", width: 128, height: 128, src: "~/gfx/ammo.webp" },
+				{ id: "ammo", width: 128, height: 128, src: "~/gfx/ammo.png" },
+				{ id: "vortex", width: 128, height: 128, src: "~/gfx/vortex.png" },
 				{ id: "arrows", width: 20, height: 1024, src: "~/icons/target-arrows.png" },
 			],
 			loadAssets = () => {
