@@ -20,9 +20,6 @@ class Wizard {
 		// this.setMouse(60, 350);
 		// this.setTarget(this.mouse);
 
-		// this ammo mag
-		this.reload();
-
 		// target seeker
 		Matter.Events.on(parent.engine, "afterUpdate", this.checkCollisions.bind(this));
 	}
@@ -63,11 +60,24 @@ class Wizard {
 		this.d2 = this.distance - 10;
 	}
 
+	setMagasin(magasin) {
+		this._magasin = [...magasin];
+		// this ammo mag
+		this.reload();
+	}
+
+	count(bullit) {
+		this._bullets--;
+		if (this._bullets <= 0) {
+			// all bullits returned
+			this.reload();
+			// reloaded and ready
+			delete this._state;
+		}
+	}
+
 	reload() {
-		this.magasin = [];
-		this.magasin.push({ damage: 15, uI: "b2" });
-		this.magasin.push({ damage: 15, uI: "b3" });
-		this.magasin.push({ damage: 15, uI: "b4" });
+		this.magasin = [...this._magasin];
 	}
 
 	shoot() {
@@ -81,13 +91,16 @@ class Wizard {
 			this._state = "shooting";
 			this._tick = this.parent.fpsControl._now;
 		} else {
-			delete this._state;
-			this.reload();
+			this._bullets = this._magasin.length;
+			this._state = "waiting";
 		}
 	}
 
 	update(delta, time) {
 		switch (this._state) {
+			case "waiting":
+				// wait for all bullets to return
+				break;
 			case "shooting":
 				if (time - this._tick > 100) {
 					this.shoot();

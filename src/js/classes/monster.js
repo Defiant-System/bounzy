@@ -24,8 +24,6 @@ class Monster {
 		this.type = (type - 1) * size;
 
 		// physical body
-		// this.body = Matter.Bodies.rectangle(this.x + sH, this.y + sH, size, size, { isStatic: true });
-		// this.body = Matter.Bodies.polygon(this.x+sH, this.y+sH, 8, sH, { isStatic: true });
 		let path = window.find(`svg#monster-mask path`)[0],
 			vertexSets = Matter.Svg.pathToVertices(path, 12),
 			collisionFilter = { category: parent.colMasks.monster };

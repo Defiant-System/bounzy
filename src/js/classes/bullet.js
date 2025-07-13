@@ -35,18 +35,12 @@ class Bullet {
 		this.h = h;
 
 		let opt = {
-				// frictionStatic: 1,
-				// density: 1e-10,
-				// slop: 0.5,
 				restitution: 1,
 				frictionAir: 0,
 				friction: 0,
 				inertia: Infinity,
 				mass: 0,
-				collisionFilter: {
-					mask: parent.colMasks.monster,
-					// category: parent.colMasks.bullet,
-				},
+				collisionFilter: { mask: parent.colMasks.monster },
 			};
 		this.body = Matter.Bodies.circle(this.position.x, this.position.y, this.radius, opt);
 		this.body.label = "bullet-"+ Date.now();
@@ -64,6 +58,9 @@ class Bullet {
 	}
 
 	kill() {
+		// keep track of bullits finished
+		this.parent.wizard.count(this);
+		// remove this from game loop
 		this.parent.removeEntity(this);
 	}
 

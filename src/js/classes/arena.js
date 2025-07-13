@@ -30,6 +30,8 @@ class Arena {
 
 		// entities array
 		this.entities = [];
+		// fx array
+		this.fx = [];
 		// physical bodies
 		this.bodies = [];
 
@@ -109,11 +111,18 @@ class Arena {
 			let [a1, b1] = pair.bodyA.label.split("-"),
 				[a2, b2] = pair.bodyB.label.split("-"),
 				bBody = a1 === "bullet" ? pair.bodyA : (a2 === "bullet" ? pair.bodyB : null),
-				mBody = a1 === "monster" ? pair.bodyA : (a2 === "monster" ? pair.bodyB : null);
+				mBody = a1 === "monster" ? pair.bodyA : (a2 === "monster" ? pair.bodyB : null),
+				bullet,
+				monster;
 			// console.log( pair.bodyA, pair.bodyB );
+			if (bBody) {
+				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
+				let { x, y } = pair.collision.supports[0];
+				new Sparks({ parent: this, x, y });
+			}
 			if (bBody && mBody) {
-				let bullet = this.entities.find(item => item.body.label === bBody.label),
-					monster = this.entities.find(item => item.body.label === mBody.label);
+				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
+				if (!monster) monster = this.entities.find(item => item.body.label === mBody.label);
 				monster.dealDamage(bullet.damage);
 			}
 		});
@@ -143,21 +152,28 @@ class Arena {
 		// add item body to physical world
 		if (item.body) Matter.Composite.add(this.engine.world, item.body);
 		// to be updated & rendered
-		this.entities.push(item);
+		if (item._fx) this.fx.push(item);
+		else this.entities.push(item);
 	}
 
 	removeEntity(item) {
 		// remove item body from physical world
 		if (item.body) Matter.Composite.remove(this.engine.world, item.body);
 		// stop update & render
-		let index = this.entities.findIndex(e => e == item);
-		this.entities.splice(index, 1);
+		if (item._fx) {
+			let index = this.fx.findIndex(e => e == item);
+			this.fx.splice(index, 1);
+		} else {
+			let index = this.entities.findIndex(e => e == item);
+			this.entities.splice(index, 1);
+		}
 	}
 
 	update(delta, time) {
 		// update all entities
 		this.entities.map(item => item.update(delta, time));
 		this.wizard.update(delta, time);
+		this.fx.map(item => item.update(delta, time));
 	}
 
 	render() {
@@ -170,6 +186,7 @@ class Arena {
 		// render all entities
 		this.entities.map(item => item.render(this.ctx));
 		this.wizard.render(this.ctx);
+		this.fx.map(item => item.render(this.ctx));
 
 		if (this.debug.mode >= 2) {
 			// game arena

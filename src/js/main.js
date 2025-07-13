@@ -8,14 +8,48 @@
 @import "./classes/ray.js"
 @import "./classes/vec2.js"
 @import "./classes/point.js"
+@import "./classes/sparks.js"
 
 @import "./ext/matter.min.js"
 @import "./ext/pathseg.js"
 
+@import "./modules/levels.js"
+@import "./modules/utils.js"
 @import "./modules/test.js"
 
 
 const Matter = window.Matter;
+
+
+// default settings
+const defaultSettings = {
+	"music": "on",
+	"sound-fx": "on",
+	"wizard": {
+		level: 21,
+		wall: 13,
+		academy: {
+			front: 36,
+			back: 36,
+			skills: [
+				{ type: "potion", damage: 32 },
+				{ type: "comet", damage: 30 },
+			],
+		},
+		laboratory: {
+			front: [
+				{ damage: 11, uI: "b1" },
+				{ damage: 11, uI: "b1" },
+				{ damage: 11, uI: "b1" },
+			],
+			back: [
+				{ damage: 10, uI: "b0" },
+				{ damage: 10, uI: "b0" },
+				{ damage: 10, uI: "b0" },
+			]
+		},
+	},
+};
 
 
 const bounzy = {
@@ -27,6 +61,9 @@ const bounzy = {
 		Object.keys(this)
 			.filter(i => typeof this[i].init === "function")
 			.map(i => this[i].init(this));
+
+		// init settings
+		this.dispatch({ type: "init-settings" });
 
 		// DEV-ONLY-START
 		Test.init(this);
@@ -47,6 +84,9 @@ const bounzy = {
 				Self.game.dispatch({ type: "pause-if-started" });
 				break;
 			// custom events
+			case "open-help":
+				karaqu.shell("fs -u '~/help/index.md'");
+				break;
 			case "show-view":
 				// exit active view, if any
 				if (Self._activeView) Self[Self._activeView].dispatch({ type: "exit-view" });
@@ -59,8 +99,18 @@ const bounzy = {
 					el.data({ show: event.arg }).removeClass(val);
 				});
 				break;
-			case "open-help":
-				karaqu.shell("fs -u '~/help/index.md'");
+			case "init-settings":
+				// get settings, if any
+				Self.settings = window.settings.getItem("settings") || defaultSettings;
+				// settings
+				["music", "sound-fx"].map(e => {
+					let value = Self.settings[e] === "on";
+					Self.dispatch({ type: `toggle-${e}`, value });
+				});
+				break;
+			case "toggle-music":
+			case "toggle-sound-fx":
+				// TODO
 				break;
 			case "open-dialog":
 				if (event.addClass) Self.content.find(`div[data-area="${event.arg}"]`).addClass(event.addClass);

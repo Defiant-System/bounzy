@@ -31,6 +31,11 @@
 				Self.arena.debug.mode = event.arg;
 				break;
 			case "start-game":
+				let magasin = [];
+				magasin.push(...APP.settings.wizard.laboratory.front);
+				magasin.push(...APP.settings.wizard.laboratory.back);
+				Self.arena.wizard.setMagasin(magasin);
+				/* falls through */
 			case "resume-game":
 				if (Self._gameState === "started") return;
 				Self.arena.fpsControl.start();
