@@ -115,15 +115,18 @@ class Arena {
 				bullet,
 				monster;
 			// console.log( pair.bodyA, pair.bodyB );
-			if (bBody) {
-				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
-				let { x, y } = pair.collision.supports[0];
-				new Sparks({ parent: this, x, y });
-			}
+			// if (bBody) {
+			// 	if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
+			// 	let { x, y } = pair.collision.supports[0];
+			// 	new Sparks({ parent: this, x, y });
+			// }
 			if (bBody && mBody) {
 				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
 				if (!monster) monster = this.entities.find(item => item.body.label === mBody.label);
 				monster.dealDamage(bullet.damage);
+				// sparks
+				let { x, y } = pair.collision.supports[0];
+				new Sparks({ parent: this, x, y });
 			}
 		});
 	}

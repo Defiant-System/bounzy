@@ -29,27 +29,58 @@
 			case "exit-view":
 				Self.dispatch({ type: "pause-game", dialog: "none" });
 				break;
-			case "restore-state":
-				value = APP.settings.state.shield;
-				Self.els.content.find(`.top-bar .shield`).html(value);
-				
-				value = APP.settings.state.level;
-				Self.els.content.find(`.top-bar .level`).html(value);
-				
-				value = APP.settings.state.coins;
-				Self.els.content.find(`.top-bar .coins`).html(value);
-				
-				value = APP.settings.state.jems;
-				Self.els.content.find(`.top-bar .jems`).html(value);
-				break;
 			case "set-debug-mode":
 				Self.arena.debug.mode = event.arg;
 				break;
+			case "restore-state":
+				// top bar
+				Self.els.content.find(`.top-bar .shield`).html(APP.settings.state.shield);
+				Self.els.content.find(`.top-bar .level`).html(APP.settings.state.level);
+				Self.els.content.find(`.top-bar .coins`).html(APP.settings.state.coins);
+				Self.els.content.find(`.top-bar .jems`).html(APP.settings.state.jems);
+
+				// dialog laboratory
+				Self.els.content.find(`.bg-laboratory .info.front .value`).html(APP.settings.state.laboratory.front.damage);
+				Self.els.content.find(`.bg-laboratory .info.front .price`).html(APP.settings.state.laboratory.front.price);
+				Self.els.content.find(`.bg-laboratory .front-ammo`).data({
+					on: APP.settings.state.laboratory.front.length,
+					lvl: APP.settings.state.laboratory.front.level,
+				});
+
+				Self.els.content.find(`.bg-laboratory .info.back .value`).html(APP.settings.state.laboratory.back.damage);
+				Self.els.content.find(`.bg-laboratory .info.back .price`).html(APP.settings.state.laboratory.back.price);
+				Self.els.content.find(`.bg-laboratory .back-ammo`).data({
+					on: APP.settings.state.laboratory.back.length,
+					lvl: APP.settings.state.laboratory.back.level,
+				});
+
+				value = 0;
+				value += APP.settings.state.laboratory.front.length * APP.settings.state.laboratory.front.damage;
+				value += APP.settings.state.laboratory.back.length * APP.settings.state.laboratory.back.damage;
+				Self.els.content.find(`.bg-laboratory .total span`).html(value);
+
+				Self.dispatch({ type: "set-wizard-magasin" });
+				break;
+			case "set-wizard-magasin":
+				if (Self.arena.wizard) {
+					let magasin = [];
+					[...Array(APP.settings.state.laboratory.front.length)].map(i => {
+						magasin.push({
+							damage: APP.settings.state.laboratory.front.damage,
+							uI: "b"+ APP.settings.state.laboratory.front.level,
+						});
+					});
+					[...Array(APP.settings.state.laboratory.back.length)].map(i => {
+						magasin.push({
+							damage: APP.settings.state.laboratory.back.damage,
+							uI: "b"+ APP.settings.state.laboratory.back.level,
+						});
+					});
+					Self.arena.wizard.setMagasin(magasin);
+				}
+				break;
 			case "start-game":
-				let magasin = [];
-				magasin.push(...APP.settings.state.laboratory.front);
-				magasin.push(...APP.settings.state.laboratory.back);
-				Self.arena.wizard.setMagasin(magasin);
+				Self.dispatch({ type: "set-wizard-magasin" });
 				/* falls through */
 			case "resume-game":
 				if (Self._gameState === "started") return;

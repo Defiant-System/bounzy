@@ -19,11 +19,13 @@
 			case "init-view":
 				break;
 			case "upgrade-frontline":
+				if (!event.el.hasClass("active")) return;
 				Self.els.el.find(`.ammo .front-ammo`).cssSequence("upgrade", "transitionend", el => {
 					el.removeClass("upgrade");
 				});
 				break;
 			case "upgrade-backline":
+				if (!event.el.hasClass("active")) return;
 				Self.els.el.find(`.ammo .back-ammo`).cssSequence("upgrade", "transitionend", el => {
 					el.removeClass("upgrade");
 				});

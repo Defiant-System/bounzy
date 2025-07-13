@@ -97,7 +97,7 @@ class Wizard {
 		// bullet still active
 		if (["waiting"].includes(this._state)) return;
 
-		let { damage, uI } = this.magasin.pop(),
+		let { damage, uI } = this.magasin.shift(),
 			start = this.start.clone(),
 			target = this.target.clone(),
 			angle = this.angle + (Math.PI / 2);

@@ -41,14 +41,18 @@ const defaultSettings = {
 			comet: { damage: 100, price: 450 },
 		},
 		laboratory: {
-			front: [
-				{ damage: 15, uI: "b1" },
-				{ damage: 15, uI: "b1" },
-			],
-			back: [
-				{ damage: 15, uI: "b0" },
-				{ damage: 15, uI: "b0" },
-			]
+			front: {
+				length: 5,
+				damage: 15,
+				level: 3,
+				price: 525,
+			},
+			back: {
+				length: 3,
+				damage: 15,
+				level: 1,
+				price: 525,
+			},
 		},
 	},
 };
