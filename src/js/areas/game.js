@@ -38,27 +38,64 @@
 				Self.els.content.find(`.top-bar .level`).html(APP.settings.state.level);
 				Self.els.content.find(`.top-bar .coins`).html(APP.settings.state.coins);
 				Self.els.content.find(`.top-bar .jems`).html(APP.settings.state.jems);
-
-				// dialog laboratory
-				Self.els.content.find(`.bg-laboratory .info.front .value`).html(APP.settings.state.laboratory.front.damage);
-				Self.els.content.find(`.bg-laboratory .info.front .price`).html(APP.settings.state.laboratory.front.price);
+				// dialog laboratory: front
+				data = APP.settings.state.laboratory.front;
+				Self.els.content.find(`.bg-laboratory .info.front .value`).html(data.damage);
+				Self.els.content.find(`.bg-laboratory .info.front .price`)
+					.toggleClass("active", data.price > APP.settings.state.coins)
+					.html(data.price);
 				Self.els.content.find(`.bg-laboratory .front-ammo`).data({
-					on: APP.settings.state.laboratory.front.length,
-					lvl: APP.settings.state.laboratory.front.level,
+					on: data.length,
+					lvl: data.level,
 				});
-
-				Self.els.content.find(`.bg-laboratory .info.back .value`).html(APP.settings.state.laboratory.back.damage);
-				Self.els.content.find(`.bg-laboratory .info.back .price`).html(APP.settings.state.laboratory.back.price);
+				// dialog laboratory: back
+				data = APP.settings.state.laboratory.back;
+				Self.els.content.find(`.bg-laboratory .info.back .value`).html(data.damage);
+				Self.els.content.find(`.bg-laboratory .info.back .price`)
+					.toggleClass("active", data.price > APP.settings.state.coins)
+					.html(data.price);
 				Self.els.content.find(`.bg-laboratory .back-ammo`).data({
-					on: APP.settings.state.laboratory.back.length,
-					lvl: APP.settings.state.laboratory.back.level,
+					on: data.length,
+					lvl: data.level,
 				});
-
+				// dialog laboratory: total
 				value = 0;
 				value += APP.settings.state.laboratory.front.length * APP.settings.state.laboratory.front.damage;
 				value += APP.settings.state.laboratory.back.length * APP.settings.state.laboratory.back.damage;
 				Self.els.content.find(`.bg-laboratory .total span`).html(value);
 
+				// dialog academy
+				Self.els.content.find(`.bg-academy .box.front .value`).html(APP.settings.state.academy.front.damage);
+				el = Self.els.content.find(`.bg-academy .box.front .price`);
+				data = APP.settings.state.academy.front;
+				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
+				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
+
+				Self.els.content.find(`.bg-academy .box.back .value`).html(APP.settings.state.academy.back.damage);
+				el = Self.els.content.find(`.bg-academy .box.back .price`);
+				data = APP.settings.state.academy.back;
+				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
+				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
+
+				Self.els.content.find(`.bg-academy .box.potion .value`).html(APP.settings.state.academy.potion.damage);
+				el = Self.els.content.find(`.bg-academy .box.potion .price`);
+				data = APP.settings.state.academy.potion;
+				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
+				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
+
+				Self.els.content.find(`.bg-academy .box.comet .value`).html(APP.settings.state.academy.comet.damage);
+				el = Self.els.content.find(`.bg-academy .box.comet .price`);
+				data = APP.settings.state.academy.comet;
+				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
+				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
+
+				// dialog wall
+				Self.els.content.find(`.bg-wall .info .value`).html(APP.settings.state.wall.level);
+				Self.els.content.find(`.bg-wall .info .price`)
+					.toggleClass("active", APP.settings.state.wall.price > APP.settings.state.coins)
+					.html(APP.settings.state.wall.price);
+
+				// update wizard magasin
 				Self.dispatch({ type: "set-wizard-magasin" });
 				break;
 			case "set-wizard-magasin":

@@ -34,11 +34,15 @@ const defaultSettings = {
 			num: 16,
 			chest: "unlocked",
 		},
+		wall: {
+			level: 10,
+			price: 600,
+		},
 		academy: {
-			front: { damage: 80, price: 525 },
-			back:  { damage: 30, price: 525 },
-			potion: { damage: 50, price: 450 },
-			comet: { damage: 100, price: 450 },
+			front: { damage: 80, price: 450, disabled: 5 },
+			back:  { damage: 30, price: 450, disabled: 7 },
+			potion: { damage: 50, price: 500, disabled: 10 },
+			comet: { damage: 100, price: 500, disabled: 12 },
 		},
 		laboratory: {
 			front: {
@@ -158,6 +162,7 @@ const bounzy = {
 	start: @import "./areas/start.js",
 	laboratory: @import "./areas/laboratory.js",
 	academy: @import "./areas/academy.js",
+	wall: @import "./areas/wall.js",
 	pause: @import "./areas/pause.js",
 	game: @import "./areas/game.js",
 };

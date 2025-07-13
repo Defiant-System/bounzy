@@ -1,16 +1,16 @@
 
-// bounzy.academy
+// bounzy.wall
 
 {
 	init() {
 		// fast references
 		this.els = {
-			el: window.find(`div[data-area="academy"]`),
+			el: window.find(`div[data-area="wall"]`),
 		};
 	},
 	async dispatch(event) {
 		let APP = bounzy,
-			Self = APP.academy,
+			Self = APP.wall,
 			data,
 			el;
 		// console.log(event);
@@ -18,10 +18,7 @@
 			// custom events
 			case "init-view":
 				break;
-			case "upgrade-frontline":
-			case "upgrade-backline":
-			case "upgrade-potion":
-			case "upgrade-comet":
+			case "upgrade-wall":
 				if (!event.el.hasClass("active")) return;
 				console.log(event);
 				break;
