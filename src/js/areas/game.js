@@ -5,6 +5,7 @@
 	init() {
 		// fast references
 		this.els = {
+			content: window.find(`content`),
 			el: window.find(`div[data-area="game"]`),
 			canvas: window.find(`div[data-area="game"] canvas`),
 		};
@@ -17,6 +18,7 @@
 		let APP = bounzy,
 			Self = APP.game,
 			data,
+			value,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -27,13 +29,26 @@
 			case "exit-view":
 				Self.dispatch({ type: "pause-game", dialog: "none" });
 				break;
+			case "restore-state":
+				value = APP.settings.state.shield;
+				Self.els.content.find(`.top-bar .shield`).html(value);
+				
+				value = APP.settings.state.level;
+				Self.els.content.find(`.top-bar .level`).html(value);
+				
+				value = APP.settings.state.coins;
+				Self.els.content.find(`.top-bar .coins`).html(value);
+				
+				value = APP.settings.state.jems;
+				Self.els.content.find(`.top-bar .jems`).html(value);
+				break;
 			case "set-debug-mode":
 				Self.arena.debug.mode = event.arg;
 				break;
 			case "start-game":
 				let magasin = [];
-				magasin.push(...APP.settings.wizard.laboratory.front);
-				magasin.push(...APP.settings.wizard.laboratory.back);
+				magasin.push(...APP.settings.state.laboratory.front);
+				magasin.push(...APP.settings.state.laboratory.back);
 				Self.arena.wizard.setMagasin(magasin);
 				/* falls through */
 			case "resume-game":

@@ -25,27 +25,29 @@ const Matter = window.Matter;
 const defaultSettings = {
 	"music": "on",
 	"sound-fx": "on",
-	"wizard": {
-		level: 21,
-		wall: 13,
+	"state": {
+		level: 1,
+		shield: 10,
+		coins: 400,
+		jems: 5,
+		waves: {
+			num: 16,
+			chest: "unlocked",
+		},
 		academy: {
-			front: 36,
-			back: 36,
-			skills: [
-				{ type: "potion", damage: 32 },
-				{ type: "comet", damage: 30 },
-			],
+			front: { damage: 80, price: 525 },
+			back:  { damage: 30, price: 525 },
+			potion: { damage: 50, price: 450 },
+			comet: { damage: 100, price: 450 },
 		},
 		laboratory: {
 			front: [
-				{ damage: 11, uI: "b1" },
-				{ damage: 11, uI: "b1" },
-				{ damage: 11, uI: "b1" },
+				{ damage: 15, uI: "b1" },
+				{ damage: 15, uI: "b1" },
 			],
 			back: [
-				{ damage: 10, uI: "b0" },
-				{ damage: 10, uI: "b0" },
-				{ damage: 10, uI: "b0" },
+				{ damage: 15, uI: "b0" },
+				{ damage: 15, uI: "b0" },
 			]
 		},
 	},
@@ -107,6 +109,8 @@ const bounzy = {
 					let value = Self.settings[e] === "on";
 					Self.dispatch({ type: `toggle-${e}`, value });
 				});
+				// restore state
+				Self.game.dispatch({ type: "restore-state" });
 				break;
 			case "toggle-music":
 			case "toggle-sound-fx":

@@ -1465,6 +1465,7 @@ content {
 							left 150ms ease-in-out,
 							width 150ms ease-in-out;
 				transition-delay: calc( var( --td ) * 1.5 );
+				--wave: 0;
 
 				&:before {
 					content: "";
@@ -1482,7 +1483,7 @@ content {
 					position: absolute;
 					top: 11px;
 					left: 7px;
-					width: 167px;
+					width: calc( var( --wave ) * 14px );
 					height: 7px;
 					filter: drop-shadow(0 1px 0 #1d3c6c);
 				}

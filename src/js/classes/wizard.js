@@ -46,6 +46,10 @@ class Wizard {
 		this.setTarget(end);
 	}
 
+	setPosition(x) {
+		this.start.x = x;
+	}
+
 	setMouse(x, y) {
 		// bullet still active
 		if (["shooting", "waiting"].includes(this._state)) return;
