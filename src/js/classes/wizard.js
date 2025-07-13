@@ -10,7 +10,9 @@ class Wizard {
 		this.w = 20;
 		this.h = 1024;
 		this.speed = .8;
-		this._state = false;
+		this.halfPI = Math.PI / 2;
+		this.radToDeg = 180 / Math.PI;
+		this._state = "ready";
 
 		// this animation / overlapping helpers
 		this.a1 = { x: 0, y: 500 };
@@ -45,6 +47,9 @@ class Wizard {
 	}
 
 	setMouse(x, y) {
+		// bullet still active
+		if (["shooting", "waiting"].includes(this._state)) return;
+
 		let point = new Point(x, y),
 			start = this.start.clone();
 		this.mouse = start.moveTowards(point, 1200);
@@ -53,9 +58,13 @@ class Wizard {
 	}
 
 	setTarget(point) {
+		let angle = this.start.direction(point),
+			deg = angle * this.radToDeg;
+		if (deg < -175 || deg > -5) return;
+
 		this.target = point;
 		// target angle
-		this.angle = this.start.direction(this.target) - (Math.PI / 2);
+		this.angle = angle - this.halfPI;
 		this.distance = this.start.distance(this.target) - 10;
 		this.d2 = this.distance - 10;
 	}
@@ -72,7 +81,7 @@ class Wizard {
 			// all bullits returned
 			this.reload();
 			// reloaded and ready
-			delete this._state;
+			this._state = "ready";
 		}
 	}
 
@@ -81,6 +90,9 @@ class Wizard {
 	}
 
 	shoot() {
+		// bullet still active
+		if (["waiting"].includes(this._state)) return;
+
 		let { damage, uI } = this.magasin.pop(),
 			start = this.start.clone(),
 			target = this.target.clone(),
@@ -98,6 +110,9 @@ class Wizard {
 
 	update(delta, time) {
 		switch (this._state) {
+			case "ready":
+				// ready to shoot
+				break;
 			case "waiting":
 				// wait for all bullets to return
 				break;

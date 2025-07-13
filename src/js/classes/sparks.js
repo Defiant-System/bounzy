@@ -5,7 +5,7 @@ class Sparks {
 
 		this.parent = parent
 		this.parts = [];
-		this.gravity = 2;
+		this.gravity = 1.15;
 		this.alpha = 1;
 		this.trailLen = 5;
 		this.decay = Utils.random(.015, .025);
@@ -16,7 +16,7 @@ class Sparks {
 		this.x = x;
 		this.y = y;
 
-		let len = 3;
+		let len = 2;
 		while (len--) {
 			let vX = Utils.random(-1.5, 1.5),
 				vY = Utils.random(-1.5, 1.5),

@@ -37,7 +37,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 1,
+			mode: 2,
 		};
 
 		// create FPS controller
