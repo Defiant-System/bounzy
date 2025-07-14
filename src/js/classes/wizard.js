@@ -79,14 +79,11 @@ class Wizard {
 		this.reload();
 	}
 
-	count(bullit) {
-		this._bullets--;
-		if (this._bullets <= 0) {
-			// all bullits returned
-			this.reload();
-			// reloaded and ready
-			this._state = "ready";
-		}
+	reloadAim() {
+		// all bullits returned
+		this.reload();
+		// reloaded and ready
+		this._state = "ready";
 	}
 
 	reload() {
@@ -107,7 +104,6 @@ class Wizard {
 			this._state = "shooting";
 			this._tick = this.parent.fpsControl._now;
 		} else {
-			this._bullets = this._magasin.length;
 			this._state = "waiting";
 		}
 	}

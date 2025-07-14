@@ -9,7 +9,7 @@ let Test = {
 		// console.log( tmp.setMagnitude(2) );
 		// return;
 
-		setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 500);
+		setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 800);
 		setTimeout(() => APP.game.arena.fpsControl.stop(), 10000);
 		// setTimeout(() => APP.game.dispatch({ type: "pause-game" }), 3000);
 

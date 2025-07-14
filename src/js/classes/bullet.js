@@ -77,8 +77,6 @@ class Bullet {
 				y = this.position.y;
 			new Die({ parent, type: "vortex", x, y });
 		}
-		// keep track of bullits finished
-		this.parent.wizard.count(this);
 		// remove this from game loop
 		this.parent.removeEntity(this);
 	}

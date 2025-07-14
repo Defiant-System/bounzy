@@ -11,7 +11,10 @@ class Arena {
 		this.cvs.attr({ width: this.width, height: this.height });
 		// arena dimensions
 		this.offset = { x: 49, y: 69, w: 390, h: 576 };
-
+		this.counters = {
+			Monster: 0,
+			Bullet: 0,
+		};
 		this.colMasks = {
 			default: 0x0001,
 			monster: 0x0002,
@@ -170,9 +173,10 @@ class Arena {
 		if (item.shield) Matter.Composite.add(this.engine.world, item.shield);
 		// to be updated & rendered
 		if (item._fx) this.fx.push(item);
-		else {
-			this.entities.push(item);
-		}
+		else this.entities.push(item);
+		// keep track of items
+		let name = item.constructor.name;
+		if (this.counters[name] !== undefined) this.counters[name]++;
 	}
 
 	removeEntity(item) {
@@ -180,17 +184,20 @@ class Arena {
 		if (item.body) Matter.Composite.remove(this.engine.world, item.body);
 		if (item.shield) Matter.Composite.remove(this.engine.world, item.shield);
 		// stop update & render
-		// setTimeout(() => {
-			if (item._fx) {
-				let index = this.fx.findIndex(e => e == item);
-				this.fx.splice(index, 1);
-			} else {
-				let index = this.entities.findIndex(e => e == item);
-				// console.log(1, index, this.entities.length, item.body.label);
-				this.entities.splice(index, 1);
-				// console.log(2, index, this.entities.length, item.body.label);
-			}
-		// });
+		if (item._fx) {
+			let index = this.fx.findIndex(e => e == item);
+			this.fx.splice(index, 1);
+		} else {
+			let index = this.entities.findIndex(e => e == item);
+			this.entities.splice(index, 1);
+		}
+		// keep track of items
+		let name = item.constructor.name;
+		if (this.counters[name] !== undefined) this.counters[name]--;
+		// kill all bullets
+		if (this.counters.Monster <= 0) this.endAttack();
+		// keep track of bullets
+		if (this.counters.Bullet <= 0) this.wizard.reloadAim();
 	}
 
 	update(delta, time) {
