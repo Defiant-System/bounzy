@@ -73,10 +73,9 @@ class Bullet {
 	kill(anim) {
 		if (anim) {
 			let parent = this.parent,
-				type = "vortex",
 				x = this.position.x,
 				y = this.position.y;
-			new Die({ parent, type, x, y });
+			new Die({ parent, type: "vortex", x, y });
 		}
 		// keep track of bullits finished
 		this.parent.wizard.count(this);

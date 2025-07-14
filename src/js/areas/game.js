@@ -67,6 +67,16 @@
 				value += APP.settings.state.laboratory.back.length * APP.settings.state.laboratory.back.damage;
 				Self.els.content.find(`.bg-laboratory .total span`).html(value);
 
+				// game view: left side
+				Self.els.el.find(`.line-damage`).html(value);
+
+				data = APP.settings.state.academy.front;
+				Self.els.el.find(`.front-damage`).html(data.damage);
+
+				data = APP.settings.state.academy.back;
+				Self.els.el.find(`.back-damage`).html(data.damage);
+
+
 				// dialog academy
 				Self.els.content.find(`.bg-academy .box.front .value`).html(APP.settings.state.academy.front.damage);
 				el = Self.els.content.find(`.bg-academy .box.front .price`);

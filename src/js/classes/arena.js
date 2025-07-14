@@ -32,12 +32,10 @@ class Arena {
 		this.entities = [];
 		// fx array
 		this.fx = [];
-		// physical bodies
-		this.bodies = [];
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 1,
+			mode: 2,
 		};
 
 		// create FPS controller
@@ -82,18 +80,20 @@ class Arena {
 	ready() {
 		// temp
 		let level = [
-				[0,0,0,0,0,0],
-				[0,0,1,2,0,0],
-				// [1,1,2,2,0,1],
-				// [1,1,2,2,0,1],
-				// [3,3,4,4,5,5],
-				// [0,7,0,6,6,0],
+				["-0","-0","-0","-0","-0","-0"],
+				["-0","-0","s1","-2","-0","-0"],
+				// ["-1","-1","-2","-2","-0","-1"],
+				// ["-1","-1","-2","-2","-0","-1"],
+				// ["-3","-3","-4","-4","-5","-5"],
+				// ["-0","-7","-0","-6","-6","-0"],
 			];
 
 		level.map((r, y) => {
-			r.map((type, x) => {
+			r.map((c, x) => {
+				let [s, type] = c.split(""),
+					hasShield = s === "s";
 				if (type > 0) {
-					this.entities.push(new Monster({ parent: this, type, x, y }));
+					this.entities.push(new Monster({ parent: this, hasShield, type, x, y }));
 				}
 			});
 		});
@@ -134,14 +134,12 @@ class Arena {
 				density: 1,
 				mass: 0,
 				collisionFilter: { category: this.colMasks.walls },
-			};
+			},
+			bodies = [];
 		// add physical walls
-		this.bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick, opt));
-		this.bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h, opt));
-		this.bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h, opt));
-
-		// temp
-		let bodies = [...this.bodies, ...this.entities.map(m => m.body)];
+		bodies.push(Matter.Bodies.rectangle((this.offset.w >> 1), -thick >> 1, thick + thick + this.offset.w, thick, opt));
+		bodies.push(Matter.Bodies.rectangle(-thick >> 1, (this.offset.h >> 1), thick, this.offset.h, opt));
+		bodies.push(Matter.Bodies.rectangle(this.offset.w + (thick >> 1), (this.offset.h >> 1), thick, this.offset.h, opt));
 
 		// physics setup
 		Matter.Composite.add(this.engine.world, bodies);
@@ -165,6 +163,7 @@ class Arena {
 	addEntity(item) {
 		// add item body to physical world
 		if (item.body) Matter.Composite.add(this.engine.world, item.body);
+		if (item.shield) Matter.Composite.add(this.engine.world, item.shield);
 		// to be updated & rendered
 		if (item._fx) this.fx.push(item);
 		else this.entities.push(item);
@@ -173,8 +172,9 @@ class Arena {
 	removeEntity(item) {
 		// remove item body from physical world
 		if (item.body) Matter.Composite.remove(this.engine.world, item.body);
+		if (item.shield) Matter.Composite.remove(this.engine.world, item.shield);
 		// stop update & render
-		setTimeout(() => {
+		// setTimeout(() => {
 			if (item._fx) {
 				let index = this.fx.findIndex(e => e == item);
 				this.fx.splice(index, 1);
@@ -182,7 +182,7 @@ class Arena {
 				let index = this.entities.findIndex(e => e == item);
 				this.entities.splice(index, 1);
 			}
-		});
+		// });
 	}
 
 	update(delta, time) {

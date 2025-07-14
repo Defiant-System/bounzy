@@ -24,6 +24,15 @@ class Die {
 						{ w: 25, h: 25, oX: 300, oY: 0 },
 						{ w: 25, h: 25, oX: 325, oY: 0 },
 					]
+				},
+				smoke: {
+					speed: 50,
+					strip: [
+						{ w: 25, h: 25, oX: 0, oY: 0 },
+						{ w: 25, h: 25, oX: 25, oY: 0 },
+						{ w: 25, h: 25, oX: 50, oY: 0 },
+						{ w: 25, h: 25, oX: 75, oY: 0 },
+					]
 				}
 			};
 		this.asset = parent.assets[type].img;

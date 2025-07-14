@@ -1,11 +1,12 @@
 
 class Monster {
 	constructor(cfg) {
-		let { parent, type, x, y } = cfg,
+		let { parent, hasShield, type, x, y } = cfg,
 			asset = parent.assets.monsters,
 			shadow = parent.assets.shadow;
 
 		this.parent = parent;
+		this.hasShield = hasShield;
 		this.asset = asset.img;
 		this.shadow = shadow.img;
 		this.sW = shadow.item.width;
@@ -26,13 +27,21 @@ class Monster {
 		this.type = (type - 1) * size;
 
 		// physical body
-		let path = window.find(`svg#monster-mask path`)[0],
-			vertexSets = Matter.Svg.pathToVertices(path, 12),
-			collisionFilter = { category: parent.colMasks.monster };
-		this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true, collisionFilter });
-		this.body.label = "monster-"+ Date.now();
+		let collisionFilter = { category: parent.colMasks.monster };
+		if (this.hasShield) {
+			this.body = Matter.Bodies.rectangle(this.x+sH, this.y+size-38, size, size - 17, { isStatic: true, collisionFilter });
+			// shield object
+			collisionFilter = { category: parent.colMasks.walls };
+			this.shield = Matter.Bodies.rectangle(this.x+sH, this.y+size-7, size, 12, { isStatic: true, collisionFilter });
+			Matter.Body.setInertia(this.shield, Infinity);
+		} else {
+			let path = window.find(`svg#monster-mask path`)[0],
+				vertexSets = Matter.Svg.pathToVertices(path, 12);
+			this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true, collisionFilter });
+		}
 		// prevents rotation
 		Matter.Body.setInertia(this.body, Infinity);
+		this.body.label = "monster-"+ Date.now();
 
 		// monster animation
 		this.frame = {
@@ -42,9 +51,19 @@ class Monster {
 			last: 120,
 			speed: 120,
 		};
+
+		// add this to game loop
+		this.parent.addEntity(this);
 	}
 
-	kill() {
+	kill(anim) {
+		if (anim) {
+			let parent = this.parent,
+				x = this.position.x,
+				y = this.position.y;
+			// new Die({ parent, type: "smoke", x, y });
+		}
+		// remove this from game loop
 		this.parent.removeEntity(this);
 	}
 
@@ -75,7 +94,9 @@ class Monster {
 		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -18, 9, w, h);
 		ctx.drawImage(this.asset, fX, fY, w, h, 0, 0, w, h);
 
-		ctx.drawImage(this.asset, 0, 455, w, h, 0, 0, w, h);
+		if (this.hasShield) {
+			ctx.drawImage(this.asset, 0, 455, w, h, 0, 0, w, h);
+		}
 
 		ctx.font = "20px Bakbak One";
 		ctx.textAlign = "center";
