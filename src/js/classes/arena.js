@@ -84,8 +84,6 @@ class Arena {
 		let level = [
 				[0,0,0,0,0,0],
 				[0,0,1,2,0,0],
-				[0,0,0,0,0,0],
-				[0,0,0,0,0,0],
 				// [1,1,2,2,0,1],
 				// [1,1,2,2,0,1],
 				// [3,3,4,4,5,5],
@@ -116,11 +114,10 @@ class Arena {
 				bullet,
 				monster;
 			// console.log( pair.bodyA, pair.bodyB );
-			// if (bBody) {
-			// 	if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
-			// 	let { x, y } = pair.collision.supports[0];
-			// 	new Sparks({ parent: this, x, y });
-			// }
+			if (bBody) {
+				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
+				bullet.bounced(this.fpsControl._now);
+			}
 			if (bBody && mBody) {
 				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
 				if (!monster) monster = this.entities.find(item => item.body.label === mBody.label);
@@ -152,6 +149,21 @@ class Arena {
 		Matter.Composite.add(this.engine.world, bodies);
 	}
 
+	endAttack() {
+		this.entities.find(item => {
+			if (item && item.body.label.startsWith("bullet-")) {
+				item.kill(true);
+			}
+		});
+
+		// for (let i=0, il=this.entities.length; i<il; i++) {
+		// 	let item = this.entities[i];
+		// 	if (item.body.label.startsWith("bullet-")) {
+		// 		item.kill(true);
+		// 	}
+		// }
+	}
+
 	addEntity(item) {
 		// add item body to physical world
 		if (item.body) Matter.Composite.add(this.engine.world, item.body);
@@ -164,13 +176,15 @@ class Arena {
 		// remove item body from physical world
 		if (item.body) Matter.Composite.remove(this.engine.world, item.body);
 		// stop update & render
-		if (item._fx) {
-			let index = this.fx.findIndex(e => e == item);
-			this.fx.splice(index, 1);
-		} else {
-			let index = this.entities.findIndex(e => e == item);
-			this.entities.splice(index, 1);
-		}
+		setTimeout(() => {
+			if (item._fx) {
+				let index = this.fx.findIndex(e => e == item);
+				this.fx.splice(index, 1);
+			} else {
+				let index = this.entities.findIndex(e => e == item);
+				this.entities.splice(index, 1);
+			}
+		});
 	}
 
 	update(delta, time) {

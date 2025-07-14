@@ -32,6 +32,9 @@
 			case "set-debug-mode":
 				Self.arena.debug.mode = event.arg;
 				break;
+			case "end-attack":
+				Self.arena.endAttack();
+				break;
 			case "restore-state":
 				// top bar
 				Self.els.content.find(`.top-bar .shield`).html(APP.settings.state.shield);

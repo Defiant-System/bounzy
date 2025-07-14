@@ -8,6 +8,7 @@
 @import "./classes/ray.js"
 @import "./classes/vec2.js"
 @import "./classes/point.js"
+@import "./classes/die.js"
 @import "./classes/sparks.js"
 
 @import "./ext/matter.min.js"
@@ -46,7 +47,7 @@ const defaultSettings = {
 		},
 		laboratory: {
 			front: {
-				length: 5,
+				length: 3,
 				damage: 15,
 				level: 3,
 				price: 525,
