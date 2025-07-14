@@ -30,6 +30,8 @@ class Arena {
 		// event handler
 		Matter.Events.on(this.engine, "collisionStart", this.handleCollision.bind(this));
 
+		// level stage
+		this.stage = [...Levels[0]];
 
 		// entities array
 		this.entities = [];
@@ -38,7 +40,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 2,
+			mode: 1,
 		};
 
 		// create FPS controller
@@ -84,12 +86,15 @@ class Arena {
 		// temp
 		let level = [
 				["-0","-0","-0","-0","-0","-0"],
-				["-0","-0","-1","-0","-0","-0"],
+				["-0","s1","-1","-0","-0","-0"],
 				// ["-1","-1","-2","-2","-0","-1"],
 				// ["-1","-1","-2","-2","-0","-1"],
 				// ["-3","-3","-4","-4","-5","-5"],
 				// ["-0","-7","-0","-6","-6","-0"],
 			];
+
+		// add new row
+		// level.unshift(this.stage.shift());
 
 		level.map((r, y) => {
 			r.map((c, x) => {

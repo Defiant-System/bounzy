@@ -59,11 +59,24 @@ class Monster {
 	}
 
 	advance() {
+		// smooth drop
 		this._y = this.y + this.height;
-		// this.body.position.y = this._y;
-
-		let position = Matter.Vector.create(this.x+this.sH, this._y+this.sH);
-		Matter.Body.setPosition(this.body, position);
+		// re-calc position of physical bodies
+		let x = this.x + this.sH,
+			y, position;
+		if (this.hasShield) {
+			y = this._y + this.height - 38,
+			position = Matter.Vector.create(x, y);
+			Matter.Body.setPosition(this.body, position)
+			// move down shield
+			y = this._y + this.height - 7;
+			position = Matter.Vector.create(x, y);
+			Matter.Body.setPosition(this.shield, position);
+		} else {
+			y = this._y + this.sH,
+			position = Matter.Vector.create(x, y);
+			Matter.Body.setPosition(this.body, position)
+		}
 	}
 
 	kill(anim) {
