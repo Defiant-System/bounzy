@@ -84,25 +84,25 @@ class Arena {
 
 	ready() {
 		// temp
-		let level = [
-				["-0","-0","-0","-0","-0","-0"],
-				["-0","s1","-1","-0","-0","-0"],
-				// ["-1","-1","-2","-2","-0","-1"],
-				// ["-1","-1","-2","-2","-0","-1"],
-				// ["-3","-3","-4","-4","-5","-5"],
-				// ["-0","-7","-0","-6","-6","-0"],
-			];
+		// let level = [
+		// 		["-0","-0","-0","-0","-0","-0"],
+		// 		["-0","s1","-1","-0","-0","-0"],
+		// 		// ["-1","-1","-2","-2","-0","-1"],
+		// 		// ["-1","-1","-2","-2","-0","-1"],
+		// 		// ["-3","-3","-4","-4","-5","-5"],
+		// 		// ["-0","-7","-0","-6","-6","-0"],
+		// 	];
 
-		// add new row
-		// level.unshift(this.stage.shift());
+		// level.map((r, y) => {
+		// 	r.map((c, x) => {
+		// 		let [s, type] = c.split(""),
+		// 			hasShield = s === "s";
+		// 		if (type > 0) new Monster({ parent: this, hasShield, type, x, y });
+		// 	});
+		// });
 
-		level.map((r, y) => {
-			r.map((c, x) => {
-				let [s, type] = c.split(""),
-					hasShield = s === "s";
-				if (type > 0) new Monster({ parent: this, hasShield, type, x, y });
-			});
-		});
+		// add enemy line row
+		this.addRow();
 		// add wizard
 		this.wizard = new Wizard({ parent: this, asset: this.assets.arrows });
 		// set physical world (boundries, walls)
@@ -161,12 +161,32 @@ class Arena {
 		this.entities
 			.filter(item => item.body.label.startsWith("bullet-"))
 			.map(item => item.kill(true));
+		console.log("end attack");
+
+		// move monsters one step down
+		this.advance();
+	}
+
+	addRow() {
+		// add new row
+		let row = this.stage.shift();
+		row.map((c, x) => {
+			let [s, type] = c.split(""),
+				hasShield = s === "s";
+			if (type > 0) new Monster({ parent: this, hasShield, type, x, y: 0 });
+		});
 	}
 
 	advance() {
+		console.log("advance");
+		// drop down
 		this.entities
 			.filter(item => item.body.label.startsWith("monster-"))
 			.map(item => item.advance());
+		// add enemy line row
+		this.addRow();
+		// wizard can aim/fire again
+		this.wizard.reloadAim();
 	}
 
 	addEntity(item) {
@@ -193,20 +213,26 @@ class Arena {
 			setTimeout(() => {
 				let index = this.entities.findIndex(e => e == item);
 				this.entities.splice(index, 1);
+
+				if (this.counters.Monster == 0) {
+					// kill all bullets
+					if (this.counters.Bullet > 0) this.endAttack();
+					// keep track of bullets
+					else if (this.counters.Bullet == 0) {
+						// move monsters one step down
+						this.advance();
+					}
+				} else {
+					if (this.counters.Bullet == 0) {
+						// move monsters one step down
+						this.advance();
+					}
+				}
 			});
 		}
 		// keep track of items
 		let name = item.constructor.name;
 		if (this.counters[name] !== undefined) this.counters[name]--;
-		// kill all bullets
-		if (this.counters.Bullet > 0 && this.counters.Monster == 0) this.endAttack();
-		// keep track of bullets
-		if (this.counters.Bullet == 0) {
-			// move monsters one step down
-			this.advance();
-			// wizard can aim/fire again
-			this.wizard.reloadAim();
-		}
 	}
 
 	update(delta, time) {

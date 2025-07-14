@@ -11,6 +11,7 @@ class Monster {
 		this.shadow = shadow.img;
 		this.sW = shadow.item.width;
 		this.sH = shadow.item.height;
+		this.alpha = 0;
 
 		this.health = {
 			full: 40,
@@ -20,7 +21,7 @@ class Monster {
 
 		let size = 65,
 			label = "monster-"+ Date.now();
-		this.sH = size >> 1;
+		this.hS = size >> 1;
 		this.width = size;
 		this.height = size;
 		this.x = x * size;
@@ -31,16 +32,16 @@ class Monster {
 		// physical body
 		let collisionFilter = { category: parent.colMasks.monster };
 		if (this.hasShield) {
-			this.body = Matter.Bodies.rectangle(this.x+this.sH, this.y+size-38, size, size-17, { isStatic: true, collisionFilter, label });
+			this.body = Matter.Bodies.rectangle(this.x+this.hS, this.y+size-38, size, size-17, { isStatic: true, collisionFilter, label });
 			// shield object
 			collisionFilter = { category: parent.colMasks.walls };
-			this.shield = Matter.Bodies.rectangle(this.x+this.sH, this.y+size-7, size, 12, { isStatic: true, collisionFilter, label: "shield" });
+			this.shield = Matter.Bodies.rectangle(this.x+this.hS, this.y+size-7, size, 12, { isStatic: true, collisionFilter, label: "shield" });
 			// this.shield.label = "monster-"+ Date.now();
 			Matter.Body.setInertia(this.shield, Infinity);
 		} else {
 			let path = window.find(`svg#monster-mask path`)[0],
 				vertexSets = Matter.Svg.pathToVertices(path, 12);
-			this.body = Matter.Bodies.fromVertices(this.x+this.sH, this.y+this.sH, vertexSets, { isStatic: true, collisionFilter, label });
+			this.body = Matter.Bodies.fromVertices(this.x+this.hS, this.y+this.hS, vertexSets, { isStatic: true, collisionFilter, label });
 		}
 		// prevents rotation
 		Matter.Body.setInertia(this.body, Infinity);
@@ -56,13 +57,15 @@ class Monster {
 
 		// add this to game loop
 		this.parent.addEntity(this);
+
+		this.advance();
 	}
 
 	advance() {
 		// smooth drop
 		this._y = this.y + this.height;
 		// re-calc position of physical bodies
-		let x = this.x + this.sH,
+		let x = this.x + this.hS,
 			y, position;
 		if (this.hasShield) {
 			y = this._y + this.height - 38,
@@ -73,7 +76,7 @@ class Monster {
 			position = Matter.Vector.create(x, y);
 			Matter.Body.setPosition(this.shield, position);
 		} else {
-			y = this._y + this.sH,
+			y = this._y + this.hS,
 			position = Matter.Vector.create(x, y);
 			Matter.Body.setPosition(this.body, position)
 		}
@@ -108,6 +111,8 @@ class Monster {
 			p = .1;
 		if (diff > p) this.y += diff * p;
 		else this.y = this._y;
+		// if newly added monsters; fade in
+		if (this.alpha < 1) this.alpha += .05;
 	}
 
 	render(ctx) {
@@ -115,9 +120,10 @@ class Monster {
 			h = this.height,
 			fX = (this.frame.index | 0) * w,
 			fY = this.type,
-			wH = this.sH,
+			wH = this.hS,
 			tH = h - 7;
 		ctx.save();
+		ctx.globalAlpha = this.alpha;
 		ctx.translate(this.x, this.y);
 		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -18, 9, w, h);
 		ctx.drawImage(this.asset, fX, fY, w, h, 0, 0, w, h);
