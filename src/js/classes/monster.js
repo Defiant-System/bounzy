@@ -1,7 +1,9 @@
 
 class Monster {
 	constructor(cfg) {
-		let { parent, asset, shadow, type, x, y } = cfg;
+		let { parent, type, x, y } = cfg,
+			asset = parent.assets.monsters,
+			shadow = parent.assets.shadow;
 
 		this.parent = parent;
 		this.asset = asset.img;
@@ -72,6 +74,8 @@ class Monster {
 		ctx.translate(this.x, this.y);
 		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -18, 9, w, h);
 		ctx.drawImage(this.asset, fX, fY, w, h, 0, 0, w, h);
+
+		ctx.drawImage(this.asset, 0, 455, w, h, 0, 0, w, h);
 
 		ctx.font = "20px Bakbak One";
 		ctx.textAlign = "center";

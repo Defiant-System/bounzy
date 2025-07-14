@@ -88,14 +88,12 @@ class Arena {
 				// [1,1,2,2,0,1],
 				// [3,3,4,4,5,5],
 				// [0,7,0,6,6,0],
-			],
-			asset = this.assets.monsters,
-			shadow = this.assets.shadow;
+			];
 
 		level.map((r, y) => {
 			r.map((type, x) => {
 				if (type > 0) {
-					this.entities.push(new Monster({ parent: this, asset, shadow, type, x, y }));
+					this.entities.push(new Monster({ parent: this, type, x, y }));
 				}
 			});
 		});
