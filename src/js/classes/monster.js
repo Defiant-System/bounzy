@@ -19,27 +19,28 @@ class Monster {
 		};
 
 		let size = 65,
-			sH = size >> 1,
 			label = "monster-"+ Date.now();
+		this.sH = size >> 1;
 		this.width = size;
 		this.height = size;
 		this.x = x * size;
 		this.y = y * size;
+		this._y = this.y;
 		this.type = (type - 1) * size;
 
 		// physical body
 		let collisionFilter = { category: parent.colMasks.monster };
 		if (this.hasShield) {
-			this.body = Matter.Bodies.rectangle(this.x+sH, this.y+size-38, size, size - 17, { isStatic: true, collisionFilter, label });
+			this.body = Matter.Bodies.rectangle(this.x+this.sH, this.y+size-38, size, size-17, { isStatic: true, collisionFilter, label });
 			// shield object
 			collisionFilter = { category: parent.colMasks.walls };
-			this.shield = Matter.Bodies.rectangle(this.x+sH, this.y+size-7, size, 12, { isStatic: true, collisionFilter, label: "shield" });
+			this.shield = Matter.Bodies.rectangle(this.x+this.sH, this.y+size-7, size, 12, { isStatic: true, collisionFilter, label: "shield" });
 			// this.shield.label = "monster-"+ Date.now();
 			Matter.Body.setInertia(this.shield, Infinity);
 		} else {
 			let path = window.find(`svg#monster-mask path`)[0],
 				vertexSets = Matter.Svg.pathToVertices(path, 12);
-			this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true, collisionFilter, label });
+			this.body = Matter.Bodies.fromVertices(this.x+this.sH, this.y+this.sH, vertexSets, { isStatic: true, collisionFilter, label });
 		}
 		// prevents rotation
 		Matter.Body.setInertia(this.body, Infinity);
@@ -55,6 +56,14 @@ class Monster {
 
 		// add this to game loop
 		this.parent.addEntity(this);
+	}
+
+	advance() {
+		this._y = this.y + this.height;
+		// this.body.position.y = this._y;
+
+		let position = Matter.Vector.create(this.x+this.sH, this._y+this.sH);
+		Matter.Body.setPosition(this.body, position);
 	}
 
 	kill(anim) {
@@ -81,6 +90,11 @@ class Monster {
 			this.frame.index += this.frame.step;
 			if ((this.frame.index >= this.frame.total) || (this.frame.index <= 0)) this.frame.step *= -1;
 		}
+		// smooth drop
+		let diff = this._y - this.y,
+			p = .1;
+		if (diff > p) this.y += diff * p;
+		else this.y = this._y;
 	}
 
 	render(ctx) {
@@ -88,7 +102,7 @@ class Monster {
 			h = this.height,
 			fX = (this.frame.index | 0) * w,
 			fY = this.type,
-			wH = w >> 1,
+			wH = this.sH,
 			tH = h - 7;
 		ctx.save();
 		ctx.translate(this.x, this.y);

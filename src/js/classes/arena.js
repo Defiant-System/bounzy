@@ -38,7 +38,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 1,
+			mode: 2,
 		};
 
 		// create FPS controller
@@ -153,15 +153,15 @@ class Arena {
 	}
 
 	endAttack() {
-		this.entities.find(item => {
-			if (item && item.body.label.startsWith("bullet-")) {
-				item.kill(true);
-			}
-		});
+		this.entities
+			.filter(item => item.body.label.startsWith("bullet-"))
+			.map(item => item.kill(true));
 	}
 
 	advance() {
-
+		this.entities
+			.filter(item => item.body.label.startsWith("monster-"))
+			.map(item => item.advance());
 	}
 
 	addEntity(item) {
