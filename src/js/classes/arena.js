@@ -35,7 +35,7 @@ class Arena {
 
 		// dev / debug purpose
 		this.debug = {
-			mode: 2,
+			mode: 1,
 		};
 
 		// create FPS controller
@@ -92,9 +92,7 @@ class Arena {
 			r.map((c, x) => {
 				let [s, type] = c.split(""),
 					hasShield = s === "s";
-				if (type > 0) {
-					this.entities.push(new Monster({ parent: this, hasShield, type, x, y }));
-				}
+				if (type > 0) new Monster({ parent: this, hasShield, type, x, y });
 			});
 		});
 		// add wizard
@@ -107,6 +105,7 @@ class Arena {
 		event.pairs.map(pair => {
 			let [a1, b1] = pair.bodyA.label.split("-"),
 				[a2, b2] = pair.bodyB.label.split("-"),
+				sBody = a1 === "shield" ? pair.bodyA : (a2 === "shield" ? pair.bodyB : null),
 				bBody = a1 === "bullet" ? pair.bodyA : (a2 === "bullet" ? pair.bodyB : null),
 				mBody = a1 === "monster" ? pair.bodyA : (a2 === "monster" ? pair.bodyB : null),
 				bullet,
@@ -115,6 +114,11 @@ class Arena {
 			if (bBody) {
 				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
 				bullet.bounced(this.fpsControl._now);
+			}
+			if (bBody && sBody) {
+				// sparks
+				let { x, y } = pair.collision.supports[0];
+				new Sparks({ parent: this, x, y });
 			}
 			if (bBody && mBody) {
 				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
@@ -166,7 +170,9 @@ class Arena {
 		if (item.shield) Matter.Composite.add(this.engine.world, item.shield);
 		// to be updated & rendered
 		if (item._fx) this.fx.push(item);
-		else this.entities.push(item);
+		else {
+			this.entities.push(item);
+		}
 	}
 
 	removeEntity(item) {
@@ -180,7 +186,9 @@ class Arena {
 				this.fx.splice(index, 1);
 			} else {
 				let index = this.entities.findIndex(e => e == item);
+				// console.log(1, index, this.entities.length, item.body.label);
 				this.entities.splice(index, 1);
+				// console.log(2, index, this.entities.length, item.body.label);
 			}
 		// });
 	}
@@ -195,7 +203,7 @@ class Arena {
 	render() {
 		// clear canvas
 		this.cvs.attr({ width: this.width });
-
+		// redraw arena
 		this.ctx.save();
 		this.ctx.translate(this.offset.x, this.offset.y);
 

@@ -19,7 +19,8 @@ class Monster {
 		};
 
 		let size = 65,
-			sH = size >> 1;
+			sH = size >> 1,
+			label = "monster-"+ Date.now();
 		this.width = size;
 		this.height = size;
 		this.x = x * size;
@@ -29,19 +30,19 @@ class Monster {
 		// physical body
 		let collisionFilter = { category: parent.colMasks.monster };
 		if (this.hasShield) {
-			this.body = Matter.Bodies.rectangle(this.x+sH, this.y+size-38, size, size - 17, { isStatic: true, collisionFilter });
+			this.body = Matter.Bodies.rectangle(this.x+sH, this.y+size-38, size, size - 17, { isStatic: true, collisionFilter, label });
 			// shield object
 			collisionFilter = { category: parent.colMasks.walls };
-			this.shield = Matter.Bodies.rectangle(this.x+sH, this.y+size-7, size, 12, { isStatic: true, collisionFilter });
+			this.shield = Matter.Bodies.rectangle(this.x+sH, this.y+size-7, size, 12, { isStatic: true, collisionFilter, label: "shield" });
+			// this.shield.label = "monster-"+ Date.now();
 			Matter.Body.setInertia(this.shield, Infinity);
 		} else {
 			let path = window.find(`svg#monster-mask path`)[0],
 				vertexSets = Matter.Svg.pathToVertices(path, 12);
-			this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true, collisionFilter });
+			this.body = Matter.Bodies.fromVertices(this.x+sH, this.y+sH, vertexSets, { isStatic: true, collisionFilter, label });
 		}
 		// prevents rotation
 		Matter.Body.setInertia(this.body, Infinity);
-		this.body.label = "monster-"+ Date.now();
 
 		// monster animation
 		this.frame = {

@@ -48,10 +48,10 @@ class Bullet {
 				friction: 0,
 				inertia: Infinity,
 				mass: 0,
+				label: "bullet-"+ Date.now(),
 				collisionFilter: { mask: parent.colMasks.monster },
 			};
 		this.body = Matter.Bodies.circle(this.position.x, this.position.y, this.radius, opt);
-		this.body.label = "bullet-"+ Date.now();
 
 		// add to map entries
 		this.parent.addEntity(this);
