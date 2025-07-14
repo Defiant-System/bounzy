@@ -84,7 +84,7 @@ class Arena {
 		// temp
 		let level = [
 				["-0","-0","-0","-0","-0","-0"],
-				["-0","-0","s1","-2","-0","-0"],
+				["-0","-0","-1","-0","-0","-0"],
 				// ["-1","-1","-2","-2","-0","-1"],
 				// ["-1","-1","-2","-2","-0","-1"],
 				// ["-3","-3","-4","-4","-5","-5"],
@@ -158,13 +158,10 @@ class Arena {
 				item.kill(true);
 			}
 		});
+	}
 
-		// for (let i=0, il=this.entities.length; i<il; i++) {
-		// 	let item = this.entities[i];
-		// 	if (item.body.label.startsWith("bullet-")) {
-		// 		item.kill(true);
-		// 	}
-		// }
+	advance() {
+
 	}
 
 	addEntity(item) {
@@ -188,16 +185,23 @@ class Arena {
 			let index = this.fx.findIndex(e => e == item);
 			this.fx.splice(index, 1);
 		} else {
-			let index = this.entities.findIndex(e => e == item);
-			this.entities.splice(index, 1);
+			setTimeout(() => {
+				let index = this.entities.findIndex(e => e == item);
+				this.entities.splice(index, 1);
+			});
 		}
 		// keep track of items
 		let name = item.constructor.name;
 		if (this.counters[name] !== undefined) this.counters[name]--;
 		// kill all bullets
-		if (this.counters.Monster <= 0) this.endAttack();
+		if (this.counters.Bullet > 0 && this.counters.Monster == 0) this.endAttack();
 		// keep track of bullets
-		if (this.counters.Bullet <= 0) this.wizard.reloadAim();
+		if (this.counters.Bullet == 0) {
+			// move monsters one step down
+			this.advance();
+			// wizard can aim/fire again
+			this.wizard.reloadAim();
+		}
 	}
 
 	update(delta, time) {
