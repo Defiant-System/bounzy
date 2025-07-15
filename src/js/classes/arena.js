@@ -87,7 +87,7 @@ class Arena {
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 		// add enemy line row
-		this.addRow(19, 17);
+		this.addRow(21, 19);
 	}
 
 	handleCollision(event) {
@@ -149,8 +149,13 @@ class Arena {
 			.filter(item => item.body.label.startsWith("bullet-"))
 			.map(item => item.kill(true));
 
-		// move monsters one step down
-		this.advance();
+
+		if (this.counters.Monster <= 0 && !this.stage.length) {
+			// this.APP.dispatch({ type: "open-dialog", arg: "reward", addClass: "completed" });
+		} else {
+			// move monsters one step down
+			this.advance();
+		}
 	}
 
 	addRow(to=1, from=0) {
@@ -234,6 +239,7 @@ class Arena {
 		}
 		// keep track of items
 		let name = item.constructor.name;
+		if (name === "Boss") name = "Monster";
 		if (this.counters[name] !== undefined) this.counters[name]--;
 	}
 

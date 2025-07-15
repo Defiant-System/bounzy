@@ -129,7 +129,9 @@ const bounzy = {
 				if (event.addClass) Self.content.find(`div[data-area="${event.arg}"]`).addClass(event.addClass);
 				Self.content.data({ dialog: event.arg });
 				Self.content.cssSequence("open-dialog", "transitionend", el => {
-					// TODO ?
+					if (event.arg === "reward") {
+						Self.game.arena.fpsControl.stop();
+					}
 				});
 				break;
 			case "close-dialog":
