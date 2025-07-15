@@ -47,13 +47,13 @@ const defaultSettings = {
 		},
 		laboratory: {
 			front: {
-				length: 2,
+				length: 3,
 				damage: 15,
 				level: 0,
 				price: 525,
 			},
 			back: {
-				length: 2,
+				length: 3,
 				damage: 15,
 				level: 0,
 				price: 525,

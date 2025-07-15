@@ -31,18 +31,16 @@ class Arena {
 		// event handler
 		Matter.Events.on(this.engine, "collisionStart", this.handleCollision.bind(this));
 
-		// level stage
-		this.stage = [...Levels[0]];
-
+		// level & stage
+		this._level = 1;
+		this.stage = [...Levels[this._level-1]];
 		// entities array
 		this.entities = [];
 		// fx array
 		this.fx = [];
 
 		// dev / debug purpose
-		this.debug = {
-			mode: 1,
-		};
+		this.debug = { mode: 1 };
 
 		// create FPS controller
 		let Self = this;
@@ -84,12 +82,12 @@ class Arena {
 	}
 
 	ready() {
-		// add enemy line row
-		this.addRow();
 		// add wizard
 		this.wizard = new Wizard({ parent: this, asset: this.assets.arrows });
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
+		// add enemy line row
+		this.addRow(13, 8);
 	}
 
 	handleCollision(event) {
@@ -146,32 +144,38 @@ class Arena {
 	}
 
 	endAttack() {
+		console.log("end attack");
 		this.entities
 			.filter(item => item.body.label.startsWith("bullet-"))
 			.map(item => item.kill(true));
-		console.log("end attack");
 
 		// move monsters one step down
 		this.advance();
 	}
 
-	addRow() {
+	addRow(to=1, from=0) {
 		// if empty, the boss is deployed - no more rows
 		if (!this.stage.length) return;
 
-		// add new row
-		let row = this.stage.shift();
-		row.map((c, x) => {
-			let [s, type] = c.split(""),
-				hasShield = s === "s";
-			if (type > 0) new Monster({ parent: this, hasShield, type, x, y: 0 });
-		});
+		// discard rows
+		[...Array(from)].map(n => this.stage.shift());
+
+		// add rows
+		for (let y=from; y<to; y++) {
+			// add new row
+			let row = this.stage.shift();
+			row.map((c, x) => {
+				let [s, type] = c.split(""),
+					hasShield = s === "s";
+				if (type > 0) new Monster({ parent: this, hasShield, type, x, y: y-from });
+			});
+		}
 		// update waves indicator
-		this.APP.dispatch({ type: "set-attack-wave", num: 21-this.stage.length });
+		this.APP.game.dispatch({ type: "set-attack-wave", num: 21-this.stage.length });
 	}
 
 	advance() {
-		if (this.wizard._state !== "waiting") return;
+		if (this.wizard._state === "ready") return;
 		console.log("advance");
 		// drop down
 		this.entities

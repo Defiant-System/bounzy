@@ -10,7 +10,7 @@
 			canvas: window.find(`div[data-area="game"] canvas`),
 		};
 		// instantiate arena
-		this.arena = new Arena({ parent: this, canvas: this.els.canvas });
+		this.arena = new Arena({ parent: bounzy, canvas: this.els.canvas });
 		// bind event handlers
 		this.els.canvas.on("mousedown", this.doAim);
 	},

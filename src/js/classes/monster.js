@@ -13,11 +13,11 @@ class Monster {
 		this.sH = shadow.item.height;
 		this.alpha = 0;
 
-		this.health = {
-			full: 40,
-			curr: 40,
-			perc: 1,
-		};
+		// monster health based on "level", "type" and "average ammo damage"
+		let lab = parent.APP.settings.state.laboratory,
+			base = (lab.front.damage / lab.front.length) + (lab.back.damage / lab.back.length),
+			full = base + (parent._level * base) + (type * base);
+		this.health = { full, curr: full, perc: 1 };
 
 		let size = 65,
 			label = (type === "7" ? "chest-" : "monster-")+ Date.now();
