@@ -181,6 +181,8 @@
 
 				// drag info
 				Self.drag = { doc, cvs, wizard, offset };
+				// auto trigger fake "mousemove"
+				Self.doAim({ type: "mousemove", clientY: event.clientY, clientX: event.clientX });
 				// bind event handlers
 				Self.drag.doc.on("mousemove mouseup", Self.doAim);
 				break;

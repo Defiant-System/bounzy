@@ -168,7 +168,7 @@ class Arena {
 				let [s, type] = c.split(""),
 					hasShield = s === "s";
 				if (type > 0) {
-					if (s === "b") new Boss({ parent: this, hasShield, type, x, y: y-from-1 });
+					if (s === "b") new Boss({ parent: this, hasShield, type, x, y: y-from });
 					else new Monster({ parent: this, hasShield, type, x, y: y-from });
 				}
 			});
@@ -199,6 +199,7 @@ class Arena {
 		else this.entities.push(item);
 		// keep track of items
 		let name = item.constructor.name;
+		if (name === "Boss") name = "Monster";
 		if (this.counters[name] !== undefined) this.counters[name]++;
 	}
 

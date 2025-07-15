@@ -14,8 +14,8 @@ class Boss {
 
 		// monster health based on "level", "type" and "average ammo damage"
 		let lab = parent.APP.settings.state.laboratory,
-			base = (lab.front.damage / lab.front.length) + (lab.back.damage / lab.back.length),
-			full = base + (parent._level * base) + (type * base);
+			base = (lab.front.damage * lab.front.length) + (lab.back.damage * lab.back.length),
+			full = (+parent._level + +type + 1) * base;
 		this.health = { full, curr: full, perc: 1 };
 
 		let size = 65,
@@ -55,10 +55,10 @@ class Boss {
 
 	advance() {
 		// smooth drop
-		this._y = this.y + this.height;
+		let size = this.height >> 1;
+		this._y = this.y + size;
 		// re-calc position of physical bodies
-		let size = this.width >> 1,
-			x = this.x + size,
+		let x = this.x + size,
 			y = this._y + size,
 			position = Matter.Vector.create(x, y);
 		Matter.Body.setPosition(this.body, position)
@@ -113,18 +113,18 @@ class Boss {
 		ctx.font = "30px Bakbak One";
 		ctx.textAlign = "center";
 		ctx.lineWidth = 5;
-		ctx.strokeStyle = "#0008";
+		ctx.strokeStyle = "#1358";
 		ctx.strokeText(this.health.curr, wH, tH);
 
 		ctx.lineWidth = 2;
-		ctx.strokeStyle = "#0008";
+		ctx.strokeStyle = "#1358";
 		ctx.fillStyle = "#fff";
 		ctx.beginPath();
 		ctx.roundRect(4, h-16, w-10, 14, 3);
 		ctx.fill();
 		ctx.stroke();
 
-		ctx.fillStyle = "#f00";
+		ctx.fillStyle = "#369";
 		ctx.beginPath();
 		ctx.roundRect(6, h-14, (w-14) * this.health.perc, 10, 2);
 		ctx.fill();
