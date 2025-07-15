@@ -1,8 +1,9 @@
 
 class Arena {
 	constructor(cfg) {
-		let { canvas } = cfg;
+		let { parent, canvas } = cfg;
 
+		this.APP = parent; // reference to "bounzy.game"
 		this.cvs = canvas;
 		this.ctx = this.cvs[0].getContext("2d");
 		this.width = window.innerWidth;
@@ -83,24 +84,6 @@ class Arena {
 	}
 
 	ready() {
-		// temp
-		// let level = [
-		// 		["-0","-0","-0","-0","-0","-0"],
-		// 		["-0","s1","-1","-0","-0","-0"],
-		// 		// ["-1","-1","-2","-2","-0","-1"],
-		// 		// ["-1","-1","-2","-2","-0","-1"],
-		// 		// ["-3","-3","-4","-4","-5","-5"],
-		// 		// ["-0","-7","-0","-6","-6","-0"],
-		// 	];
-
-		// level.map((r, y) => {
-		// 	r.map((c, x) => {
-		// 		let [s, type] = c.split(""),
-		// 			hasShield = s === "s";
-		// 		if (type > 0) new Monster({ parent: this, hasShield, type, x, y });
-		// 	});
-		// });
-
 		// add enemy line row
 		this.addRow();
 		// add wizard
@@ -111,27 +94,32 @@ class Arena {
 
 	handleCollision(event) {
 		event.pairs.map(pair => {
-			let [a1, b1] = pair.bodyA.label.split("-"),
-				[a2, b2] = pair.bodyB.label.split("-"),
-				sBody = a1 === "shield" ? pair.bodyA : (a2 === "shield" ? pair.bodyB : null),
-				bBody = a1 === "bullet" ? pair.bodyA : (a2 === "bullet" ? pair.bodyB : null),
-				mBody = a1 === "monster" ? pair.bodyA : (a2 === "monster" ? pair.bodyB : null),
-				bullet,
-				monster;
-			// console.log( pair.bodyA, pair.bodyB );
-			if (bBody) {
-				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
-				bullet.bounced(this.fpsControl._now);
-			}
-			if (bBody && sBody) {
+			let itemA = this.entities.find(e => e.body === pair.bodyA),
+				itemB = this.entities.find(e => e.body === pair.bodyB);
+			// bullet bounce
+			if (itemA && itemA.type === "bullet") itemA.bounced(this.fpsControl._now);
+			if (itemB && itemB.type === "bullet") itemB.bounced(this.fpsControl._now);
+
+			if (!itemA || !itemB) return;
+
+			let [a1, a2] = itemA.body.label.split("-"),
+				[b1, b2] = itemA.body.label.split("-");
+
+			if ((a1 === "bullet" && b1 === "shield") || (a2 === "bullet" && a1 === "shield")) {
 				// sparks
 				let { x, y } = pair.collision.supports[0];
 				new Sparks({ parent: this, x, y });
 			}
-			if (bBody && mBody) {
-				if (!bullet) bullet = this.entities.find(item => item.body.label === bBody.label);
-				if (!monster) monster = this.entities.find(item => item.body.label === mBody.label);
-				monster.dealDamage(bullet.damage);
+
+			if (itemA.type === "bullet" && itemB.type === "brick") {
+				itemB.dealDamage(itemA.damage);
+				// sparks
+				let { x, y } = pair.collision.supports[0];
+				new Sparks({ parent: this, x, y });
+			}
+
+			if (itemA.type === "brick" && itemB.type === "bullet") {
+				itemA.dealDamage(itemB.damage);
 				// sparks
 				let { x, y } = pair.collision.supports[0];
 				new Sparks({ parent: this, x, y });
@@ -168,6 +156,9 @@ class Arena {
 	}
 
 	addRow() {
+		// if empty, the boss is deployed - no more rows
+		if (!this.stage.length) return;
+
 		// add new row
 		let row = this.stage.shift();
 		row.map((c, x) => {
@@ -175,13 +166,16 @@ class Arena {
 				hasShield = s === "s";
 			if (type > 0) new Monster({ parent: this, hasShield, type, x, y: 0 });
 		});
+		// update waves indicator
+		this.APP.dispatch({ type: "set-attack-wave", num: 21-this.stage.length });
 	}
 
 	advance() {
+		if (this.wizard._state !== "waiting") return;
 		console.log("advance");
 		// drop down
 		this.entities
-			.filter(item => item.body.label.startsWith("monster-"))
+			.filter(item => item.type === "brick")
 			.map(item => item.advance());
 		// add enemy line row
 		this.addRow();

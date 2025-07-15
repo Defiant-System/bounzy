@@ -10,7 +10,7 @@
 			canvas: window.find(`div[data-area="game"] canvas`),
 		};
 		// instantiate arena
-		this.arena = new Arena({ canvas: this.els.canvas });
+		this.arena = new Arena({ parent: this, canvas: this.els.canvas });
 		// bind event handlers
 		this.els.canvas.on("mousedown", this.doAim);
 	},
@@ -34,6 +34,12 @@
 				break;
 			case "end-attack":
 				Self.arena.endAttack();
+				break;
+			case "set-attack-wave":
+				Self.els.content.find(`.top-bar .waves`).css({ "--wave": event.num });
+				break;
+			case "unlock-chest":
+				Self.els.content.find(`.top-bar .waves .marker-chest`).addClass("unlocked");
 				break;
 			case "restore-state":
 				// top bar
@@ -75,7 +81,6 @@
 
 				data = APP.settings.state.academy.back;
 				Self.els.el.find(`.back-damage`).html(data.damage);
-
 
 				// dialog academy
 				Self.els.content.find(`.bg-academy .box.front .value`).html(APP.settings.state.academy.front.damage);

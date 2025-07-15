@@ -20,14 +20,15 @@ class Monster {
 		};
 
 		let size = 65,
-			label = "monster-"+ Date.now();
+			label = (type === "7" ? "chest-" : "monster-")+ Date.now();
 		this.hS = size >> 1;
 		this.width = size;
 		this.height = size;
 		this.x = x * size;
 		this.y = y * size;
 		this._y = this.y;
-		this.type = (type - 1) * size;
+		this.fY = (type - 1) * size;
+		this.type = "brick";
 
 		// physical body
 		let collisionFilter = { category: parent.colMasks.monster };
@@ -89,6 +90,10 @@ class Monster {
 				y = this.position.y;
 			// new Die({ parent, type: "smoke", x, y });
 		}
+		// if chest unlocked
+		if (this.body.label.startsWith("chest-")) {
+			this.parent.APP.dispatch({ type: "unlock-chest" });
+		}
 		// remove this from game loop
 		this.parent.removeEntity(this);
 	}
@@ -119,7 +124,7 @@ class Monster {
 		let w = this.width,
 			h = this.height,
 			fX = (this.frame.index | 0) * w,
-			fY = this.type,
+			fY = this.fY,
 			wH = this.hS,
 			tH = h - 7;
 		ctx.save();

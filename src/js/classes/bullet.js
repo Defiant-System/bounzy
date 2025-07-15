@@ -5,6 +5,7 @@ class Bullet {
 
 		this.parent = parent;
 		this.position = start;
+		this.type = "bullet";
 		this.target = target;
 		this.angle = angle;
 		this.bottom = this.parent.offset.h;
@@ -56,7 +57,7 @@ class Bullet {
 		// add to map entries
 		this.parent.addEntity(this);
 		
-		let speed = 7,
+		let speed = 8,
 			vX = Math.cos(angle) * speed,
  			vY = Math.sin(angle) * speed;
 		this.force = new Point(vX, vY);
