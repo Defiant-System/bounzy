@@ -36,7 +36,8 @@
 				Self.arena.endAttack();
 				break;
 			case "set-attack-wave":
-				Self.els.content.find(`.top-bar .waves`).css({ "--wave": event.num });
+				value = event.num >= 20 ? event.num - 1 : event.num;
+				Self.els.content.find(`.top-bar .waves`).css({ "--wave": value });
 				break;
 			case "unlock-chest":
 				Self.els.content.find(`.top-bar .waves .marker-chest`).addClass("unlocked");

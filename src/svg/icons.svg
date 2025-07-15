@@ -4,6 +4,10 @@
 		<path d="M0.2,2.8v46.4c-0.1,7.2,5.7,13,12.8,13H52c7.1,0,12.9-5.8,12.8-13V2.8H0.2z"/>
 	</svg>
 
+	<svg id="boss-mask" viewBox="0 0 130 130" cache="keep">
+		<path d="M0.6,1.7v100.6c-0.2,14.4,11.4,25.9,25.5,25.9h77.8c14.2,0,25.7-11.6,25.5-25.9V1.7H0.6z"/>
+	</svg>
+
 	<svg id="fuse" viewBox="0 0 24 24">
 		<style type="text/css">
 			.st0{fill:url(#SVGID_0_);}

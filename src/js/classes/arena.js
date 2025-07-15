@@ -55,7 +55,7 @@ class Arena {
 
 		// assets list
 		let assets = [
-				{ id: "bosses", width: 1024, height: 1024, src: "~/gfx/bosses.webp" },
+				{ id: "bosses", width: 1300, height: 1300, src: "~/gfx/bosses.png" },
 				{ id: "monsters", width: 1024, height: 1024, src: "~/gfx/monsters.png" },
 				{ id: "shadow", width: 98, height: 125, src: "~/gfx/shadow.png" },
 				{ id: "shield", width: 64, height: 41, src: "~/gfx/shield-sheet0.webp" },
@@ -87,7 +87,7 @@ class Arena {
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 		// add enemy line row
-		this.addRow(13, 8);
+		this.addRow(19, 17);
 	}
 
 	handleCollision(event) {
@@ -167,7 +167,10 @@ class Arena {
 			row.map((c, x) => {
 				let [s, type] = c.split(""),
 					hasShield = s === "s";
-				if (type > 0) new Monster({ parent: this, hasShield, type, x, y: y-from });
+				if (type > 0) {
+					if (s === "b") new Boss({ parent: this, hasShield, type, x, y: y-from-1 });
+					else new Monster({ parent: this, hasShield, type, x, y: y-from });
+				}
 			});
 		}
 		// update waves indicator
