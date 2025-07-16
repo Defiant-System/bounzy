@@ -88,6 +88,7 @@ class Wizard {
 
 	reload() {
 		this.magasin = [...this._magasin];
+		// move wizard
 	}
 
 	shoot() {
@@ -134,6 +135,15 @@ class Wizard {
 	}
 
 	render(ctx) {
+		if (this.parent.debug.mode >= 1) {
+			ctx.save();
+			ctx.fillStyle = "#fff7";
+			ctx.translate(this.start.x, this.start.y);
+			ctx.beginPath();
+			ctx.arc(0, 0, 15, 0, Math.TAU);
+			ctx.fill();
+			ctx.restore();
+		}
 		if (this._state == "aiming") {
 			ctx.save();
 			// target point

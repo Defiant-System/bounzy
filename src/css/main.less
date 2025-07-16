@@ -11,6 +11,7 @@ content {
 	border-radius: inherit;
 	font-family: "Bakbak One";
 	font-size: 26px;
+	color: #fff;
 	min-height: 0;
 	transition: min-height 300ms;
 
@@ -125,6 +126,26 @@ content {
 		opacity: 1;
 		visibility: visible;
 		pointer-events: initial;
+	}
+
+	&[data-dialog="pause"] {
+		> div {
+			&[data-area="start"] {
+				.btn-upgrade:before,
+				.cloud-1,
+				.cloud-2,
+				.wizard {
+					animation-play-state: paused;
+				}
+			}
+
+			&[data-area="game"] {
+				.next-position,
+				.wizard {
+					animation-play-state: paused;
+				}
+			}
+		}
 	}
 
 

@@ -39,6 +39,9 @@
 				value = event.num >= 20 ? event.num - 1 : event.num;
 				Self.els.content.find(`.top-bar .waves`).css({ "--wave": value });
 				break;
+			case "move-wizard":
+				// Self.arena.wizard
+				break;
 			case "unlock-chest":
 				Self.els.content.find(`.top-bar .waves .marker-chest`).addClass("unlocked");
 				break;

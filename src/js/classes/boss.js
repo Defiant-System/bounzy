@@ -107,7 +107,7 @@ class Boss {
 		ctx.save();
 		ctx.globalAlpha = this.alpha;
 		ctx.translate(this.x, this.y);
-		// ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -18, 9, w, h);
+		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -38, 19, w, h);
 		ctx.drawImage(this.asset, fX, fY, w, h, 0, 0, w, h);
 
 		ctx.font = "30px Bakbak One";
@@ -124,13 +124,14 @@ class Boss {
 		ctx.fill();
 		ctx.stroke();
 
+		ctx.strokeStyle = "#fff";
 		ctx.fillStyle = "#369";
+		ctx.lineWidth = 3;
+		
 		ctx.beginPath();
 		ctx.roundRect(6, h-14, (w-14) * this.health.perc, 10, 2);
 		ctx.fill();
 
-		ctx.lineWidth = 3;
-		ctx.strokeStyle = "#fff";
 		ctx.strokeText(this.health.curr, wH, tH);
 		ctx.fillText(this.health.curr, wH, tH);
 
