@@ -40,7 +40,15 @@
 				Self.els.content.find(`.top-bar .waves`).css({ "--wave": value });
 				break;
 			case "move-wizard":
-				// Self.arena.wizard
+				value = Self.els.el.find(".next-position").prop("offsetLeft");
+				Self.els.el.find(".wizard").css({ left: value });
+				Self.arena.wizard.setPosition(value);
+				// prepare next position
+				Self.dispatch({ type: "randomize-next-position" });
+				break;
+			case "randomize-next-position":
+				value = Utils.randomInt(37, Self.arena.offset.w - 37);
+				Self.els.el.find(".next-position").css({ left: value });
 				break;
 			case "unlock-chest":
 				Self.els.content.find(`.top-bar .waves .marker-chest`).addClass("unlocked");
@@ -139,6 +147,8 @@
 				}
 				break;
 			case "start-game":
+				// prepare next position
+				Self.dispatch({ type: "randomize-next-position" });
 				Self.dispatch({ type: "set-wizard-magasin" });
 				/* falls through */
 			case "resume-game":

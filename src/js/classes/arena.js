@@ -87,7 +87,8 @@ class Arena {
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 		// add enemy line row
-		this.addRow(21, 19);
+		this.addRow(7);
+		// this.addRow(21, 19);
 	}
 
 	handleCollision(event) {
@@ -193,6 +194,8 @@ class Arena {
 		this.addRow();
 		// wizard can aim/fire again
 		this.wizard.reloadAim();
+		// move wizard
+		this.APP.game.dispatch({ type: "move-wizard" });
 	}
 
 	addEntity(item) {

@@ -18,7 +18,7 @@ class Wizard {
 		this.a1 = { x: 0, y: 500 };
 		this.a2 = { x: 0, y: -this.h+this.a1.y };
 		// start + target
-		this.start = new Point(160, 590);
+		this.start = new Point(195, 590);
 		// this.setMouse(60, 350);
 		// this.setTarget(this.mouse);
 
@@ -88,7 +88,6 @@ class Wizard {
 
 	reload() {
 		this.magasin = [...this._magasin];
-		// move wizard
 	}
 
 	shoot() {

@@ -10,8 +10,8 @@ let Test = {
 		// return;
 
 		setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 800);
-		setTimeout(() => APP.game.dispatch({ type: "move-wizard", pos: 100 }), 1000);
-		setTimeout(() => APP.game.arena.fpsControl.stop(), 10000);
+		// setTimeout(() => APP.game.dispatch({ type: "move-wizard" }), 2000);
+		// setTimeout(() => APP.game.arena.fpsControl.stop(), 10000);
 		// setTimeout(() => APP.game.dispatch({ type: "pause-game" }), 3000);
 
 		// setTimeout(() => APP.dispatch({ type: "show-view", arg: "game" }), 1000);

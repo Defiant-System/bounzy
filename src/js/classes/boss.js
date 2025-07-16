@@ -15,7 +15,7 @@ class Boss {
 		// monster health based on "level", "type" and "average ammo damage"
 		let lab = parent.APP.settings.state.laboratory,
 			base = (lab.front.damage * lab.front.length) + (lab.back.damage * lab.back.length),
-			full = 20; // (+parent._level + +type + 1) * base;
+			full = (+parent._level + +type + 1) * base;
 		this.health = { full, curr: full, perc: 1 };
 
 		let size = 65,
@@ -126,12 +126,11 @@ class Boss {
 
 		ctx.strokeStyle = "#fff";
 		ctx.fillStyle = "#369";
-		ctx.lineWidth = 3;
-		
 		ctx.beginPath();
-		ctx.roundRect(6, h-14, (w-14) * this.health.perc, 10, 2);
+		ctx.rect(6, h-14, (w-14) * this.health.perc, 10, 2);
 		ctx.fill();
 
+		ctx.lineWidth = 3;
 		ctx.strokeText(this.health.curr, wH, tH);
 		ctx.fillText(this.health.curr, wH, tH);
 

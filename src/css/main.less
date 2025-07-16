@@ -749,11 +749,13 @@ content {
 			.next-position {
 				background: url(~/gfx/endpostion-sheet0.webp) 50% 50%/contain no-repeat;
 				position: absolute;
-				top: 738px;
-				left: 120px;
+				top: 741px;
+				left: 195px;
 				width: 37px;
 				height: 37px;
 				z-index: 2;
+				margin-left: 32px;
+				transition: left 250ms ease-in-out;
 				animation: rotate-360 5s linear infinite;
 			}
 
@@ -762,10 +764,12 @@ content {
 				// background-position: 0 0;
 				position: absolute;
 				top: 657px;
-				left: 200px;
+				left: 195px;
 				width: 98px;
 				height: 111px;
 				z-index: 3;
+				transform: translateX(37px);
+				transition: left 250ms ease-in-out;
 				animation: wizard-back-hover 1600ms steps(14) infinite;
 			}
 		}
