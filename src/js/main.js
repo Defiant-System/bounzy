@@ -2,6 +2,7 @@
 
 @import "./classes/arena.js"
 @import "./classes/wizard.js"
+@import "./classes/wall.js"
 @import "./classes/boss.js"
 @import "./classes/monster.js"
 @import "./classes/bullet.js"
