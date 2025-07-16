@@ -85,12 +85,12 @@ class Arena {
 		// add wizard
 		this.wizard = new Wizard({ parent: this, asset: this.assets.arrows });
 		// add wall
-		this.wall = new Wall({ parent: this });
+		this.wall = this.addEntity(new Wall({ parent: this }));
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 		// add enemy line row
-		this.addRow(7);
-		// this.addRow(21, 19);
+		// this.addRow(7);
+		this.addRow(21, 19);
 	}
 
 	handleCollision(event) {
@@ -149,7 +149,7 @@ class Arena {
 	endAttack() {
 		console.log("end attack");
 		this.entities
-			.filter(item => item.body.label.startsWith("bullet-"))
+			.filter(item => item.body && item.body.label.startsWith("bullet-"))
 			.map(item => item.kill(true));
 
 
@@ -211,6 +211,8 @@ class Arena {
 		let name = item.constructor.name;
 		if (name === "Boss") name = "Monster";
 		if (this.counters[name] !== undefined) this.counters[name]++;
+		// return entity
+		return item;
 	}
 
 	removeEntity(item) {
