@@ -84,6 +84,8 @@ class Arena {
 	ready() {
 		// add wizard
 		this.wizard = new Wizard({ parent: this, asset: this.assets.arrows });
+		// add wall
+		this.wall = new Wall({ parent: this });
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 		// add enemy line row
