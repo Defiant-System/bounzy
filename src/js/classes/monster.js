@@ -18,7 +18,7 @@ class Monster {
 			base = (lab.front.damage / lab.front.length) + (lab.back.damage / lab.back.length),
 			full = base + (parent._level * base) + (type * base);
 		this.health = { full, curr: full, perc: 1 };
-		this.damage = { step: 0, val: "-15" };
+		this.damage = { step: 0, val: 0 };
 
 		let size = 65,
 			label = (type === "7" ? "chest-" : "monster-")+ Date.now();
@@ -108,7 +108,7 @@ class Monster {
 		if (this.health.curr <= 0) this.kill(true);
 		// ui feedback
 		this.damage.val = `-${v}`;
-		this.damage.step = 50;
+		this.damage.step = 40;
 	}
 
 	update(delta, time) {
@@ -125,7 +125,7 @@ class Monster {
 		else this.y = this._y;
 		// if newly added monsters; fade in
 		if (this.alpha < 1) this.alpha += .05;
-
+		// damage digit anim
 		if (this.damage.step > 0) this.damage.step--;
 	}
 

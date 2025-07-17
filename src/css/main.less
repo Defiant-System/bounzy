@@ -771,7 +771,15 @@ content {
 				z-index: 3;
 				transform: translateX(37px);
 				transition: left 250ms ease-in-out;
-				animation: wizard-back-hover 1600ms steps(14) infinite;
+				animation: wizard-back-hover 1600ms steps(14) alternate infinite;
+
+				&.shooting {
+					width: 109px;
+					height: 141px;
+					transform: translateX(11px) translatey(-31px);
+					background: url(~/gfx/wizard-back-shoot.png) no-repeat;
+					animation: wizard-back-shooting 1200ms steps(11) alternate infinite;
+				}
 			}
 		}
 
@@ -1939,6 +1947,11 @@ content {
 
 @keyframes wizard-back-hover {
 	0%   { background-position: -1372px 0px; }
+	100% { background-position: 0px 0px; }
+}
+
+@keyframes wizard-back-shooting {
+	0%   { background-position: -1199px 0px; }
 	100% { background-position: 0px 0px; }
 }
 

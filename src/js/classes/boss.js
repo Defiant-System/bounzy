@@ -17,6 +17,7 @@ class Boss {
 			base = (lab.front.damage * lab.front.length) + (lab.back.damage * lab.back.length),
 			full = (+parent._level + +type + 1) * base;
 		this.health = { full, curr: full, perc: 1 };
+		this.damage = { step: 0, val: 0 };
 
 		let size = 65,
 			label = "boss-"+ Date.now();
@@ -79,6 +80,9 @@ class Boss {
 		this.health.curr -= v;
 		this.health.perc = this.health.curr / this.health.full;
 		if (this.health.curr <= 0) this.kill();
+		// ui feedback
+		this.damage.val = `-${v}`;
+		this.damage.step = 40;
 	}
 
 	update(delta, time) {
@@ -95,6 +99,8 @@ class Boss {
 		else this.y = this._y;
 		// if newly added monsters; fade in
 		if (this.alpha < 1) this.alpha += .05;
+		// damage digit anim
+		if (this.damage.step > 0) this.damage.step--;
 	}
 
 	render(ctx) {
@@ -103,19 +109,21 @@ class Boss {
 			fX = (this.frame.index | 0) * w,
 			fY = this.fY,
 			wH = w >> 1,
-			tH = h - 13;
+			tH = h - 13,
+			dI = this.damage.step;
 		ctx.save();
 		ctx.globalAlpha = this.alpha;
 		ctx.translate(this.x, this.y);
 		ctx.drawImage(this.shadow, 0, 0, this.sW, this.sH, -38, 19, w, h);
 		ctx.drawImage(this.asset, fX, fY, w, h, 0, 0, w, h);
 
+		// health value
 		ctx.font = "30px Bakbak One";
 		ctx.textAlign = "center";
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "#1358";
 		ctx.strokeText(this.health.curr, wH, tH);
-
+		// health bar
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = "#1358";
 		ctx.fillStyle = "#fff";
@@ -123,12 +131,12 @@ class Boss {
 		ctx.roundRect(4, h-16, w-10, 14, 4);
 		ctx.fill();
 		ctx.stroke();
-
+		// health current
+		ctx.lineWidth = 3;
 		ctx.strokeStyle = "#fff";
 		ctx.fillStyle = "#369";
-
-		ctx.save();
 		// health area clipping
+		ctx.save();
 		ctx.beginPath();
 		ctx.rect(6, h-14, (w-14) * this.health.perc, 10);
 		ctx.clip();
@@ -137,10 +145,20 @@ class Boss {
 		ctx.roundRect(6, h-14, w-14, 10, 3);
 		ctx.fill();
 		ctx.restore();
-
-		ctx.lineWidth = 3;
+		// health value
 		ctx.strokeText(this.health.curr, wH, tH);
 		ctx.fillText(this.health.curr, wH, tH);
+
+		if (dI) {
+			// damage value
+			ctx.save();
+			dI /= 4;
+			ctx.font = `${(20+dI)|0}px Bakbak One`;
+			dI *= .5;
+			ctx.strokeText(this.damage.val, wH, 23+dI);
+			ctx.fillText(this.damage.val, wH, 23+dI);
+			ctx.restore();
+		}
 
 		ctx.restore();
 	}

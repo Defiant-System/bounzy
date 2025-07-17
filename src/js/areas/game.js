@@ -207,6 +207,8 @@
 			case "mouseup":
 				// unbind event handlers
 				Self.drag.doc.off("mousemove mouseup", Self.doAim);
+				// start shooting
+				Self.els.el.find(".wizard").addClass("shooting");
 				// fire bullets
 				Drag.wizard.shoot();
 				break;

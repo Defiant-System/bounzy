@@ -105,6 +105,8 @@ class Wizard {
 			this._tick = this.parent.fpsControl._now;
 		} else {
 			this._state = "waiting";
+			// start shooting
+			this.parent.APP.game.els.el.find(".wizard").removeClass("shooting");
 		}
 	}
 
@@ -134,7 +136,7 @@ class Wizard {
 	}
 
 	render(ctx) {
-		if (this.parent.debug.mode >= 1) {
+		if (this.parent.debug.mode >= 2) {
 			ctx.save();
 			ctx.fillStyle = "#fff7";
 			ctx.translate(this.start.x, this.start.y);
