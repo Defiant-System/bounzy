@@ -18,6 +18,7 @@ class Monster {
 			base = (lab.front.damage / lab.front.length) + (lab.back.damage / lab.back.length),
 			full = base + (parent._level * base) + (type * base);
 		this.health = { full, curr: full, perc: 1 };
+		this.damage = { step: 0, val: "-15" };
 
 		let size = 65,
 			label = (type === "7" ? "chest-" : "monster-")+ Date.now();
@@ -105,6 +106,9 @@ class Monster {
 		this.health.curr -= v;
 		this.health.perc = this.health.curr / this.health.full;
 		if (this.health.curr <= 0) this.kill(true);
+		// ui feedback
+		this.damage.val = `-${v}`;
+		this.damage.step = 50;
 	}
 
 	update(delta, time) {
@@ -121,6 +125,8 @@ class Monster {
 		else this.y = this._y;
 		// if newly added monsters; fade in
 		if (this.alpha < 1) this.alpha += .05;
+
+		if (this.damage.step > 0) this.damage.step--;
 	}
 
 	render(ctx) {
@@ -129,7 +135,8 @@ class Monster {
 			fX = (this.frame.index | 0) * w,
 			fY = this.fY,
 			wH = this.hS,
-			tH = h - 7;
+			tH = h - 7,
+			dI = this.damage.step;
 		ctx.save();
 		ctx.globalAlpha = this.alpha;
 		ctx.translate(this.x, this.y);
@@ -140,12 +147,13 @@ class Monster {
 			ctx.drawImage(this.asset, 0, 455, w, h, 0, 0, w, h);
 		}
 
+		// health value
 		ctx.font = "20px Bakbak One";
 		ctx.textAlign = "center";
 		ctx.lineWidth = 5;
 		ctx.strokeStyle = "#0008";
 		ctx.strokeText(this.health.curr, wH, tH);
-
+		// health bar
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = "#0008";
 		ctx.fillStyle = "#fff";
@@ -153,16 +161,27 @@ class Monster {
 		ctx.roundRect(4, h-10, w-10, 8, 3);
 		ctx.fill();
 		ctx.stroke();
-
+		// health current
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = "#fff";
 		ctx.fillStyle = "#f00";
 		ctx.beginPath();
 		ctx.roundRect(6, h-8, (w-14) * this.health.perc, 4, 2);
 		ctx.fill();
-
-		ctx.lineWidth = 3;
-		ctx.strokeStyle = "#fff";
+		// health value
 		ctx.strokeText(this.health.curr, wH, tH);
 		ctx.fillText(this.health.curr, wH, tH);
+
+		if (dI) {
+			// damage value
+			ctx.save();
+			dI /= 4;
+			ctx.font = `${(16+dI)|0}px Bakbak One`;
+			dI *= .5;
+			ctx.strokeText(this.damage.val, wH, 15+dI);
+			ctx.fillText(this.damage.val, wH, 15+dI);
+			ctx.restore();
+		}
 
 		ctx.restore();
 	}
