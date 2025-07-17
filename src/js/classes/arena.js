@@ -89,8 +89,8 @@ class Arena {
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 		// add enemy line row
-		// this.addRow(7);
-		this.addRow(21, 19);
+		this.addRow(7);
+		// this.addRow(21, 19);
 	}
 
 	handleCollision(event) {
@@ -271,8 +271,8 @@ class Arena {
 
 		if (this.debug.mode >= 2) {
 			// game arena
-			// this.ctx.fillStyle = "#f003";
-			// this.ctx.fillRect(0, 0, this.offset.w, this.offset.h);
+			this.ctx.fillStyle = "#f003";
+			this.ctx.fillRect(0, 0, this.offset.w, this.offset.h);
 			// physical bodies
 			let bodies = Matter.Composite.allBodies(this.engine.world);
 			this.ctx.save();

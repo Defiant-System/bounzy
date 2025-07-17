@@ -11,9 +11,13 @@ class Wall {
 
 		this.health = {
 			full: 10,
-			curr: 7,
+			curr: 10,
 			perc: 1,
 		};
+	}
+
+	dealDamage(v=1) {
+		this.health.curr -= v;
 	}
 
 	update(delta, time) {
@@ -30,9 +34,9 @@ class Wall {
 
 		ctx.font = "24px Bakbak One";
 		ctx.textAlign = "center";
-		ctx.lineWidth = 7;
+		ctx.lineWidth = 6;
 		ctx.strokeStyle = "#0008";
-		ctx.strokeText(health.curr, wH, 2);
+		ctx.strokeText(health.curr, wH, 3);
 
 		ctx.lineWidth = 2;
 		ctx.strokeStyle = "#0008";
@@ -42,15 +46,23 @@ class Wall {
 		ctx.fill();
 		ctx.stroke();
 
-		ctx.fillStyle = "#f00";
+		ctx.fillStyle = "#792";
+		ctx.strokeStyle = "#fff";
+
+		ctx.save();
+		// health area clipping
 		ctx.beginPath();
-		ctx.roundRect(2, 2, health.perc*w, h-4, [3, 0, 0, 3]);
+		ctx.rect(2, 2, (w-4) * health.perc, h-4);
+		ctx.clip();
+		// health bar
+		ctx.beginPath();
+		ctx.roundRect(2, 2, w-4, h-4, 3);
 		ctx.fill();
+		ctx.restore();
 
 		ctx.lineWidth = 3;
-		ctx.strokeStyle = "#fff";
-		ctx.strokeText(health.curr, wH, 2);
-		ctx.fillText(health.curr, wH, 2);
+		ctx.strokeText(health.curr, wH, 3);
+		ctx.fillText(health.curr, wH, 3);
 
 		ctx.restore();
 	}

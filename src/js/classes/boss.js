@@ -67,9 +67,9 @@ class Boss {
 	kill(anim) {
 		if (anim) {
 			let parent = this.parent,
-				x = this.position.x,
-				y = this.position.y;
-			// new Die({ parent, type: "smoke", x, y });
+				x = this.x,
+				y = this.y;
+			new Die({ parent, type: "puff", x, y });
 		}
 		// remove this from game loop
 		this.parent.removeEntity(this);
@@ -120,15 +120,23 @@ class Boss {
 		ctx.strokeStyle = "#1358";
 		ctx.fillStyle = "#fff";
 		ctx.beginPath();
-		ctx.roundRect(4, h-16, w-10, 14, 3);
+		ctx.roundRect(4, h-16, w-10, 14, 4);
 		ctx.fill();
 		ctx.stroke();
 
 		ctx.strokeStyle = "#fff";
 		ctx.fillStyle = "#369";
+
+		ctx.save();
+		// health area clipping
 		ctx.beginPath();
-		ctx.rect(6, h-14, (w-14) * this.health.perc, 10, 2);
+		ctx.rect(6, h-14, (w-14) * this.health.perc, 10);
+		ctx.clip();
+		// health bar
+		ctx.beginPath();
+		ctx.roundRect(6, h-14, w-14, 10, 3);
 		ctx.fill();
+		ctx.restore();
 
 		ctx.lineWidth = 3;
 		ctx.strokeText(this.health.curr, wH, tH);

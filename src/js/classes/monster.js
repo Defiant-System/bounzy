@@ -76,6 +76,11 @@ class Monster {
 			y = this._y + this.height - 7;
 			position = Matter.Vector.create(x, y);
 			Matter.Body.setPosition(this.shield, position);
+		} else if (this._y >= this.parent.offset.h - this.height) {
+			// deal damage to wall
+			this.parent.wall.dealDamage(1);
+			// kill while showing "-1"
+			this.kill("num");
 		} else {
 			y = this._y + this.hS,
 			position = Matter.Vector.create(x, y);
@@ -85,10 +90,8 @@ class Monster {
 
 	kill(anim) {
 		if (anim) {
-			let parent = this.parent,
-				x = this.position.x,
-				y = this.position.y;
-			// new Die({ parent, type: "smoke", x, y });
+			if (anim === "num") new Die({ type: "puff", parent: this.parent, x: this.x, y: this.y });
+			else new Die({ type: "puff", parent: this.parent, x: this.x, y: this.y });
 		}
 		// if chest unlocked
 		if (this.body.label.startsWith("chest-")) {
@@ -101,7 +104,7 @@ class Monster {
 	dealDamage(v) {
 		this.health.curr -= v;
 		this.health.perc = this.health.curr / this.health.full;
-		if (this.health.curr <= 0) this.kill();
+		if (this.health.curr <= 0) this.kill(true);
 	}
 
 	update(delta, time) {
