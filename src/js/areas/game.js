@@ -40,11 +40,11 @@
 				Self.els.content.find(`.top-bar .waves`).css({ "--wave": value });
 				break;
 			case "move-wizard":
-				value = Self.els.el.find(".next-position").prop("offsetLeft");
+				value = +Self.els.el.find(".next-position").prop("offsetLeft") - 37;
 				Self.els.el.find(".wizard").css({ left: value });
 				Self.arena.wizard.setPosition(value);
 				// prepare next position
-				Self.dispatch({ type: "randomize-next-position" });
+				setTimeout(() => Self.dispatch({ type: "randomize-next-position" }), 500);
 				break;
 			case "randomize-next-position":
 				value = Utils.randomInt(37, Self.arena.offset.w - 37);
@@ -155,6 +155,8 @@
 				if (Self._gameState === "started") return;
 				Self.arena.fpsControl.start();
 				Self._gameState = "started";
+				// play sound
+				window.audio.play("button");
 				break;
 			case "pause-game":
 				if (!event.dialog) {
@@ -162,6 +164,8 @@
 				}
 				Self.arena.fpsControl.stop();
 				Self._gameState = "paused";
+				// play sound
+				window.audio.play("button");
 				break;
 			case "resume-if-started":
 				if (Self._gameState === "paused") Self.dispatch({ type: "resume-game" });

@@ -46,6 +46,7 @@ class Wall {
 		ctx.fill();
 		ctx.stroke();
 
+		ctx.lineWidth = 3;
 		ctx.fillStyle = "#792";
 		ctx.strokeStyle = "#fff";
 
@@ -60,7 +61,6 @@ class Wall {
 		ctx.fill();
 		ctx.restore();
 
-		ctx.lineWidth = 3;
 		ctx.strokeText(health.curr, wH, 3);
 		ctx.fillText(health.curr, wH, 3);
 

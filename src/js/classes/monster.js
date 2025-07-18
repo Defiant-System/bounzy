@@ -96,10 +96,12 @@ class Monster {
 		}
 		// if chest unlocked
 		if (this.body.label.startsWith("chest-")) {
-			this.parent.APP.dispatch({ type: "unlock-chest" });
+			this.parent.APP.game.dispatch({ type: "unlock-chest" });
 		}
 		// remove this from game loop
 		this.parent.removeEntity(this);
+		// play sound
+		window.audio.play("pop");
 	}
 
 	dealDamage(v) {
@@ -109,6 +111,8 @@ class Monster {
 		// ui feedback
 		this.damage.val = `-${v}`;
 		this.damage.step = 40;
+		// play sound
+		window.audio.play("hit");
 	}
 
 	update(delta, time) {

@@ -22,10 +22,14 @@
 			case "resume-game":
 				APP.dispatch({ type: "close-dialog" });
 				APP.game.dispatch({ type: "resume-game" });
+				// play sound
+				window.audio.play("button");
 				break;
 			case "go-to-start":
 				APP.dispatch({ type: "show-view", arg: "start" });
 				setTimeout(() => APP.dispatch({ type: "close-dialog" }), 100);
+				// play sound
+				window.audio.play("button");
 				break;
 		}
 	}

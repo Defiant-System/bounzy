@@ -1,0 +1,5 @@
+<Sounds>
+	<i id="button" url="~/sounds/button.mp3"/>
+	<i id="hit" url="~/sounds/hit.mp3"/>
+	<i id="pop" url="~/sounds/pop.mp3"/>
+</Sounds>
