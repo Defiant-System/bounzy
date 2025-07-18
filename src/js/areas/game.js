@@ -184,6 +184,7 @@
 			case "mousedown":
 				// exit on contextmenu
 				if (event.button == 2 || Self.arena.fpsControl._stopped) return;
+				if (Self.arena.wizard._state !== "ready") return;
 
 				// prevent default behaviour
 				event.preventDefault();
