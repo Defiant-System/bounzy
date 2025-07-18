@@ -89,8 +89,8 @@ class Arena {
 		// set physical world (boundries, walls)
 		this.setPhysicalWorld();
 		// add enemy line row
-		this.addRow(1);
-		// this.addRow(21, 19);
+		// this.addRow(1);
+		this.addRow(21, 19);
 	}
 
 	handleCollision(event) {

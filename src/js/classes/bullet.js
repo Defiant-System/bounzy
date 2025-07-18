@@ -12,6 +12,7 @@ class Bullet {
 		this.armed = false;
 		this._bounced = 0;
 		this.radius = 8;
+		this.trail = [...Array(5)];
 
 		let tailMap = {
 				blue: { sX: 1, sY: 123, w: 35, h: 17, oX: -41, oY: -8 },
@@ -101,7 +102,14 @@ class Bullet {
 		ctx.rotate(this.angle);
 		// tail
 		if (this._tail) {
-			ctx.drawImage(this.asset, this.tail.sX, this.tail.sY, this.tail.w, this.tail.h, this.tail.oX, this.tail.oY, this.tail.w, this.tail.h);
+			ctx.save();
+			ctx.globalAlpha = .85;
+			ctx.globalCompositeOperation = "lighter";
+			this.trail.map(e => {
+				ctx.drawImage(this.asset, this.tail.sX, this.tail.sY, this.tail.w, this.tail.h, this.tail.oX, this.tail.oY, this.tail.w, this.tail.h);
+			});
+			ctx.restore();
+			// ctx.drawImage(this.asset, this.tail.sX, this.tail.sY, this.tail.w, this.tail.h, this.tail.oX, this.tail.oY, this.tail.w, this.tail.h);
 		}
 		// bullet
 		ctx.drawImage(this.asset, this.sX, this.sY, this.w, this.h, this.oX, this.oY, this.w, this.h);

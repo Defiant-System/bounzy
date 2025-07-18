@@ -74,6 +74,8 @@ class Boss {
 		}
 		// remove this from game loop
 		this.parent.removeEntity(this);
+		// play sound
+		window.audio.play("pop");
 	}
 
 	dealDamage(v) {
@@ -83,6 +85,8 @@ class Boss {
 		// ui feedback
 		this.damage.val = `-${v}`;
 		this.damage.step = 40;
+		// play sound
+		window.audio.play("hit");
 	}
 
 	update(delta, time) {
