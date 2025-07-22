@@ -168,6 +168,7 @@ const bounzy = {
 	academy: @import "./areas/academy.js",
 	wall: @import "./areas/wall.js",
 	pause: @import "./areas/pause.js",
+	reward: @import "./areas/reward.js",
 	game: @import "./areas/game.js",
 };
 
