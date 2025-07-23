@@ -128,6 +128,12 @@ content {
 		pointer-events: initial;
 	}
 
+	&[data-dialog="reward"] {
+		.top-bar {
+			z-index: 4;
+		}
+	}
+
 	&[data-dialog="pause"] {
 		> div {
 			&[data-area="start"] {
@@ -995,13 +1001,16 @@ content {
 						display: none;
 					}
 
+					span {
+						&:nth-child(1) { margin-bottom: 9px; }
+					}
+
 					.jems {
 						// background: #0005;
 						position: relative;
 						display: block;
 						font-size: 28px;
 						padding: 3px 0 0 43px;
-						margin-bottom: 9px;
 						
 						&:before {
 							content: "";
@@ -1827,6 +1836,18 @@ content {
 					width: 35px;
 					height: 35px;
 				}
+				
+				&.ticker {
+					font-size: 0;
+
+					&:after {
+						counter-reset: my-counter var(--value);
+						content: counter(my-counter);
+						animation: count 500ms ease-in-out;
+						font-size: 26px;
+						text-shadow: 0 1px 0 #0005;
+					}
+				}
 			}
 
 			.jems {
@@ -1851,6 +1872,18 @@ content {
 					left: -17px;
 					width: 35px;
 					height: 35px;
+				}
+				
+				&.ticker {
+					font-size: 0;
+
+					&:after {
+						counter-reset: my-counter var(--value);
+						content: counter(my-counter);
+						animation: count 500ms ease-in-out;
+						font-size: 26px;
+						text-shadow: 0 1px 0 #0005;
+					}
 				}
 			}
 		}
@@ -2192,6 +2225,18 @@ content {
 	0%   { background-position: -325px -390px; }
 	100% { background-position: -520px -390px; }
 }
+
+
+@property --value {
+	syntax: '<integer>';
+	inherits: true;
+	initial-value: 0;
+}
+  
+@keyframes count {
+	to { --value: var( --total ); }
+}
+
 
 
 @font-face {

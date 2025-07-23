@@ -14,6 +14,7 @@
 		let APP = bounzy,
 			Self = APP.reward,
 			value,
+			total,
 			el;
 		// console.log(event);
 		switch (event.type) {
@@ -21,10 +22,20 @@
 			case "init-view":
 				break;
 			case "get-rewards":
-				value = +Self.els.coins.text() + +Self.els.el.find(".coins").text();
-				Self.els.coins.html(value);
-				value = +Self.els.jems.text() + +Self.els.el.find(".jems").text();
-				Self.els.jems.html(value);
+				// ticker animation
+				value = +Self.els.coins.text();
+				total = value + +Self.els.el.find(".coins").text();
+				Self.els.coins
+					.css({ "--value": value, "--total": total })
+					.cssSequence("ticker", "animationend", el => el.html(el.cssProp("--total")).removeClass("ticker"));
+
+				// ticker animation
+				value = +Self.els.jems.text();
+				total = value + +Self.els.el.find(".jems").text();
+				Self.els.jems
+					.css({ "--value": value, "--total": total })
+					.cssSequence("ticker", "animationend", el => el.html(el.cssProp("--total")).removeClass("ticker"));
+
 				// start timer again
 				APP.start.dispatch({ type: "start-timer" });
 				// close dialog
