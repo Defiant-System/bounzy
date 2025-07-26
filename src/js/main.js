@@ -41,10 +41,10 @@ const defaultSettings = {
 			price: 600,
 		},
 		academy: {
-			front: { damage: 80, price: 450, disabled: 5 },
-			back:  { damage: 30, price: 450, disabled: 7 },
-			potion: { damage: 50, price: 500, disabled: 10 },
-			comet: { damage: 100, price: 500, disabled: 12 },
+			front: { damage: 80, price: 450, level: 5 },
+			back:  { damage: 30, price: 450, level: 7 },
+			potion: { damage: 50, price: 500, level: 10 },
+			comet: { damage: 100, price: 500, level: 12 },
 		},
 		laboratory: {
 			front: {
@@ -121,6 +121,8 @@ const bounzy = {
 				});
 				// restore state
 				Self.game.dispatch({ type: "restore-state" });
+				// execute init-view of start
+				Self.start.dispatch({ type: "init-view" });
 				break;
 			case "toggle-music":
 			case "toggle-sound-fx":

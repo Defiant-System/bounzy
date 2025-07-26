@@ -98,27 +98,24 @@
 				Self.els.content.find(`.bg-academy .box.front .value`).html(APP.settings.state.academy.front.damage);
 				el = Self.els.content.find(`.bg-academy .box.front .price`);
 				data = APP.settings.state.academy.front;
-				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
-				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
-
+				el.data({ level: data.level }).html(data.price);
+				
 				Self.els.content.find(`.bg-academy .box.back .value`).html(APP.settings.state.academy.back.damage);
 				el = Self.els.content.find(`.bg-academy .box.back .price`);
 				data = APP.settings.state.academy.back;
-				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
-				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
+				el.data({ level: data.level }).html(data.price);
 
 				Self.els.content.find(`.bg-academy .box.potion .value`).html(APP.settings.state.academy.potion.damage);
 				el = Self.els.content.find(`.bg-academy .box.potion .price`);
 				data = APP.settings.state.academy.potion;
-				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
-				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
+				el.data({ level: data.level }).html(data.price);
 
 				Self.els.content.find(`.bg-academy .box.comet .value`).html(APP.settings.state.academy.comet.damage);
 				el = Self.els.content.find(`.bg-academy .box.comet .price`);
 				data = APP.settings.state.academy.comet;
-				if (data.disabled) el.addClass("disabled").removeClass("active").html(data.disabled);
-				else el.removeClass("disabled").toggleClass("active", data.price > APP.settings.state.coins).html(data.price);
+				el.data({ level: data.level }).html(data.price);
 
+				
 				// dialog wall
 				Self.els.content.find(`.bg-wall .info .value`).html(APP.settings.state.wall.level);
 				Self.els.content.find(`.bg-wall .info .price`)

@@ -206,6 +206,12 @@ content {
 					cursor: pointer;
 				}
 
+				&.ready {
+					.btn-upgrade {
+						display: block;
+					}
+				}
+
 				.btn-upgrade {
 					display: none;
 					top: 54px;
@@ -369,6 +375,12 @@ content {
 					cursor: pointer;
 				}
 
+				&.ready {
+					.btn-upgrade {
+						display: block;
+					}
+				}
+
 				.btn-upgrade {
 					display: none;
 					top: 73px;
@@ -394,6 +406,12 @@ content {
 					bottom: 5px;
 					border-radius: 50%;
 					cursor: pointer;
+				}
+
+				&.ready {
+					.btn-upgrade {
+						display: block;
+					}
 				}
 
 				.btn-upgrade {
@@ -1132,7 +1150,7 @@ content {
 				background: url(~/gfx/academybg-sheet0.webp) 50% 50% no-repeat;
 				position: absolute;
 				top: 67px;
-				left: 60px;
+				left: 61px;
 				width: 360px;
 				height: 625px;
 
@@ -1221,7 +1239,7 @@ content {
 						background-size: 100% auto;
 						position: absolute;
 						bottom: -17px;
-						left: 0;
+						left: 1px;
 						width: 99px;
 						height: 33px;
 						color: #fff;
@@ -1240,14 +1258,20 @@ content {
 						}
 
 						&.disabled {
+							font-size: 0;
 							background-position: 0 -69px;
-							left: 11px;
+							left: 15px;
 							padding-left: 42px;
 							color: #265dbc;
 							text-shadow: 0 1px 1px #265dbc33,
 										0 -1px 1px #265dbc33,
 										1px 0 1px #265dbc33,
 										-1px 0 1px #265dbc33;
+
+							&:before {
+								content: attr(data-level);
+								font-size: 18px;
+							}
 						}
 					}
 				}

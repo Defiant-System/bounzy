@@ -3,7 +3,7 @@ let Test = {
 	init(APP) {
 		// APP.dispatch({ type: "show-view", arg: "game" });
 		// APP.dispatch({ type: "open-dialog", arg: "reward", addClass: "completed" });
-		// APP.dispatch({ type: "open-dialog", arg: "wall" });
+		// APP.dispatch({ type: "open-dialog", arg: "academy" });
 
 		// let tmp = new Point(1, 2);
 		// console.log( tmp.setMagnitude(2) );
