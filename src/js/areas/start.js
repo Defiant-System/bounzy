@@ -24,6 +24,9 @@
 		switch (event.type) {
 			// custom events
 			case "init-view":
+				Self.dispatch({ type: "update-upgrade-buttons" });
+				break;
+			case "update-upgrade-buttons":
 				// check level and coins and what player can afford
 				level = +Self.els.topbar.find(".level").text();
 				coins = +Self.els.topbar.find(".coins").text();

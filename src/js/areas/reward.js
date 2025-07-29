@@ -36,6 +36,8 @@
 					.css({ "--value": value, "--total": total })
 					.cssSequence("ticker", "animationend", el => el.html(el.cssProp("--total")).removeClass("ticker"));
 
+				// adjust buy buttons
+				APP.start.dispatch({ type: "update-upgrade-buttons" });
 				// start timer again
 				APP.start.dispatch({ type: "start-timer" });
 				// close dialog
