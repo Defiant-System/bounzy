@@ -89,6 +89,9 @@ const bounzy = {
 			// system events
 			case "window.init":
 				break;
+			case "window.close":
+				Self.game.arena.fpsControl.stop();
+				break;
 			case "window.focus":
 				Self.game.dispatch({ type: "resume-if-started" });
 				break;
